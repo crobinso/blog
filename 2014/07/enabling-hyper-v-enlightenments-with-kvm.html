@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-142995745-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-142995745-1');
+    </script>
+
       <title>Enabling Hyper-V enlightenments with KVM - Cole Robinson</title>
       <meta charset="utf-8" />
       <link href="https://blog.wikichoon.com/theme/minima-main.css" rel="stylesheet" />
@@ -102,6 +112,5 @@ $ sudo virt-xml <span class="nv">$VMNAME</span> --edit --clock <span class="nv">
         </div>
       </div>
     </footer>
-
   </body>
 </html>
