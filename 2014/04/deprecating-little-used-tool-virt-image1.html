@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!-- Generated 2019-07-29 15:00:42.485579 -->
-<html>
+<!-- Generated 2019-07-29 18:39:20.963478 -->
+<html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-142995745-1"></script>
@@ -11,8 +11,8 @@
 
       gtag('config', 'UA-142995745-1');
     </script>
-
-      <title>Deprecating little used tool virt-image(1) - Cole Robinson</title>
+    <link rel="canonical" href="https://blog.wikichoon.com/2014/04/deprecating-little-used-tool-virt-image1.html"/>
+      <title>Deprecating little used tool virt-image(1) | Cole Robinson</title>
       <meta charset="utf-8" />
       <link href="https://blog.wikichoon.com/theme/minima-main.css" rel="stylesheet" />
       <link href="https://blog.wikichoon.com/theme/coletheme.css" rel="stylesheet" />
@@ -21,7 +21,7 @@
   </head>
 
   <body id="index" class="archive">
-    <header class="site-header" role="banner">
+    <header class="site-header">
       <div class="wrapper">
         <a class="site-title" href="https://blog.wikichoon.com">Cole Robinson</a>
         <nav class="site-nav">
@@ -34,15 +34,16 @@
 
     <main id="content" class="page-content">
       <div class="wrapper">
+      <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
         <header>
-          <h2 class="post-title">Deprecating little used tool virt-image(1)</h2>
+          <h1 class="post-title givemecolor" itemprop="name headline">Deprecating little used tool virt-image(1)</h2>
           <p class="post-meta">
             <time class="dt-published" datetime="2014-04-15T10:00:00-04:00" itemprop="datePublished">Tue 15 April 2014
             </time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">Cole Robinson</span>
             </span> • Tags: <a href="https://blog.wikichoon.com/tag/fedora.html">fedora</a> <a href="https://blog.wikichoon.com/tag/virt.html">virt</a>           </p>
         </header>
 
-        <div class="post-content">
+        <div class="post-content" itemprop="articleBody">
           <p>In the recent <a href="https://blog.wikichoon.com/2014/02/virt-manager-100-released.html">virt-manager 1.0 release</a>, we've taken a step towards deprecating one of the command line tools we ship, <a href="https://linux.die.net/man/1/virt-image">virt-image(1)</a>. This shouldn't have any real end user effect because I'm pretty sure near zero people are using it.</p>
 <p>virt-image <a href="https://www.redhat.com/archives/et-mgmt-tools/2007-June/msg00076.html">was created</a> in June 2007 as an <a href="https://linux.die.net/man/5/virt-image">XML schema</a> and command line tool for distributing VM images as appliances. The format would describe the fundamental needs of a VM image, like how many disk devices it wants, but leave the individual configuration details up to the user. The virt-image(1) tool would take the XML as input and kick off a libvirt VM.</p>
 <p>While the idea was reasonable, the XML format would only be useful if people actually used it, which never happened. All desktop VM appliance usage nowadays is shipped with native VMWare config as .vmx files, or with .ovf configuration.</p>
@@ -51,6 +52,7 @@
 <p>So the plan is to drop virt-image before the next major release of virt-manager. Likely sometime in the next 6 months.</p>
 <p>(edit 2014-09-08: virt-image was removed in <a href="https://blog.wikichoon.com/2014/09/virt-manager-110-released.html">virt-manager-1.1.0</a>)</p>
         </div>
+      </article>
       </div>
     </main>
 
@@ -72,7 +74,7 @@
             </ul>
           </div>
 
-          <div class="footer-col footer-col-3" align="center">
+          <div class="footer-col footer-col-3" style="text-align: center;">
             <a href="https://blog.wikichoon.com/feeds/all.atom.xml">RSS</a>
           </div>
         </div>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!-- Generated 2019-07-29 15:00:42.485579 -->
-<html>
+<!-- Generated 2019-07-29 18:39:20.963478 -->
+<html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-142995745-1"></script>
@@ -11,8 +11,8 @@
 
       gtag('config', 'UA-142995745-1');
     </script>
-
-      <title>Setting up a minimal rbd/ceph server for libvirt testing - Cole Robinson</title>
+    <link rel="canonical" href="https://blog.wikichoon.com/2014/12/setting-up-minimal-rbdceph-server-for.html"/>
+      <title>Setting up a minimal rbd/ceph server for libvirt testing | Cole Robinson</title>
       <meta charset="utf-8" />
       <link href="https://blog.wikichoon.com/theme/minima-main.css" rel="stylesheet" />
       <link href="https://blog.wikichoon.com/theme/coletheme.css" rel="stylesheet" />
@@ -21,7 +21,7 @@
   </head>
 
   <body id="index" class="archive">
-    <header class="site-header" role="banner">
+    <header class="site-header">
       <div class="wrapper">
         <a class="site-title" href="https://blog.wikichoon.com">Cole Robinson</a>
         <nav class="site-nav">
@@ -34,15 +34,16 @@
 
     <main id="content" class="page-content">
       <div class="wrapper">
+      <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
         <header>
-          <h2 class="post-title">Setting up a minimal rbd/ceph server for libvirt testing</h2>
+          <h1 class="post-title givemecolor" itemprop="name headline">Setting up a minimal rbd/ceph server for libvirt testing</h2>
           <p class="post-meta">
             <time class="dt-published" datetime="2014-12-15T11:21:00-05:00" itemprop="datePublished">Mon 15 December 2014
             </time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">Cole Robinson</span>
             </span> • Tags: <a href="https://blog.wikichoon.com/tag/fedora.html">fedora</a> <a href="https://blog.wikichoon.com/tag/virt.html">virt</a>           </p>
         </header>
 
-        <div class="post-content">
+        <div class="post-content" itemprop="articleBody">
           <p>In my <a href="https://blog.wikichoon.com/2014/12/setting-up-minimal-gluster-server-for.html">last post</a> I talked about setting up a minimal gluster server. Similarly this will describe how I set up a minimal single node rbd/ceph server in a VM for libvirt network storage testing.</p>
 <p>I pulled info from a <a href="https://eu.ceph.com/docs/wip-6919/start/quick-start/">few</a> <a href="https://derekweitzel.blogspot.com/2012/02/ceph-on-fedora-16.html">different</a> <a href="https://dachary.org/?p=2374">places</a> and a lot of other reading, but things just weren't working on F21; trying <code>systemctl start ceph</code> just wasn't producing any output, and all the <code>ceph</code> cli commands just hung. I had better success with F20.</p>
 <p>The main difficulty was figuring out a working ceph.conf. My VM's IP address is 1902.168.124.101, and its hostname is 'localceph', so here's what I ended up with:</p>
@@ -105,6 +106,7 @@
 <span class="nt">&lt;/pool&gt;</span>
 </pre></div>
         </div>
+      </article>
       </div>
     </main>
 
@@ -126,7 +128,7 @@
             </ul>
           </div>
 
-          <div class="footer-col footer-col-3" align="center">
+          <div class="footer-col footer-col-3" style="text-align: center;">
             <a href="https://blog.wikichoon.com/feeds/all.atom.xml">RSS</a>
           </div>
         </div>

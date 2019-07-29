@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!-- Generated 2019-07-29 15:00:42.485579 -->
-<html>
+<!-- Generated 2019-07-29 18:39:20.963478 -->
+<html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-142995745-1"></script>
@@ -11,8 +11,8 @@
 
       gtag('config', 'UA-142995745-1');
     </script>
-
-      <title>python-bugzilla 1.0.0 released - Cole Robinson</title>
+    <link rel="canonical" href="https://blog.wikichoon.com/2014/03/python-bugzilla-100-released.html"/>
+      <title>python-bugzilla 1.0.0 released | Cole Robinson</title>
       <meta charset="utf-8" />
       <link href="https://blog.wikichoon.com/theme/minima-main.css" rel="stylesheet" />
       <link href="https://blog.wikichoon.com/theme/coletheme.css" rel="stylesheet" />
@@ -21,7 +21,7 @@
   </head>
 
   <body id="index" class="archive">
-    <header class="site-header" role="banner">
+    <header class="site-header">
       <div class="wrapper">
         <a class="site-title" href="https://blog.wikichoon.com">Cole Robinson</a>
         <nav class="site-nav">
@@ -34,15 +34,16 @@
 
     <main id="content" class="page-content">
       <div class="wrapper">
+      <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
         <header>
-          <h2 class="post-title">python-bugzilla 1.0.0 released</h2>
+          <h1 class="post-title givemecolor" itemprop="name headline">python-bugzilla 1.0.0 released</h2>
           <p class="post-meta">
             <time class="dt-published" datetime="2014-03-26T08:10:00-04:00" itemprop="datePublished">Wed 26 March 2014
             </time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">Cole Robinson</span>
             </span> • Tags: <a href="https://blog.wikichoon.com/tag/fedora.html">fedora</a>           </p>
         </header>
 
-        <div class="post-content">
+        <div class="post-content" itemprop="articleBody">
           <p>I released <a href="https://lists.fedorahosted.org/pipermail/python-bugzilla/2014-March/000246.html">python-bugzilla 1.0.0</a> yesterday. Since <a href="https://github.com/abn">Arun</a> led the charge to get python 3 support merged, it seemed like as good a time as any to go 1.0 :)</p>
 <p>python-bugzilla provides the /usr/bin/bugzilla command line tool that is heavily used in Fedora and internally at Red Hat. The library itself is used by parts of Fedora infrastructure like pkgdb and bodhi.</p>
 <p>This major changes in this release:</p>
@@ -58,6 +59,7 @@
 <p>The sub component stuff is a recent bugzilla.redhat.com extension that hasn't been used much yet. I believe the next bugzilla.redhat.com update will add sub components for the Fedora kernel package, so bugs can be assigned to things like 'Kernel->USB', 'Kernel->KVM", etc. Quite helpful for complicated packages.</p>
 <p>But I don't know if it's going to be opened up as an option for any Fedora package, I guess we'll just have to wait and see. I assume there will be an announcement about it at some point.</p>
         </div>
+      </article>
       </div>
     </main>
 
@@ -79,7 +81,7 @@
             </ul>
           </div>
 
-          <div class="footer-col footer-col-3" align="center">
+          <div class="footer-col footer-col-3" style="text-align: center;">
             <a href="https://blog.wikichoon.com/feeds/all.atom.xml">RSS</a>
           </div>
         </div>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!-- Generated 2019-07-29 15:00:42.485579 -->
-<html>
+<!-- Generated 2019-07-29 18:39:20.963478 -->
+<html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-142995745-1"></script>
@@ -11,8 +11,8 @@
 
       gtag('config', 'UA-142995745-1');
     </script>
-
-      <title>A brief-ish history of virtinst and virt-install - Cole Robinson</title>
+    <link rel="canonical" href="https://blog.wikichoon.com/2014/05/a-brief-ish-history-of-virtinst-and.html"/>
+      <title>A brief-ish history of virtinst and virt-install | Cole Robinson</title>
       <meta charset="utf-8" />
       <link href="https://blog.wikichoon.com/theme/minima-main.css" rel="stylesheet" />
       <link href="https://blog.wikichoon.com/theme/coletheme.css" rel="stylesheet" />
@@ -21,7 +21,7 @@
   </head>
 
   <body id="index" class="archive">
-    <header class="site-header" role="banner">
+    <header class="site-header">
       <div class="wrapper">
         <a class="site-title" href="https://blog.wikichoon.com">Cole Robinson</a>
         <nav class="site-nav">
@@ -34,15 +34,16 @@
 
     <main id="content" class="page-content">
       <div class="wrapper">
+      <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
         <header>
-          <h2 class="post-title">A brief-ish history of virtinst and virt-install</h2>
+          <h1 class="post-title givemecolor" itemprop="name headline">A brief-ish history of virtinst and virt-install</h2>
           <p class="post-meta">
             <time class="dt-published" datetime="2014-05-06T10:00:00-04:00" itemprop="datePublished">Tue 06 May 2014
             </time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">Cole Robinson</span>
             </span> • Tags: <a href="https://blog.wikichoon.com/tag/fedora.html">fedora</a> <a href="https://blog.wikichoon.com/tag/virt.html">virt</a>           </p>
         </header>
 
-        <div class="post-content">
+        <div class="post-content" itemprop="articleBody">
           <p><a href="https://linux.die.net/man/1/virt-install">virt-install</a> is a command line tool for creating new virtual machines via libvirt. It's an important piece of the libvirt ecosystem that has shipped in RHEL5.0 and up, and over a dozen Fedora versions.</p>
 <p>It wasn't always called virt-install though: it started life as xenguest-install.py written by <a href="https://velohacker.com/">Jeremy Katz</a>. I think it was just an internal Red Hat only thing for a brief period, until it first surfaced as part of the Fedora 'xen' package in <a href="https://pkgs.fedoraproject.org/cgit/xen.git/commit/?id=02687b4e3f7fa0db5de34280a2cb7e1a8eb8ff18">January 2006</a>:</p>
 <div class="highlight"><pre><span></span>commit 02687b4e3f7fa0db5de34280a2cb7e1a8eb8ff18
@@ -105,6 +106,7 @@ Date:  Tue Aug 8 21:37:49 2006 -0400
 <p>So in February 2012 I layed out some reasons for <a href="https://www.redhat.com/archives/virt-tools-list/2012-February/msg00040.html">dropping virtinst as a public API and merging the code into virt-manager.git</a>, though it didn't fully happen until <a href="https://www.redhat.com/archives/virt-tools-list/2013-April/msg00026.html">april 2013 during the virt-manager 0.10.0 cycle</a>. In the intervening year, I sent patches to koan and koji to move off virtinst to calling the needed virt-* tool directly.</p>
 <p>So nowadays virtinst, virt-install, etc. all live with virt-manager.git. If you're looking for a library that helps handle libvirt XML or create libvirt VMs, check out <a href="https://libvirt.org/git/?p=libvirt-designer.git;a=summary">libvirt-designer</a> and <a href="https://libvirt.org/git/?p=libvirt-glib.git;a=summary">libvirt-gobject/libvirt-gconfig</a>.</p>
         </div>
+      </article>
       </div>
     </main>
 
@@ -126,7 +128,7 @@ Date:  Tue Aug 8 21:37:49 2006 -0400
             </ul>
           </div>
 
-          <div class="footer-col footer-col-3" align="center">
+          <div class="footer-col footer-col-3" style="text-align: center;">
             <a href="https://blog.wikichoon.com/feeds/all.atom.xml">RSS</a>
           </div>
         </div>

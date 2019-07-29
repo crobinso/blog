@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!-- Generated 2019-07-29 15:00:42.485579 -->
-<html>
+<!-- Generated 2019-07-29 18:39:20.963478 -->
+<html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-142995745-1"></script>
@@ -11,8 +11,8 @@
 
       gtag('config', 'UA-142995745-1');
     </script>
-
-      <title>spice OpenGL/virgl acceleration on Fedora 24 - Cole Robinson</title>
+    <link rel="canonical" href="https://blog.wikichoon.com/2016/05/spice-openglvirgl-acceleration-on.html"/>
+      <title>spice OpenGL/virgl acceleration on Fedora 24 | Cole Robinson</title>
       <meta charset="utf-8" />
       <link href="https://blog.wikichoon.com/theme/minima-main.css" rel="stylesheet" />
       <link href="https://blog.wikichoon.com/theme/coletheme.css" rel="stylesheet" />
@@ -21,7 +21,7 @@
   </head>
 
   <body id="index" class="archive">
-    <header class="site-header" role="banner">
+    <header class="site-header">
       <div class="wrapper">
         <a class="site-title" href="https://blog.wikichoon.com">Cole Robinson</a>
         <nav class="site-nav">
@@ -34,15 +34,16 @@
 
     <main id="content" class="page-content">
       <div class="wrapper">
+      <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
         <header>
-          <h2 class="post-title">spice OpenGL/virgl acceleration on Fedora 24</h2>
+          <h1 class="post-title givemecolor" itemprop="name headline">spice OpenGL/virgl acceleration on Fedora 24</h2>
           <p class="post-meta">
             <time class="dt-published" datetime="2016-05-22T10:56:00-04:00" itemprop="datePublished">Sun 22 May 2016
             </time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">Cole Robinson</span>
             </span> • Tags: <a href="https://blog.wikichoon.com/tag/fedora.html">fedora</a> <a href="https://blog.wikichoon.com/tag/virt.html">virt</a>           </p>
         </header>
 
-        <div class="post-content">
+        <div class="post-content" itemprop="articleBody">
           <p>New in Fedora 24 virt is 3D accelerated SPICE graphics, via <a href="https://virgil3d.github.io/">Virgl</a>. This is kinda-sorta OpenGL passthrough from the VM up to the host machine. Much of the initial support has been around since qemu 2.5, but it's more generally accessible now that SPICE is in the mix, since that's the default display type used by virt-manager and gnome-boxes.</p>
 <p>I'll explain below how you can test things on Fedora 24, but first let's cover the hurdles and caveats. This is far from being something that can be turned on by default and there's still serious integration issues to iron out. All of this is regarding usage with libvirt tools.</p>
 <h3>Caveats and known issues</h3>
@@ -81,6 +82,7 @@
 <p>And of course the more fun test of giving supertuxkart a spin :)</p>
 <p>Credit to Dave Airlie, Gerd Hoffman, and Marc-André Lureau for all the great work that got us to this point!</p>
         </div>
+      </article>
       </div>
     </main>
 
@@ -102,7 +104,7 @@
             </ul>
           </div>
 
-          <div class="footer-col footer-col-3" align="center">
+          <div class="footer-col footer-col-3" style="text-align: center;">
             <a href="https://blog.wikichoon.com/feeds/all.atom.xml">RSS</a>
           </div>
         </div>

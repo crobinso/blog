@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!-- Generated 2019-07-29 15:00:42.485579 -->
-<html>
+<!-- Generated 2019-07-29 18:39:20.963478 -->
+<html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-142995745-1"></script>
@@ -11,8 +11,8 @@
 
       gtag('config', 'UA-142995745-1');
     </script>
-
-      <title>virt-manager 1.0 creates qcow2 images that don't work on RHEL6 - Cole Robinson</title>
+    <link rel="canonical" href="https://blog.wikichoon.com/2014/12/virt-manager-10-creates-qcow2-images.html"/>
+      <title>virt-manager 1.0 creates qcow2 images that don't work on RHEL6 | Cole Robinson</title>
       <meta charset="utf-8" />
       <link href="https://blog.wikichoon.com/theme/minima-main.css" rel="stylesheet" />
       <link href="https://blog.wikichoon.com/theme/coletheme.css" rel="stylesheet" />
@@ -21,7 +21,7 @@
   </head>
 
   <body id="index" class="archive">
-    <header class="site-header" role="banner">
+    <header class="site-header">
       <div class="wrapper">
         <a class="site-title" href="https://blog.wikichoon.com">Cole Robinson</a>
         <nav class="site-nav">
@@ -34,15 +34,16 @@
 
     <main id="content" class="page-content">
       <div class="wrapper">
+      <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
         <header>
-          <h2 class="post-title">virt-manager 1.0 creates qcow2 images that don't work on RHEL6</h2>
+          <h1 class="post-title givemecolor" itemprop="name headline">virt-manager 1.0 creates qcow2 images that don't work on RHEL6</h2>
           <p class="post-meta">
             <time class="dt-published" datetime="2014-12-05T09:09:00-05:00" itemprop="datePublished">Fri 05 December 2014
             </time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">Cole Robinson</span>
             </span> • Tags: <a href="https://blog.wikichoon.com/tag/fedora.html">fedora</a> <a href="https://blog.wikichoon.com/tag/virt.html">virt</a>           </p>
         </header>
 
-        <div class="post-content">
+        <div class="post-content" itemprop="articleBody">
           <p>One of the big features we added in virt-manager 1.0 was <a href="https://blog.wikichoon.com/2014/03/snapshot-support-in-virt-manager.html">snapshot support</a>. As part of this change, we switched to using the QCOW2 disk image format for new VMs. We also enable the <a href="https://lists.gnu.org/archive/html/qemu-devel/2012-06/msg03827.html">QCOW2 lazy_refcounts</a> feature that improves performance of some snapshot operations.</p>
 <p>However, not all versions of QEMU in the wild can handle lazy_refcounts, and will refuse to use the disk image, particularly RHEL6 QEMU. So by default, a disk image from a VM created with Fedora 20 virt-manager will not run on RHEL6 QEMU, throwing an error like:</p>
 <blockquote>
@@ -65,6 +66,7 @@
 <p>Beware though, converting between two qcow2 images will drop all internal snapshots in the new image, so only use that option if you don't need to preserve any snapshot data. 'qemu-img amend' <u>will</u> preserve snapshot data.</p>
 <p>(Unfortunately at this time virt-manager doesn't provide any way in the UI to _not_ use lazy_refcounts, but you could always use qemu-img/virsh to create a disk image outside of virt-manager, and select it when creating a new VM.)</p>
         </div>
+      </article>
       </div>
     </main>
 
@@ -86,7 +88,7 @@
             </ul>
           </div>
 
-          <div class="footer-col footer-col-3" align="center">
+          <div class="footer-col footer-col-3" style="text-align: center;">
             <a href="https://blog.wikichoon.com/feeds/all.atom.xml">RSS</a>
           </div>
         </div>

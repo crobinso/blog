@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!-- Generated 2019-07-29 15:00:42.485579 -->
-<html>
+<!-- Generated 2019-07-29 18:39:20.963478 -->
+<html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-142995745-1"></script>
@@ -11,8 +11,8 @@
 
       gtag('config', 'UA-142995745-1');
     </script>
-
-      <title>Easy qemu commandline passthrough with virt-xml - Cole Robinson</title>
+    <link rel="canonical" href="https://blog.wikichoon.com/2017/03/easy-qemu-commandline-passthrough-with.html"/>
+      <title>Easy qemu commandline passthrough with virt-xml | Cole Robinson</title>
       <meta charset="utf-8" />
       <link href="https://blog.wikichoon.com/theme/minima-main.css" rel="stylesheet" />
       <link href="https://blog.wikichoon.com/theme/coletheme.css" rel="stylesheet" />
@@ -21,7 +21,7 @@
   </head>
 
   <body id="index" class="archive">
-    <header class="site-header" role="banner">
+    <header class="site-header">
       <div class="wrapper">
         <a class="site-title" href="https://blog.wikichoon.com">Cole Robinson</a>
         <nav class="site-nav">
@@ -34,15 +34,16 @@
 
     <main id="content" class="page-content">
       <div class="wrapper">
+      <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
         <header>
-          <h2 class="post-title">Easy qemu commandline passthrough with virt-xml</h2>
+          <h1 class="post-title givemecolor" itemprop="name headline">Easy qemu commandline passthrough with virt-xml</h2>
           <p class="post-meta">
             <time class="dt-published" datetime="2017-03-24T21:30:00-04:00" itemprop="datePublished">Fri 24 March 2017
             </time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">Cole Robinson</span>
             </span> • Tags: <a href="https://blog.wikichoon.com/tag/fedora.html">fedora</a> <a href="https://blog.wikichoon.com/tag/virt.html">virt</a>           </p>
         </header>
 
-        <div class="post-content">
+        <div class="post-content" itemprop="articleBody">
           <p>Libvirt has supported <a href="https://libvirt.org/drvqemu.html#qemucommand">qemu commandline option passthrough</a> for qemu/kvm VMs for quite a while. The format for it is a bit of a pain though since it requires setting a magic xmlns value at the top of the domain XML. Basically doing it by hand kinda sucks.</p>
 <p>In the recently released <a href="https://blog.wikichoon.com/2017/03/virt-manager-141-released.html">virt-manager 1.4.1</a>, we added a virt-install/virt-xml option <strong>--qemu-commandline</strong> that tweaks option passthrough for new or existing VMs. So for example, if you wanted to add the qemu option string '-device FOO' to an existing VM named <strong>f25</strong>, you can do:</p>
 <div class="highlight"><pre><span></span>$ ./virt-xml f25 --edit --confirm --qemu-commandline=&quot;-device FOO&quot;
@@ -68,6 +69,7 @@
 Define &#39;f25&#39; with the changed XML? (y/n):
 </pre></div>
         </div>
+      </article>
       </div>
     </main>
 
@@ -89,7 +91,7 @@ Define &#39;f25&#39; with the changed XML? (y/n):
             </ul>
           </div>
 
-          <div class="footer-col footer-col-3" align="center">
+          <div class="footer-col footer-col-3" style="text-align: center;">
             <a href="https://blog.wikichoon.com/feeds/all.atom.xml">RSS</a>
           </div>
         </div>

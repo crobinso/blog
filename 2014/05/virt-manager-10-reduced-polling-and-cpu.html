@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!-- Generated 2019-07-29 15:00:42.485579 -->
-<html>
+<!-- Generated 2019-07-29 18:39:20.963478 -->
+<html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-142995745-1"></script>
@@ -11,8 +11,8 @@
 
       gtag('config', 'UA-142995745-1');
     </script>
-
-      <title>virt-manager 1.0: reduced polling and CPU usage - Cole Robinson</title>
+    <link rel="canonical" href="https://blog.wikichoon.com/2014/05/virt-manager-10-reduced-polling-and-cpu.html"/>
+      <title>virt-manager 1.0: reduced polling and CPU usage | Cole Robinson</title>
       <meta charset="utf-8" />
       <link href="https://blog.wikichoon.com/theme/minima-main.css" rel="stylesheet" />
       <link href="https://blog.wikichoon.com/theme/coletheme.css" rel="stylesheet" />
@@ -21,7 +21,7 @@
   </head>
 
   <body id="index" class="archive">
-    <header class="site-header" role="banner">
+    <header class="site-header">
       <div class="wrapper">
         <a class="site-title" href="https://blog.wikichoon.com">Cole Robinson</a>
         <nav class="site-nav">
@@ -34,15 +34,16 @@
 
     <main id="content" class="page-content">
       <div class="wrapper">
+      <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
         <header>
-          <h2 class="post-title">virt-manager 1.0: reduced polling and CPU usage</h2>
+          <h1 class="post-title givemecolor" itemprop="name headline">virt-manager 1.0: reduced polling and CPU usage</h2>
           <p class="post-meta">
             <time class="dt-published" datetime="2014-05-13T10:00:00-04:00" itemprop="datePublished">Tue 13 May 2014
             </time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">Cole Robinson</span>
             </span> • Tags: <a href="https://blog.wikichoon.com/tag/fedora.html">fedora</a> <a href="https://blog.wikichoon.com/tag/virt.html">virt</a>           </p>
         </header>
 
-        <div class="post-content">
+        <div class="post-content" itemprop="articleBody">
           <p>A lot of work was done for <a href="https://blog.wikichoon.com/2014/02/virt-manager-100-released.html">virt-manager 1.0</a> to reduce the amount of libvirt polling and API calls we make for common operations. Up until this point, virt-manager had to poll libvirt at regular intervals to update the domain list, domain status, and domain XML. By default we would poll once a second (configurable in the Preferences dialog).</p>
 <p>Although this burned far more CPU than necessary, things generally worked fine when talking to libvirtd on the local machine. However things really fell apart when connecting to a remote host with a lot of VMs, or over a high latency link: the polling would just saturate the connection and the app would be quite sluggish. Since the latter scenario is a pretty common setup for some of my remote colleagues at Red Hat, I heard about this quite a bit over the years :)</p>
 <p>One of the major hurdles to reducing needless polling was that virt-manager and virtinst were separate code bases, as I explained in a <a href="https://blog.wikichoon.com/2014/05/a-not-so-brief-history-of-virtinst-and.html">previous post</a>. For example, there is one routine in virtinst that will check if a new disk path is already in use by another VM: it does this by checking the path against the XML of every VM. Since virtinst was separate code, it had to do all this polling and XML fetching from scratch, despite the fact that we had this information cached in virt-manager. We could have taught virtinst about the virt-manager cache or some similar solution, but it was cumbersome to make changes like that while maintaining back compatibility with older virtinst users.</p>
@@ -50,6 +51,7 @@
 <p>The other major piece we added in virt-manager 1.0 is use of asynchronous libvirt events. The initial events support in libvirt was <a href="https://libvirt.org/git/?p=libvirt.git;a=commit;h=1509b8027fd0b73c30aeab443f81dd5a18d80544">added way back in October 2008</a> by a couple folks from <a href="https://en.wikipedia.org/wiki/Virtual_Iron">VirtualIron</a>. That's quite a while ago, so supporting this in virt-manager was long overdue. Though waiting a long time had the nice side effect of letting other projects like oVirt shake all the bugs out of libvirt's event implementations :)</p>
 <p>Regardless, virt-manager 1.0 will use domain (and network) events now if connected to a sufficiently new version of libvirt and the driver supports it. We still maintain the old polling code for really old libvirt, and libvirt drivers that don't support the event APIs. Even on latest libvirt some polling is still needed since not all libvirt objects support event APIs, although now we poll on demand which reduces our CPU and network usage.</p>
         </div>
+      </article>
       </div>
     </main>
 
@@ -71,7 +73,7 @@
             </ul>
           </div>
 
-          <div class="footer-col footer-col-3" align="center">
+          <div class="footer-col footer-col-3" style="text-align: center;">
             <a href="https://blog.wikichoon.com/feeds/all.atom.xml">RSS</a>
           </div>
         </div>
