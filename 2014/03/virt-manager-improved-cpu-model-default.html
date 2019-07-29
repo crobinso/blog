@@ -26,7 +26,7 @@
         <nav class="site-nav">
           <a class="page-link" href="https://blog.wikichoon.com">Home</a>
           <a class="page-link" href="https://blog.wikichoon.com/archives.html">Archives</a>
-          <!-- <li><a href="https://blog.wikichoon.com/pages/frontpage.html">Hello.</a></li> -->
+          <a class="page-link" href="https://wikichoon.com">About</a>
         </nav>
       </div>
     </header>
@@ -52,7 +52,7 @@
 <li><strong>mode=host-passthrough</strong>: This maps to the 'qemu -cpu host' command line. However, this option is explicit not recommended for libvirt usage. libvirt wants to fully specify a VM's hardware configuration, to insulate the VM from any hardware layout changes when qemu is updated on the host. '-cpu host' defers to qemu's detection logic, which violates that principle.</li>
 <li><strong>mode=host-model</strong>: This is libvirt's attempted reimplementation of '-cpu host', and is the recommended solution in this case. However the current implementation has <a href="https://bugzilla.redhat.com/show_bug.cgi?id=1055002">quite a few problems</a>. The issues won't affect most users, and they are being worked on, but for now host-model isn't safe to use as a general default.</li>
 </ol>
-<p>So for virt-manager 1.0, we compromised to using the nearest complete CPU model of the host CPU. This requires a bit of explanation. There are multiple CPUs on the market that are labelled as 'core2duo'. They all share a fundamental core of features that define what 'core2duo' means. But some models also have [additional]{.underline} features. virt-manager 1.0 will ignore those extra bits and just pass 'core2duo' to your VM. This is the best we can do for performance at the moment without hitting the host-model issues mentioned above.</p>
+<p>So for virt-manager 1.0, we compromised to using the nearest complete CPU model of the host CPU. This requires a bit of explanation. There are multiple CPUs on the market that are labelled as 'core2duo'. They all share a fundamental core of features that define what 'core2duo' means. But some models also have <u>additional</u> features. virt-manager 1.0 will ignore those extra bits and just pass 'core2duo' to your VM. This is the best we can do for performance at the moment without hitting the host-model issues mentioned above.</p>
 <p>However this default is configurable: if you want to return to the old method that maximizes migration compatibility, or you want to try out host-model, you can change the default for new VMs in Edit->Preferences:</p>
 <p><img alt="CPU model preferences" height="299" src="https://blog.wikichoon.com/images/015-virt-manager-improved-cpu-model-default-1.png" width="320"></p>
         </div>
