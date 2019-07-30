@@ -11,8 +11,8 @@
 
       gtag('config', 'UA-142995745-1');
     </script>
-    <link rel="canonical" href="https://blog.wikichoon.com/2014/09/fedora-21-virt-test-day-is-thu-sep-25.html"/>
-      <title>Fedora 21 Virt Test Day is Thu Sep 25! | Cole Robinson</title>
+    <link rel="canonical" href="https://blog.wikichoon.com/2019/07/blog-moved.html"/>
+      <title>Blog moved to Pelican and GitHub Pages | Cole Robinson</title>
       <meta charset="utf-8" />
       <link href="https://blog.wikichoon.com/theme/minima-main.css" rel="stylesheet" />
       <link href="https://blog.wikichoon.com/theme/coletheme.css" rel="stylesheet" />
@@ -36,33 +36,33 @@
       <div class="wrapper">
       <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
         <header>
-          <h1 class="post-title givemecolor" itemprop="name headline">Fedora 21 Virt Test Day is Thu Sep 25!</h2>
+          <h1 class="post-title givemecolor" itemprop="name headline">Blog moved to Pelican and GitHub Pages</h2>
           <p class="post-meta">
-            <time class="dt-published" datetime="2014-09-22T20:01:00-04:00" itemprop="datePublished">Mon 22 September 2014
+            <time class="dt-published" datetime="2019-07-30T15:30:00-04:00" itemprop="datePublished">Tue 30 July 2019
             </time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">Cole Robinson</span>
             </span> • Tags: <a href="https://blog.wikichoon.com/tag/fedora.html">fedora</a> <a href="https://blog.wikichoon.com/tag/virt.html">virt</a>           </p>
         </header>
 
         <div class="post-content" itemprop="articleBody">
-          <p>The Fedora 21 Virt Test Day is this coming Thu Sep 25. Check out the test day landing page:</p>
-<p><a href="https://fedoraproject.org/wiki/Test_Day:2014-09-25_Virtualization">https://fedoraproject.org/wiki/Test_Day:2014-09-25_Virtualization</a></p>
-<p>If you're interested in trying out some new virt functionality, there's step by step instructions for:</p>
+          <p>I've moved my blog from blogger.com to a static site generated with
+<a href="https://blog.getpelican.com/">Pelican</a> and hosted on GitHub Pages. This
+is a dump of some of the details.</p>
+<p>The content is hosted in three branches across two repos:</p>
 <ul>
-<li>Q35 Chipset</li>
-<li>Import AArch64 image as a VM on x86</li>
-<li>Install VM using OVMF/UEFI</li>
+<li><strong><a href="https://github.com/crobinso/blog/tree/gh-pages">blog/gh-pages</a></strong>: <a href="https://blog.wikichoon.com">https://blog.wikichoon.com</a> HTML content</li>
+<li><strong><a href="https://github.com/crobinso/crobinso.github.io/tree/master">crobinso.github.io/master</a></strong>: <a href="https://wikichoon.com">https://wikichoon.com</a> front page HTML content</li>
+<li><strong><a href="https://github.com/crobinso/crobinso.github.io/tree/pelican">crobinso.github.io/pelican</a></strong>: website source content and theme</li>
 </ul>
-<p>Even if you aren't interested in testing new features, we still need you! The test day is the perfect time to make sure your virt workflow is working fine on Fedora 21, as there will be several developers on hand to answer any questions, help with debugging, provide patches, etc. No requirement to run through test cases on the wiki, just show up and let us know what works (or breaks).</p>
-<p>And to be clear, while it is preferred that you have a physical machine running Fedora 21, participating in the test day does NOT require it: you can test the latest virt bits on the latest Fedora release courtesy of the virt-preview repo. For more details, as well as easy instructions on updating to Fedora 21, see:</p>
-<p><a href="https://fedoraproject.org/wiki/Test_Day:2014-09-25_Virtualization#What.27s_needed_to_test">https://fedoraproject.org/wiki/Test_Day:2014-09-25_Virtualization#What.27s_needed_to_test</a></p>
-<p>If you can't make the date of the test day, adding test case results to the wiki anytime next week is fine as well. Though if you do plan on showing up to the test day, add your name to the participant list on the wiki, and when the day arrives, pop into #fedora-test-day on freenode and give us a shout!</p>
+<p>The motivation for the split is that according to this <a href="https://blog.kmonsoor.com/pelican-how-to-make-seo-friendly/">pelican SEO</a> article, <strong>master</strong> branches of GitHub repos are indexed by google, so if you store HTML content in a <strong>master</strong> branch your canonical blog might be battling your GitHub repo in the search results. And since you can only put content in the <strong>master</strong> branch of a <code>$username.github.io</code> repo, I added a separate blog.git repo. Maybe I could shove all the content into the <strong>blog/gh-pages</strong> branch I think dealing with multiple subdomains prevents it. I've already spent too much timing playing with all this stuff though so that's for another day to figure out. Of course, suggestions welcome, blog comments are enabled with Disqus.</p>
+<p>One issue I hit is that pushing updated content to <strong>blog/gh-pages</strong> doesn't consistently trigger a new GitHub Pages deployment. There's a bunch of hits about this around the web (this <a href="https://stackoverflow.com/questions/20422279/github-pages-are-not-updating">stackoverflow post</a> in particular) but no authoritative explanation about what criteria GitHub Pages uses to determine whether to redeploy. The simplest 'fix' I found is to tweak the <code>index.html</code> content via the GitHub web UI and commit the change which seems to consistently trigger a refresh as reported by the repo's <a href="https://github.com/crobinso/blog/deployments">deployments page</a>.</p>
+<p>You may notice the blog looks a lot like stock <a href="https://jekyllrb.com/">Jekyll</a> with its <a href="https://github.com/jekyll/minima">minima</a> theme. I didn't find any Pelican theme that I liked as much as minima, so I grabbed the CSS from a minima instance and started adapting the Pelican <a href="https://github.com/getpelican/pelican-themes/tree/master/simple-bootstrap">simple-bootstrap</a> theme to use it. The end result is basically a simple reimplementation of minima for Pelican. I learned a lot in the process but it likely would have been much simpler if I just used Jekyll in the first place, but I'm in too deep to switch now!</p>
         </div>
 
         <div id="disqus_thread"></div>
         <script>
           var disqus_config = function () {
-            this.page.url = 'https://blog.wikichoon.com/2014/09/fedora-21-virt-test-day-is-thu-sep-25.html';
-            this.page.identifier = 'https://blog.wikichoon.com/2014/09/fedora-21-virt-test-day-is-thu-sep-25.html';
+            this.page.url = 'https://blog.wikichoon.com/2019/07/blog-moved.html';
+            this.page.identifier = 'https://blog.wikichoon.com/2019/07/blog-moved.html';
           };
 
           (function() {

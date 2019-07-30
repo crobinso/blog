@@ -2,9 +2,14 @@
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>https://blog.wikichoon.com/</loc>
-<lastmod>2019-04-09</lastmod>
+<lastmod>2019-07-30</lastmod>
 <changefreq>daily</changefreq>
 <priority>1.00</priority>
+</url><url>
+<loc>https://blog.wikichoon.com/2019/07/blog-moved.html</loc>
+<lastmod>2019-07-30</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.80</priority>
 </url><url>
 <loc>https://blog.wikichoon.com/2019/04/host-network-interfaces-panel-removed.html</loc>
 <lastmod>2019-04-09</lastmod>
@@ -386,17 +391,17 @@
 <priority>0.50</priority>
 </url><url>
 <loc>https://blog.wikichoon.com/tag/fedora.html</loc>
-<lastmod>2019-04-09</lastmod>
+<lastmod>2019-07-30</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.40</priority>
 </url><url>
 <loc>https://blog.wikichoon.com/tag/virt.html</loc>
-<lastmod>2019-04-09</lastmod>
+<lastmod>2019-07-30</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.40</priority>
 </url><url>
 <loc>https://blog.wikichoon.com/archives.html</loc>
-<lastmod>2019-04-09</lastmod>
+<lastmod>2019-07-30</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.40</priority>
 </url>
