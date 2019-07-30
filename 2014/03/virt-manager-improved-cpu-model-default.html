@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2019-07-29 19:22:31.133483 -->
+<!-- Generated 2019-07-30 13:56:37.134426 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -44,20 +44,38 @@
         </header>
 
         <div class="post-content" itemprop="articleBody">
-          <p>In <a href="https://blog.wikichoon.com/2014/02/virt-manager-100-released.html">virt-manager 1.0</a> we improved many of the defaults we set when creating a new virtual machine. One of the major changes was to how we choose the <a href="https://wiki.qemu.org/Features/CPUModels">CPU model</a> that's exposed to the VM OS.</p>
+          <p>(<strong>Edit 2019</strong>: virt-manager 2.0 and later will default to <code>&lt;cpu mode='host-model'/&gt;</code> if libvirt and qemu are of new enough versions, so this page is out of date)</p>
+<p>In <a href="https://blog.wikichoon.com/2014/02/virt-manager-100-released.html">virt-manager 1.0</a> we improved many of the defaults we set when creating a new virtual machine. One of the major changes was to how we choose the <a href="https://wiki.qemu.org/Features/CPUModels">CPU model</a> that's exposed to the VM OS.</p>
 <p>CPU model here means something like 'Pentium 3' or 'Opteron 4' and all the CPU flags that go along with that. For KVM, every CPU flag that we expose to the VM has to be something provided by the host CPU, so we can't just unconditionally tell the VM to use the latest and greatest features. The newer the CPU that's exposed to the guest, the more features the guest kernel and userspace can use, which improves performance.</p>
 <p>There's a few trade offs however: if <a href="https://www.linux-kvm.org/page/Migration">live migrating</a> your VM, the destination host CPU needs to be able to represent all the features that have been exposed to the VM. So if your VM is using 'Opteron G5', but your destination host is only an 'Opteron G4', the migration will fail. And changing the VM CPU after OS installation can cause Windows VMs to require reactivation, which can be problematic. So in some instances you are stuck with the CPU model the VM was installed with.</p>
 <p>Prior to virt-manager 1.0, new VMs received the hypervisor default CPU model. For qemu/kvm, that's qemu64, a made up CPU with very few feature flags. This leads to less suboptimal guest OS performance but maximum migration compatibility.</p>
 <p>But the reality is that cross host migration is not really a major focus of virt-manager. Migration is all about preserving uptime of a server VM, but most virt-manager users are managing VMs for personal use. It's a bigger win to maximize out of the box performance.</p>
 <p>For virt-manager 1.0, we wanted new VMs to have an identical copy of the host CPU. There's two ways to do that <a href="https://libvirt.org/formatdomain.html#elementsCPU">via libvirt</a>:</p>
 <ol>
-<li><strong>mode=host-passthrough</strong>: This maps to the 'qemu -cpu host' command line. However, this option is explicit not recommended for libvirt usage. libvirt wants to fully specify a VM's hardware configuration, to insulate the VM from any hardware layout changes when qemu is updated on the host. '-cpu host' defers to qemu's detection logic, which violates that principle.</li>
-<li><strong>mode=host-model</strong>: This is libvirt's attempted reimplementation of '-cpu host', and is the recommended solution in this case. However the current implementation has <a href="https://bugzilla.redhat.com/show_bug.cgi?id=1055002">quite a few problems</a>. The issues won't affect most users, and they are being worked on, but for now host-model isn't safe to use as a general default.</li>
+<li><code>&lt;cpu mode="host-passthrough"/&gt;</code>: This maps to the qemu <code>-cpu host</code> command line. However, this option is explicit not recommended for libvirt usage. libvirt wants to fully specify a VM's hardware configuration, to insulate the VM from any hardware layout changes when qemu is updated on the host. <code>-cpu host</code> defers to qemu's detection logic, which violates that principle.</li>
+<li><code>&lt;cpu mode="host-model"/&gt;</code>: This is libvirt's attempted reimplementation of <code>-cpu host</code>, and is the recommended solution in this case. However the current implementation has <a href="https://bugzilla.redhat.com/show_bug.cgi?id=1055002">quite a few problems</a>. The issues won't affect most users, and they are being worked on, but for now host-model isn't safe to use as a general default.</li>
 </ol>
 <p>So for virt-manager 1.0, we compromised to using the nearest complete CPU model of the host CPU. This requires a bit of explanation. There are multiple CPUs on the market that are labelled as 'core2duo'. They all share a fundamental core of features that define what 'core2duo' means. But some models also have <u>additional</u> features. virt-manager 1.0 will ignore those extra bits and just pass 'core2duo' to your VM. This is the best we can do for performance at the moment without hitting the host-model issues mentioned above.</p>
-<p>However this default is configurable: if you want to return to the old method that maximizes migration compatibility, or you want to try out host-model, you can change the default for new VMs in Edit->Preferences:</p>
-<p><img alt="CPU model preferences" height="299" src="https://blog.wikichoon.com/images/015-virt-manager-improved-cpu-model-default-1.png" width="320"></p>
+<p>However this default is configurable: if you want to return to the old method that maximizes migration compatibility, or you want to try out host-model, you can change the default for new VMs in <strong>Edit->Preferences</strong>:</p>
+<p><img alt="virt-manager CPU model preferences" height="299" src="https://blog.wikichoon.com/images/015-virt-manager-improved-cpu-model-default-1.png" width="320"></p>
         </div>
+
+        <div id="disqus_thread"></div>
+        <script>
+          var disqus_config = function () {
+            this.page.url = 'https://blog.wikichoon.com/2014/03/virt-manager-improved-cpu-model-default.html';
+            this.page.identifier = 'https://blog.wikichoon.com/2014/03/virt-manager-improved-cpu-model-default.html';
+          };
+
+          (function() {
+            var d = document, s = d.createElement('script');
+            s.src = 'https://wikichoon-com.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
       </article>
       </div>
     </main>

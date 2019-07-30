@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2019-07-29 19:22:31.133483 -->
+<!-- Generated 2019-07-30 13:56:37.134426 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -47,12 +47,12 @@
           <p><a href="https://en.wikipedia.org/wiki/X2APIC">x2apic</a> is a performance and scalability feature available in many modern Intel CPUs. Though regardless of whether your host CPU supports it, KVM can unconditionally emulate it for x86 guests, giving an easy performance win with no downside. This feature has existed since 2009 and been a regular recommendation for <a href="https://www.linux-kvm.org/page/Tuning_KVM">tuning a KVM VM</a>.</p>
 <p>As of qemu 2.0.0 x2apic is enabled automatically (more details at the end).
 Priot to that, actually benefiting from x2apic required a tool like virt-manager to explicitly enable the flag, which has had a long bumpy road.</p>
-<p>x2apic is exposed on the qemu command line as a CPU feature, like: <code>qemu -cpu $MODEL,+x2apic ...</code></p>
+<p>x2apic is exposed on the qemu command line as a CPU feature, like: <code>qemu -cpu $MODEL,+x2apic</code></p>
 <p>And there isn't any way to specify a feature flag without specifying the CPU model. So enabling x2apic required hardcoding a CPU model where traditionally tools (and libvirt) deferred to qemu's default.</p>
 <p>A Fedora 13 <a href="https://fedoraproject.org/wiki/Features/Virtx2apic">feature page</a> was created to track the change, and we <a href="https://pkgs.fedoraproject.org/cgit/python-virtinst.git/commit/?id=7a684cb65d69f2b116809456bed99ed32ca44080">enabled it in python-virtinst</a> for f13/rawhide. The implementation attempted to hardcode the CPU model name that libvirt detected for the host machine, which unfortunately has some problems as I explained in a <a href="https://blog.wikichoon.com/2014/03/virt-manager-improved-cpu-model-default.html">previous post</a>. This led to some <a href="https://bugzilla.redhat.com/show_bug.cgi?id=611584">issues</a> installing 64bit guests, and after trying to hack around it, I gave up and reverted the change.</p>
 <p>(In retrospect, we likely could have made it work by just trying to duplicate the default CPU model logic that qemu uses, however that might have hit issues if the CPU default ever changed, like on RHEL for example.)</p>
 <p>Later on virt-manager and virt-install gained UI for enabling x2apic, but a user had to know what they were doing and hunt it down.</p>
-<p>As mentioned above, as of qemu 2.0.0 any x86 KVM VM will have x2apic automatically enabled, so there's no explicit need to opt in. From qemu.git:</p>
+<p>As mentioned above, as of qemu 2.0.0 any x86 KVM VM will have x2apic automatically enabled, so there's no explicit need to opt in. From <a href="https://github.com/qemu/qemu/commit/ef02ef5f4536dba090b12360a6c862ef0e57e3bc">qemu.git</a>:</p>
 <div class="highlight"><pre><span></span>commit ef02ef5f4536dba090b12360a6c862ef0e57e3bc
 Author: Eduardo Habkost &lt;ehabkost redhat.com&gt;
 Date:   Wed Feb 19 11:58:12 2014 -0300
@@ -60,6 +60,23 @@ Date:   Wed Feb 19 11:58:12 2014 -0300
     target-i386: Enable x2apic by default on KVM
 </pre></div>
         </div>
+
+        <div id="disqus_thread"></div>
+        <script>
+          var disqus_config = function () {
+            this.page.url = 'https://blog.wikichoon.com/2014/11/x2apic-on-by-default-with-qemu-20-and.html';
+            this.page.identifier = 'https://blog.wikichoon.com/2014/11/x2apic-on-by-default-with-qemu-20-and.html';
+          };
+
+          (function() {
+            var d = document, s = d.createElement('script');
+            s.src = 'https://wikichoon-com.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
       </article>
       </div>
     </main>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2019-07-29 19:22:31.133483 -->
+<!-- Generated 2019-07-30 13:56:37.134426 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -53,20 +53,35 @@
 <li>Fix getbugs API with latest Bugzilla releases</li>
 </ul>
 <p>I'd like to expand a bit more on a couple of these changes.</p>
-<p><br/>
-<strong> bugzilla new/query/modify --field flag </strong></p>
-<p>Arun had a good idea about adding a generic --field option to the CLI. Rather than depend on /usr/bin/bugzilla to grow a specific command line option for some new custom bugzilla field, you can use --field to get your work done.</p>
-<p>For example, Red Hat bugzilla has a custom field called 'cf_pm_score' that's used for internal RHEL workflow. However /usr/bin/bugzilla doesn't have any explicit command line support for this field.</p>
-<p>But if you wanted to alter the cf_pm_score field from the command line, you can now do:</p>
+<h4>bugzilla new/query/modify <code>--field</code> flag</h4>
+<p>Arun had a good idea about adding a generic <code>--field</code> option to the CLI. Rather than depend on <code>/usr/bin/bugzilla</code> to grow a specific command line option for some new custom bugzilla field, you can use <code>--field</code> to get your work done.</p>
+<p>For example, Red Hat bugzilla has a custom field called <code>cf_pm_score</code> that's used for internal RHEL workflow. However /usr/bin/bugzilla doesn't have any explicit command line support for this field.</p>
+<p>But if you wanted to alter the <code>cf_pm_score</code> field from the command line, you can now do:</p>
 <p><code>bugzilla modify $BUGID --field cf_pm_score=100</code></p>
 <p>Of course, for popular bugzilla fields we should make sure the command line tool has an explicit and document option, but this takes the pressure off of us to add an option for every custom Red Hat extension.</p>
-<p><br/>
-<strong> Bugzilla.logged_in now returns live state </strong></p>
+<h4><code>Bugzilla.logged_in</code> now returns live state</h4>
 <p>A recurring problem people hit with the bugzilla API is receiving unexpected results because they aren't actually logged into bugzilla. This often happens when their cached bugzilla token has expired. For most operations the bugzilla API doesn't give any error in this case, and there's historically been no simple API to ask 'am I actually logged in?'</p>
-<p>The Bugzilla API class has long had a property 'logged_in' that wasn't very useful, only returning True for a very specific circumstance. Arun extended this with a heuristic to determine if we are _actually_ logged in to bugzilla.</p>
-<p>So if you have any scripts that talk to the python-bugzilla API and depend on actually being logged in, add a check at the top of your code to bail out if logged_in == False and save yourself some future confusion :)</p>
+<p>The Bugzilla API class has long had a property <code>logged_in</code> that wasn't very useful, only returning True for a very specific circumstance. Arun extended this with a heuristic to determine if we are <u>actually</u> logged in to bugzilla.</p>
+<p>So if you have any scripts that talk to the python-bugzilla API and depend on actually being logged in, add a check at the top of your code to bail out if <code>bzobj.logged_in == False</code> and save yourself some future confusion :)</p>
 <p>IIRC the next major version of bugzilla does provide some API support in this area, so hopefully we can expand on this when newer bugzilla version are deployed.</p>
         </div>
+
+        <div id="disqus_thread"></div>
+        <script>
+          var disqus_config = function () {
+            this.page.url = 'https://blog.wikichoon.com/2015/04/python-bugzilla-120-released.html';
+            this.page.identifier = 'https://blog.wikichoon.com/2015/04/python-bugzilla-120-released.html';
+          };
+
+          (function() {
+            var d = document, s = d.createElement('script');
+            s.src = 'https://wikichoon-com.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
       </article>
       </div>
     </main>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2019-07-29 19:22:31.133483 -->
+<!-- Generated 2019-07-30 13:56:37.134426 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -45,7 +45,7 @@
 
         <div class="post-content" itemprop="articleBody">
           <p>With package maintenance, bug triage, and email support, I often need to look at a project's git tags to know about the latest releases, when they were released, and what releases contain certain features. Here's a couple workflow tips that make my life easier.</p>
-<h3>Better git tag listing</h3>
+<h4>Better git tag listing</h4>
 <p>Based on Peter Hutterer's <a href="https://who-t.blogspot.com/2012/06/git-branch-info.html">'git bi'</a> alias for improved branch listing (which is great and highly recommended), I made one for improved tags output that I mapped as 'git tags'. Output looks like:</p>
 <p><img alt="Example 'git tags' output" height="109" src="https://blog.wikichoon.com/images/062-tips-for-querying-git-tags-1.png" width="400"></p>
 <ul>
@@ -67,7 +67,7 @@
 </pre></div>
 
 
-<h3>Find the first tag that contains a commit</h3>
+<h4>Find the first tag that contains a commit</h4>
 <p>This seems to come up quite a bit for me. An example is <a href="https://www.redhat.com/archives/libvir-list/2014-July/msg00832.html">here</a>; a user was asking about a virt-install feature, and I wanted to tell them what version it appeared in. I grepped <code>git log</code>, found the commit, then ran:</p>
 <div class="highlight"><pre><span></span><span class="gp">$</span> git describe --contains 87a611b5470d9b86bf57a71ce111fa1d41d8e2cd
 <span class="go">v1.0.0~201</span>
@@ -77,9 +77,26 @@
 <p>That shows me that v1.0.0 was the first release with the feature they wanted, just take whatever is to the left of the tilde.</p>
 <p>This often comes in handy with backporting as well: a developer will point me at a bug fix commit ID, I run git describe to see what upstream version it was released in, so I know what fedora package versions are lacking the fix.</p>
 <p>Another tip here is to use the --match option to only search tags matching a particular glob. I've used this to filter out matching against a maintenance or bugfix release branch, when I only wanted to search major version releases.</p>
-<h3>Don't pull tags from certain remotes</h3>
+<h4>Don't pull tags from certain remotes</h4>
 <p>For certain repos like qemu.git, I add a lot of git remotes pointing to individual developer's trees for occasional patch testing. However if trees have lots of non-upstream tags, like for use with pull-requests, they can interfere with my workflow for backporting patches. Use the --no-tags option for this: <code>git remote add --no-tags $repo</code></p>
         </div>
+
+        <div id="disqus_thread"></div>
+        <script>
+          var disqus_config = function () {
+            this.page.url = 'https://blog.wikichoon.com/2016/01/tips-for-querying-git-tags.html';
+            this.page.identifier = 'https://blog.wikichoon.com/2016/01/tips-for-querying-git-tags.html';
+          };
+
+          (function() {
+            var d = document, s = d.createElement('script');
+            s.src = 'https://wikichoon-com.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
       </article>
       </div>
     </main>

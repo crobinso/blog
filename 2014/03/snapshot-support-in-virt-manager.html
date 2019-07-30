@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2019-07-29 19:22:31.133483 -->
+<!-- Generated 2019-07-30 13:56:37.134426 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -53,11 +53,11 @@
 </ol>
 <p>The libvirt APIs support two different types of snapshots with qemu/kvm.</p>
 <h4>Internal snapshots</h4>
-<p>Internal snapshots are the snapshots that QEMU has supported for a long time. Libvirt refers to them as 'internal' because all the data is stored as part of the qcow2 disk image: if you have a VM with a single qcow2 disk image and take 10 snapshots, you still have only one file to manage. This is the default snapshot mode if using the 'virsh snapshot-*' commands.</p>
+<p>Internal snapshots are the snapshots that QEMU has supported for a long time. Libvirt refers to them as 'internal' because all the data is stored as part of the qcow2 disk image: if you have a VM with a single qcow2 disk image and take 10 snapshots, you still have only one file to manage. This is the default snapshot mode if using the <code>virsh snapshot-*</code> commands.</p>
 <p>These snapshots can be combine disk and VM memory state for 'checkpointing', so you can jump back and forth between a saved running VM state. A snapshot of an offline VM can also be performed, and only the disk contents will be saved.</p>
 <p>Cons:</p>
 <ul>
-<li>Only works with qcow2 disk images. Since virt-manager has historically used raw images, pre-existing VMs may not be able to work with this type.</li>
+<li>Only works with qcow2 disk images. Since <code>virt-manager</code> has historically used raw images, pre-existing VMs may not be able to work with this type.</li>
 <li>They are non-live, meaning the VM is paused while all the state is saved. For end users this likely isn't a problem, but if you are managing a public server, minimizing downtime is essential.</li>
 <li>Historically they were quite slow, but this has improved quite a bit with QEMU 1.6+</li>
 </ul>
@@ -66,19 +66,36 @@
 <p>While the overlay files have to be qcow2, these snapshots will work with any base disk image. They can also be performed with very little VM downtime, at least under a second. The external nature also allows different use cases like live backup: create a snapshot, back up the original backing image, when backup completes, merge the overlay file changes back into the backing image.</p>
 <p>However that's mostly where the benefits end. Compared to internal snapshots, which are an end to end solution with all the complexity handled in QEMU, external snapshots are just a building block for handling the use cases I described above... and the many of the pieces haven't been filled in yet. Libvirt still needs <a href="https://wiki.libvirt.org/page/I_created_an_external_snapshot,_but_libvirt_won%27t_let_me_delete_or_revert_to_it">a lot of work</a> to reach feature parity with what internal snapshots already provide. This is understandable, as the main driver for external snapshot support was for features like live backup that internal snapshots weren't suited for. Once that point was reached, there hasn't been much of a good reason to do the difficult work of filling in the remaining support when internal snapshots already fit the bill.</p>
 <h4>virt-manager support</h4>
-<p>Understandably we decided to go with internal snapshots in virt-manager's UI. To facilitate this, we've changed the default disk image for new qemu/kvm VMs to <strong>qcow2</strong>.</p>
+<p>Understandably we decided to go with internal snapshots in the <code>virt-manager</code> UI. To facilitate this, we've changed the default disk image for new qemu/kvm VMs to <strong>qcow2</strong>.</p>
 <p>The snapshot UI is reachable via the VM details toolbar and menu:</p>
-<p><img alt="Snapshot UI 1" height="158" src="https://blog.wikichoon.com/images/013-snapshot-support-in-virt-manager-1.png" width="320"></p>
-<p>That button will be disabled with an informative tool tip if snapshots aren't supported, such as if the the disk image isn't qcow2, or using a libvirt driver like xen which doesn't have snapshot support wired up.</p>
+<p><img alt="virt-manager Snapshot UI 1" height="158" src="https://blog.wikichoon.com/images/013-snapshot-support-in-virt-manager-1.png" width="320"></p>
+<p>That button will be disabled with an informative tool tip if snapshots aren't supported, such as if the the disk image isn't qcow2, or using a libvirt driver like Xen which doesn't have snapshot support wired up.</p>
 <p>Here's what the main screen looks like:</p>
-<p><img alt="Snapshot UI 2" height="627" src="https://blog.wikichoon.com/images/013-snapshot-support-in-virt-manager-2.png" width="640"></p>
+<p><img alt="virt-manager Snapshot UI 2" height="627" src="https://blog.wikichoon.com/images/013-snapshot-support-in-virt-manager-2.png" width="640"></p>
 <p>It's pretty straight forward. The column on the left lists all the snapshots. The 'VM State' means <em>the state the VM was in when the snapshot was taken</em>. So running/reverting to a 'Running' snapshot means the VM will end up in a running state, a 'Shutoff' snapshot will end up with the VM shutoff, etc.</p>
 <p>The check mark indicates the <em>last applied snapshot</em>, which could be the most recently created snapshot or the most recently run/reverted snapshot. The VM disk contents are basically 'the snapshot contents' + 'whatever changes I've made since then'. It's just an indicator of where you are.</p>
 <p>Internal snapshots are all independent of one another. You can take 5 successive snapshots, delete 2-4, and snapshot 1 and 5 will still be completely independent. Any notion of a snapshot hierarchy is really just metadata, and we decided not to expose it in the UI. That may <a href="https://bugzilla.redhat.com/show_bug.cgi?id=1065077">change in the future</a>.</p>
 <p>Run/revert to a snapshot with the play button along the bottom. Create a new snapshot by hitting the + button. The wizard is pretty simple:</p>
-<p><img alt="Snapshot UI 3" height="400" src="https://blog.wikichoon.com/images/013-snapshot-support-in-virt-manager-3.png" width="359"></p>
-<p>That's about it. Give it a whirl in virt-manager 1.0 and <a href="https://virt-manager.org/bugs/">file a bug</a> if you hit any issues.</p>
+<p><img alt="virt-manager Snapshot UI 3" height="400" src="https://blog.wikichoon.com/images/013-snapshot-support-in-virt-manager-3.png" width="359"></p>
+<p>That's about it. Give it a whirl in <code>virt-manager</code> and <a href="https://virt-manager.org/bugs/">file a bug</a> if you hit any issues.</p>
         </div>
+
+        <div id="disqus_thread"></div>
+        <script>
+          var disqus_config = function () {
+            this.page.url = 'https://blog.wikichoon.com/2014/03/snapshot-support-in-virt-manager.html';
+            this.page.identifier = 'https://blog.wikichoon.com/2014/03/snapshot-support-in-virt-manager.html';
+          };
+
+          (function() {
+            var d = document, s = d.createElement('script');
+            s.src = 'https://wikichoon-com.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
       </article>
       </div>
     </main>

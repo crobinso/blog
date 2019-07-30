@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2019-07-29 19:22:31.133483 -->
+<!-- Generated 2019-07-30 13:56:37.134426 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -51,6 +51,23 @@
 <p>The other major piece we added in virt-manager 1.0 is use of asynchronous libvirt events. The initial events support in libvirt was <a href="https://libvirt.org/git/?p=libvirt.git;a=commit;h=1509b8027fd0b73c30aeab443f81dd5a18d80544">added way back in October 2008</a> by a couple folks from <a href="https://en.wikipedia.org/wiki/Virtual_Iron">VirtualIron</a>. That's quite a while ago, so supporting this in virt-manager was long overdue. Though waiting a long time had the nice side effect of letting other projects like oVirt shake all the bugs out of libvirt's event implementations :)</p>
 <p>Regardless, virt-manager 1.0 will use domain (and network) events now if connected to a sufficiently new version of libvirt and the driver supports it. We still maintain the old polling code for really old libvirt, and libvirt drivers that don't support the event APIs. Even on latest libvirt some polling is still needed since not all libvirt objects support event APIs, although now we poll on demand which reduces our CPU and network usage.</p>
         </div>
+
+        <div id="disqus_thread"></div>
+        <script>
+          var disqus_config = function () {
+            this.page.url = 'https://blog.wikichoon.com/2014/05/virt-manager-10-reduced-polling-and-cpu.html';
+            this.page.identifier = 'https://blog.wikichoon.com/2014/05/virt-manager-10-reduced-polling-and-cpu.html';
+          };
+
+          (function() {
+            var d = document, s = d.createElement('script');
+            s.src = 'https://wikichoon-com.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
       </article>
       </div>
     </main>

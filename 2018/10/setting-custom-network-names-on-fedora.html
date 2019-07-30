@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2019-07-29 19:22:31.133483 -->
+<!-- Generated 2019-07-30 13:56:37.134426 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -46,12 +46,29 @@
         <div class="post-content" itemprop="articleBody">
           <p><a href="https://www.freedesktop.org/wiki/Software/systemd/PredictableNetworkInterfaceNames/">systemd predictable network names</a> give us host interface names like <strong>enp3s0</strong>. On one of my hosts, I have two interfaces: one that is my regular hard wired connection, and another I only plug in occasionally for some virt network testing. I can never remember the systemd names, so I want to rename the interfaces to something more descriptive for my needs. in my case <strong>lan0main</strong> and <strong>lan1pcie</strong></p>
 <p>The page referenced says to use systemd links. However after struggling with that for a while I'm that's only relevant to systemd-networkd usage and doesn't apply to Fedora's default use of NetworkManager. So I needed another way.</p>
-<p>Long story short I ended up with some custom udev rules that are patterned after the old 70-persistent-net.rules file:</p>
+<p>Long story short I ended up with some custom udev rules that are patterned after the old 70-persistent-net.rules file. Replace <code>$MYMAC1</code> and <code>$MYMAC2</code> with your specific values</p>
 <div class="highlight"><pre><span></span><span class="gp">$</span> cat /etc/udev/rules.d/99-cole-nic-names.rules
-<span class="go">SUBSYSTEM==&quot;net&quot;, ACTION==&quot;add&quot;, DRIVERS==&quot;?*&quot;, ATTR{address}==&quot;70:8b:cd:80:e5:5f&quot;, ATTR{type}==&quot;1&quot;, NAME=&quot;lan0main&quot;</span>
-<span class="go">SUBSYSTEM==&quot;net&quot;, ACTION==&quot;add&quot;, DRIVERS==&quot;?*&quot;, ATTR{address}==&quot;68:05:ca:1a:f5:da&quot;, ATTR{type}==&quot;1&quot;, NAME=&quot;lan1pcie&quot;</span>
+<span class="go">SUBSYSTEM==&quot;net&quot;, ACTION==&quot;add&quot;, DRIVERS==&quot;?*&quot;, ATTR{address}==&quot;$MYMAC1&quot;, ATTR{type}==&quot;1&quot;, NAME=&quot;lan0main&quot;</span>
+<span class="go">SUBSYSTEM==&quot;net&quot;, ACTION==&quot;add&quot;, DRIVERS==&quot;?*&quot;, ATTR{address}==&quot;$MYMAC2&quot;, ATTR{type}==&quot;1&quot;, NAME=&quot;lan1pcie&quot;</span>
 </pre></div>
         </div>
+
+        <div id="disqus_thread"></div>
+        <script>
+          var disqus_config = function () {
+            this.page.url = 'https://blog.wikichoon.com/2018/10/setting-custom-network-names-on-fedora.html';
+            this.page.identifier = 'https://blog.wikichoon.com/2018/10/setting-custom-network-names-on-fedora.html';
+          };
+
+          (function() {
+            var d = document, s = d.createElement('script');
+            s.src = 'https://wikichoon-com.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
       </article>
       </div>
     </main>

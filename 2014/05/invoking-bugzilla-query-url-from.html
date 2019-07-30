@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2019-07-29 19:22:31.133483 -->
+<!-- Generated 2019-07-30 13:56:37.134426 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -44,15 +44,14 @@
         </header>
 
         <div class="post-content" itemprop="articleBody">
-          <p>The /usr/bin/bugzilla tool provided by <a href="https://fedorahosted.org/python-bugzilla/">python-bugzilla</a> is quite handy for managing batch actions on bugs or quickly performing simple queries. However when you want to perform a crazy query with all sorts of boolean rules that the web UI exposes, the command line gets pretty unwieldy.</p>
-<p>However, there's a simple workaround for this. Generate a query URL using the bugzilla web UI, and pass it to /usr/bin/bugzilla like:</p>
-<p><code>bugzilla query --from-url "$url"</code></p>
-<p>That's it! Then you can tweak the output as you want using --outputformat or similar. This also works for savedsearch URLs as well.</p>
-<p>So, say I go to the bugzilla web UI and say 'show me all open, upstream libvirt bugs that haven't received a comment in since 2013'. It generates a massive URL. Here's what the URL looks like:</p>
+          <p><code>/usr/bin/bugzilla</code> provided by <a href="https://fedorahosted.org/python-bugzilla/">python-bugzilla</a> is quite handy for managing batch actions on bugs or quickly performing simple queries. However when you want to perform a crazy query with all sorts of boolean rules that the web UI exposes, the command line gets pretty unwieldy.</p>
+<p>There's a simple workaround for this. Generate a query URL using the bugzilla web UI, and pass it to <code>/usr/bin/bugzilla</code> like:</p>
+<p><code>bugzilla query --from-url "$URL"</code></p>
+<p>For example, say I go to the bugzilla web UI and say 'show me all open, upstream libvirt bugs that haven't received a comment in since 2013'. It generates a massive URL. Here's what the URL looks like:</p>
 <blockquote>
 <p>https://bugzilla.redhat.com/buglist.cgi?bug_status=NEW&amp;bug_status=ASSIGNED&amp;bug_status=POST&amp;bug_status=MODIFIED&amp;bug_status=ON_DEV&amp;bug_status=ON_QA&amp;bug_status=VERIFIED&amp;bug_status=RELEASE_PENDING&amp;classification=Community&amp;component=libvirt&amp;f1=longdesc&amp;list_id=2372821&amp;n1=1&amp;o1=changedafter&amp;product=Virtualization%20Tools&amp;query_format=advanced&amp;v1=2013-12-31</p>
 </blockquote>
-<p>Just pass that that thing as $url in the above command, and you should see the same results as the web search (if your results aren't the same, you might need to do 'bugzilla login' first to cache credentials).</p>
+<p>Just pass that that string as <code>$URL</code> in the above command, and you should see the same results as the web search (if your results aren't the same, you might need to do <code>bugzilla login</code> first to cache credentials).</p>
 <p>This is also easy to do via the python API:</p>
 <div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/python</span>
 
@@ -66,7 +65,25 @@
 
 
 <p>The caveat: as of now this only works with bugzilla.redhat.com, which has an API extension that allows it to interpret the URL syntax as regular query parameters. My understanding is that this may be available upstream at some point, so other bugzilla instances will benefit as well.</p>
+<p>(Edit 2019: I believe this works for all bugzilla 5.0 versions nowadays, not just bugzilla.redhat.com)</p>
         </div>
+
+        <div id="disqus_thread"></div>
+        <script>
+          var disqus_config = function () {
+            this.page.url = 'https://blog.wikichoon.com/2014/05/invoking-bugzilla-query-url-from.html';
+            this.page.identifier = 'https://blog.wikichoon.com/2014/05/invoking-bugzilla-query-url-from.html';
+          };
+
+          (function() {
+            var d = document, s = d.createElement('script');
+            s.src = 'https://wikichoon-com.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
       </article>
       </div>
     </main>

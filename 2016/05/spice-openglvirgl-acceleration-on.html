@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2019-07-29 19:22:31.133483 -->
+<!-- Generated 2019-07-30 13:56:37.134426 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -46,7 +46,7 @@
         <div class="post-content" itemprop="articleBody">
           <p>New in Fedora 24 virt is 3D accelerated SPICE graphics, via <a href="https://virgil3d.github.io/">Virgl</a>. This is kinda-sorta OpenGL passthrough from the VM up to the host machine. Much of the initial support has been around since qemu 2.5, but it's more generally accessible now that SPICE is in the mix, since that's the default display type used by virt-manager and gnome-boxes.</p>
 <p>I'll explain below how you can test things on Fedora 24, but first let's cover the hurdles and caveats. This is far from being something that can be turned on by default and there's still serious integration issues to iron out. All of this is regarding usage with libvirt tools.</p>
-<h3>Caveats and known issues</h3>
+<h4>Caveats and known issues</h4>
 <ul>
 <li>This doesn't work with qemu:///system yet, which is what <a href="https://blog.wikichoon.com/2016/01/qemusystem-vs-qemusession.html">virt-manager uses by default</a>. Permissions and <a href="https://www.redhat.com/archives/libvir-list/2016-May/msg01435.html">cgroup access</a> are problematic at the moment. qemu:///session (the gnome-boxes default) is saved from some of these issues, but it's still affected by...</li>
 <li><a href="https://bugzilla.redhat.com/show_bug.cgi?id=1337333">svirt/selinux issues</a>. We haven't come up with a plan here yet.</li>
@@ -56,7 +56,7 @@
 <li>virt-manager has some <a href="https://bugzilla.redhat.com/show_bug.cgi?id=1337721">weird behavior if trying to run two GL enabled VMs at once</a>. Patches have been posted upstream for spice-gtk</li>
 </ul>
 <p>Because of these issues, we haven't exposed this as a UI knob in any of the tools yet, to save us some redundant bug reports for the above issues from users who are just clicking a cool sounding check box :) Instead you'll need to explicitly opt in via the command line.</p>
-<h3>Testing it out</h3>
+<h4>Testing it out</h4>
 <p>You'll need the following packages (or later) to test this:</p>
 <ul>
 <li>qemu-2.6.0-2.fc24</li>
@@ -82,6 +82,23 @@
 <p>And of course the more fun test of giving supertuxkart a spin :)</p>
 <p>Credit to Dave Airlie, Gerd Hoffman, and Marc-André Lureau for all the great work that got us to this point!</p>
         </div>
+
+        <div id="disqus_thread"></div>
+        <script>
+          var disqus_config = function () {
+            this.page.url = 'https://blog.wikichoon.com/2016/05/spice-openglvirgl-acceleration-on.html';
+            this.page.identifier = 'https://blog.wikichoon.com/2016/05/spice-openglvirgl-acceleration-on.html';
+          };
+
+          (function() {
+            var d = document, s = d.createElement('script');
+            s.src = 'https://wikichoon-com.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
       </article>
       </div>
     </main>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2019-07-29 19:22:31.133483 -->
+<!-- Generated 2019-07-30 13:56:37.134426 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -46,17 +46,16 @@
         <div class="post-content" itemprop="articleBody">
           <p>One of the new features in <a href="https://blog.wikichoon.com/2015/05/virt-manager-120-released.html">virt-manager 1.2.0</a> (from back in May) is user friendly support for enabling UEFI.</p>
 <p>First a bit about terminology: When UEFI is packaged up to run in an x86 VM, it's often called <strong>OVMF</strong>. When UEFI is packaged up to run in an AArch64 VM, it's often called <strong>AAVMF</strong>. But I'll just refer to all of it as UEFI.</p>
-<p><br/></p>
-<h3>Using UEFI with virt-install and virt-manager</h3>
+<h4>Using UEFI with virt-install and virt-manager</h4>
 <p>The first step to enable this for VMs is to install the binaries. UEFI still has some <a href="https://fedoraproject.org/wiki/Using_UEFI_with_QEMU#EDK2_Licensing_Issues">licensing issues</a> that make it incompatible with Fedora's policies, so the bits are hosted in an external repo. Details for installing the repo and UEFI bits are <a href="https://fedoraproject.org/wiki/Using_UEFI_with_QEMU#Firmware_installation">over here</a>.</p>
+<p>(Edit: those licensing issues were resolved and now the packages are <a href="http://localhost:8000/2016/06/uefi-virt-support-now-in-official.html">natively available in Fedora repos</a>)</p>
 <p>Once the bits are installed (and you're on Fedora 22 or later), virt-manager and virt-install provide simple options to enable UEFI when creating VMs.</p>
 <p><a href="https://marcin.juszkiewicz.com.pl/2015/04/17/running-vms-on-fedoraaarch64/">Marcin has a great post</a> with screenshots describing this for virt-manager (for aarch64, but the steps are identical for x86 VMs).</p>
 <p>For virt-install it's as simple as doing: <code>sudo virt-install --boot uefi ...</code></p>
-<p>virt-install will get the binary paths from libvirt and set everything up with the optimal config. If virt-install can't figure out the correct parameters, like if no UEFI binaries are installed, you'll see an error like: ERROR    Error: --boot uefi: Don't know how to setup UEFI for arch 'x86'</p>
-<p>See 'virt-install --boot help' if you need to tweak the parameters individually.</p>
-<p><br/></p>
-<h3>Implementing support in applications</h3>
-<p>Libvirt needs to know about UEFIto NVRAM config file mapping, so it can advertise it to tools like virt-manager/virt-install. Libvirt looks at a hardcoded list of known host paths to see if any firmware is installed, and if so, lists those paths in domain capabilities output (virsh domcapabilities). Libvirt in Fedora 22+ knows to look for the paths provided by the repo mentioned above, so just installing the firmware is sufficient to make libvirt advertise UEFI support.</p>
+<p>virt-install will get the binary paths from libvirt and set everything up with the optimal config. If virt-install can't figure out the correct parameters, like if no UEFI binaries are installed, you'll see an error like: <code>ERROR    Error: --boot uefi: Don't know how to setup UEFI for arch 'x86'</code></p>
+<p>See <code>virt-install --boot help</code> if you need to tweak the parameters individually.</p>
+<h4>Implementing support in applications</h4>
+<p>Libvirt needs to know about UEFI to NVRAM config file mapping, so it can advertise it to tools like virt-manager/virt-install. Libvirt looks at a hardcoded list of known host paths to see if any firmware is installed, and if so, lists those paths in domain capabilities output (<code>virsh domcapabilities</code>). Libvirt in Fedora 22+ knows to look for the paths provided by the repo mentioned above, so just installing the firmware is sufficient to make libvirt advertise UEFI support.</p>
 <p>The domain capabilities output only lists the firmware path and the associated variable store path. Notably lacking is any indication of what architecture the binaries are meant for. So tools need to determine this mapping themselves.</p>
 <p>virt-manager/virt-install and libguestfs use a similar path matching heuristic. The <a href="https://github.com/libguestfs/libguestfs/blob/master/v2v/utils.ml#L89">libguestfs code</a> is a good reference:</p>
 <div class="highlight"><pre><span></span><span class="k">match</span> <span class="n">guest_arch</span> <span class="k">with</span>
@@ -81,6 +80,23 @@
 
 <p>Having to track this in every app is quite crappy, but it's the only good solution at the moment. Hopefully long term libvirt <a href="https://bugzilla.redhat.com/show_bug.cgi?id=1295146">will grow some solution</a> that makes this easier for applications.</p>
         </div>
+
+        <div id="disqus_thread"></div>
+        <script>
+          var disqus_config = function () {
+            this.page.url = 'https://blog.wikichoon.com/2016/01/uefi-support-in-virt-install-and-virt.html';
+            this.page.identifier = 'https://blog.wikichoon.com/2016/01/uefi-support-in-virt-install-and-virt.html';
+          };
+
+          (function() {
+            var d = document, s = d.createElement('script');
+            s.src = 'https://wikichoon-com.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
       </article>
       </div>
     </main>

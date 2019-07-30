@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2019-07-29 19:22:31.133483 -->
+<!-- Generated 2019-07-30 13:56:37.134426 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -60,12 +60,29 @@
 <p>With the same release, qemu 1.7, a new qemu-img subcommand was introduced that allows converting between both versions, so you can downgrade your existing v3 image to the format known by RHEL 6 like this</p>
 <p>qemu-img amend -f qcow2 -o compat=0.10 test.qcow2</p>
 </blockquote>
-<p>As explained, qemu-img with QEMU 1.7+ also defaults to lazy_refcounts/compat=1.1, but also provides a 'qemu-img amend' tool to easily convert between the two formats.</p>
+<p>As explained, qemu-img with QEMU 1.7+ also defaults to <code>lazy_refcounts</code>/<code>compat=1.1</code>, but also provides a <code>qemu-img amend</code> command to easily convert between the two formats.</p>
 <p>Unfortunately that command is not available on Fedora 20 and older, however you can use the pre-existing 'qemu-img convert' command:</p>
 <p><code>qemu-img convert -f qcow2 -O qcow2 -o compat=0.10 $ORIGPATH $NEWPATH</code></p>
-<p>Beware though, converting between two qcow2 images will drop all internal snapshots in the new image, so only use that option if you don't need to preserve any snapshot data. 'qemu-img amend' <u>will</u> preserve snapshot data.</p>
-<p>(Unfortunately at this time virt-manager doesn't provide any way in the UI to _not_ use lazy_refcounts, but you could always use qemu-img/virsh to create a disk image outside of virt-manager, and select it when creating a new VM.)</p>
+<p>Beware though, converting between two qcow2 images will drop all internal snapshots in the new image, so only use that option if you don't need to preserve any snapshot data. <code>qemu-img amend</code> <u>will</u> preserve snapshot data.</p>
+<p>(Unfortunately at this time virt-manager doesn't provide any way in the UI to <u>not</u> use <code>lazy_refcounts</code>, but you could always use <code>qemu-img</code> or <code>virsh</code> to create a disk image outside of virt-manager, and select it when creating a new VM.)</p>
         </div>
+
+        <div id="disqus_thread"></div>
+        <script>
+          var disqus_config = function () {
+            this.page.url = 'https://blog.wikichoon.com/2014/12/virt-manager-10-creates-qcow2-images.html';
+            this.page.identifier = 'https://blog.wikichoon.com/2014/12/virt-manager-10-creates-qcow2-images.html';
+          };
+
+          (function() {
+            var d = document, s = d.createElement('script');
+            s.src = 'https://wikichoon-com.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
       </article>
       </div>
     </main>

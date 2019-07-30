@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2019-07-29 19:22:31.133483 -->
+<!-- Generated 2019-07-30 13:56:37.134426 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -44,16 +44,34 @@
         </header>
 
         <div class="post-content" itemprop="articleBody">
-          <p>I described virt-manager's CPU model default in <a href="https://blog.wikichoon.com/2014/03/virt-manager-improved-cpu-model-default.html">this post</a>. In that post I explained the difficulties of using either of the libvirt options for mirroring the host CPU: <strong>mode=host-model</strong> still has operational issues, and <strong>mode=host-passthrough</strong> isn't recommended for use with libvirt over supportability concerns.</p>
+          <p>(Edit 2019: This post is no longer accurate. virt-manager 2.0 and later uses <code>&lt;cpu mode="host-model"/&gt;</code> by default as the host-model issues were fixed with sufficiently new libvirt and qemu. host-model and host-passthrough are nearly functionally equivalent as well so use of host-passthrough is less compelling.)</p>
+<p>I described virt-manager's CPU model default in <a href="https://blog.wikichoon.com/2014/03/virt-manager-improved-cpu-model-default.html">this post</a>. In that post I explained the difficulties of using either of the libvirt options for mirroring the host CPU: <code>&lt;cpu mode="host-model"/&gt;</code> still has operational issues, and <code>&lt;cpu mode="host-passthrough"/&gt;</code> isn't recommended for use with libvirt over supportability concerns.</p>
 <p>Unfortunately since writing that post the situation hasn't improved any, and since host-passthrough is the only reliably way to expose the full capabilities of the host CPU to the VM, users regularly want to enable it. This is particularly apparent if trying to do nested virt, which often doesn't work on Intel CPUs unless host-passthrough is used.</p>
-<p>However we don't explicitly expose this option in virt-manager since it's not generally recommended for libvirt usage. You <em>can</em> however still enable it in virt-manager:</p>
+<p>However we don't explicitly expose this option in virt-manager since it's not generally recommended for libvirt usage. You <u>can</u> however still enable it in virt-manager:</p>
 <ul>
-<li>Navigate to VM Details->CPU</li>
-<li>Enter <strong>host-passthrough</strong> in the CPU model field</li>
-<li>Click Apply</li>
+<li>Navigate to <strong>VM Details-&gt;CPU</strong></li>
+<li>Enter <strong>host-passthrough</strong> in the <strong>CPU model</strong> field</li>
+<li>Click <strong>Apply</strong></li>
 </ul>
-<p><img alt="CPU host passthrough UI" height="365" src="https://blog.wikichoon.com/images/061-using-cpu-host-passthrough-with-virt-1.png" width="400"></p>
+<p><img alt="virt-manager CPU host passthrough UI" height="365" src="https://blog.wikichoon.com/images/061-using-cpu-host-passthrough-with-virt-1.png" width="400"></p>
         </div>
+
+        <div id="disqus_thread"></div>
+        <script>
+          var disqus_config = function () {
+            this.page.url = 'https://blog.wikichoon.com/2016/01/using-cpu-host-passthrough-with-virt.html';
+            this.page.identifier = 'https://blog.wikichoon.com/2016/01/using-cpu-host-passthrough-with-virt.html';
+          };
+
+          (function() {
+            var d = document, s = d.createElement('script');
+            s.src = 'https://wikichoon-com.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
       </article>
       </div>
     </main>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2019-07-29 19:22:31.133483 -->
+<!-- Generated 2019-07-30 13:56:37.134426 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -58,29 +58,46 @@
 <li>Add Bugzilla bug_autorefresh parameter.</li>
 </ul>
 <p>Some of these changes deserve a bit more explanation. This is just adapted from the release announcement, but I wanted to give these changes a bit more attention here on the blog.</p>
-<p><br/></p>
-<h3>Bugzilla tokens</h3>
+<h4>Bugzilla tokens</h4>
 <p>Sometime later in the year, bugzilla.redhat.com will be updated to a new version of bugzilla that replaces API cookie authentication with a non-cookie token system. I don't fully understand the reasoning so don't ask :) Regardless, this release supports the new token infrastructure along side the existing cookie handling.</p>
-<p>Users shouldn't notice any difference: we cache the token in \~/.bugzillatoken so things work the same as the current cookie auth.</p>
-<p>If you use cookiefile=None in the API to tell bugzilla _not_ to cache any login credentials, you will now also want to specify tokenfile=None (hint hint fedora infrastructure).</p>
-<p><br/></p>
-<h3>bugzilla --login and bugzilla --no-cache-credentials</h3>
-<p>Right now the only way to perform an authenticated bugzilla command on a new machine requires running a one time 'bugzilla login' to cache  credentials before running the desired command.</p>
-<p>Now you can just do 'bugzilla --login <cmd>' and the login process will be initiated before invoking the command.</p>
-<p>Additionally, the --no-cache-credentials option will tell the bugzilla tool to _not_ save any credentials to \~/.bugzillacookies or \~/.bugzillatoken.</cmd></p>
-<p><br/></p>
-<h3>Bugzilla.bug_autorefresh</h3>
-<p>When interacting with a Bug object, if you attempt to access a property (say, bugobj.component) that hasn't already been fetched from the bugzilla instance, python-bugzilla will do an automatic 'refresh'/getbug to pull down every property for said bug in an attempt to satisfy the request.</p>
-<p>This is convenient for a one off API invocation, but for recurring scripts this is a waste of time and bugzilla bandwidth. The autorefresh can be avoided by passing a properly formatted include_fields to your query request, where include_fields contains every Bug property you will access in your script.</p>
-<p>However it's still quite easy to extend a script with a new property usage and forget to adjust include_fields. Things will continue to work due to the autorefresh feature but your script will be far slower and wasteful.</p>
-<p>A new Bugzilla property has been added, bug_autorefresh. Set this to False to disable the autorefresh feature for newly fetched bugs. This will cause an explicit error to be raised if your code is depending on autorefresh.</p>
+<p>Users shouldn't notice any difference: we cache the token in <code>~/.bugzillatoken</code> so things work the same as the current cookie auth.</p>
+<p>If you use <code>cookiefile=None</code> in the API to tell bugzilla <u>not</u> to cache any login credentials, you will now also want to specify <code>tokenfile=None</code> (hint hint fedora infrastructure).</p>
+<h4><code>bugzilla --login</code> and <code>bugzilla --no-cache-credentials</code></h4>
+<p>Right now the only way to perform an authenticated bugzilla command on a new machine requires running a one time <code>bugzilla login</code> to cache credentials before running the desired command.</p>
+<p>Now you can just do <code>bugzilla --login $MY_COMMAND</code> and the login process will be initiated before invoking the command.</p>
+<p>Additionally, the <code>--no-cache-credentials</code> option will tell the bugzilla tool to <u>not</u> save any credentials to <code>~/.bugzillacookies</code> or <code>~/.bugzillatoken</code>.</p>
+<h4><code>Bugzilla.bug_autorefresh</code></h4>
+<p>When interacting with a <code>Bug</code> object, if you attempt to access a property (say, <code>bugobj.component</code>) that hasn't already been fetched from the bugzilla instance, python-bugzilla will do an automatic <code>getbug</code> refresh call to pull down every property for said bug in an attempt to satisfy the request.</p>
+<p>This is convenient for a one off API invocation, but for recurring scripts this is a waste of time and bugzilla bandwidth. The autorefresh can be avoided by passing a properly formatted <code>include_fields</code> to your query request, where <code>include_fields</code> contains every <code>Bug</code> property you will access in your script.</p>
+<p>However it's still quite easy to extend a script with a new property usage and forget to adjust <code>include_fields</code>. Things will continue to work due to the autorefresh feature but your script will be far slower and wasteful.</p>
+<p>A new <code>Bugzilla</code> class property has been added, <code>bug_autorefresh</code>. Set this to False to disable the autorefresh feature for newly fetched bugs. This will cause an explicit error to be raised if your code is depending on autorefresh.</p>
 <p>Please consider setting this property for your recurring scripts. Example:</p>
-<p>bzapi = Bugzilla("bugzilla.redhat.com")
-  bzapi.bug_autorefresh = False
-  ...</p>
-<p>autorefresh can be disabled for individual bugs with:</p>
-<p>bug.autorefresh = False</p>
+<div class="highlight"><pre><span></span><span class="n">bzapi</span> <span class="o">=</span> <span class="n">Bugzilla</span><span class="p">(</span><span class="s2">&quot;bugzilla.redhat.com&quot;</span><span class="p">)</span>
+<span class="n">bzapi</span><span class="o">.</span><span class="n">bug_autorefresh</span> <span class="o">=</span> <span class="bp">False</span>
+</pre></div>
+
+
+<p><code>autorefresh</code> can be disabled for individual bugs with:</p>
+<div class="highlight"><pre><span></span><span class="n">bug</span><span class="o">.</span><span class="n">autorefresh</span> <span class="o">=</span> <span class="bp">False</span>
+</pre></div>
         </div>
+
+        <div id="disqus_thread"></div>
+        <script>
+          var disqus_config = function () {
+            this.page.url = 'https://blog.wikichoon.com/2014/06/python-bugzilla-110-released.html';
+            this.page.identifier = 'https://blog.wikichoon.com/2014/06/python-bugzilla-110-released.html';
+          };
+
+          (function() {
+            var d = document, s = d.createElement('script');
+            s.src = 'https://wikichoon-com.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
       </article>
       </div>
     </main>

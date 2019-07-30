@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2019-07-29 19:22:31.133483 -->
+<!-- Generated 2019-07-30 13:56:37.134426 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -44,14 +44,31 @@
         </header>
 
         <div class="post-content" itemprop="articleBody">
-          <p>In the recent <a href="https://blog.wikichoon.com/2014/02/virt-manager-100-released.html">virt-manager 1.0 release</a>, we've taken a step towards deprecating one of the command line tools we ship, <a href="https://linux.die.net/man/1/virt-image">virt-image(1)</a>. This shouldn't have any real end user effect because I'm pretty sure near zero people are using it.</p>
+          <p>(edit 2014-09-08: virt-image was removed in <a href="https://blog.wikichoon.com/2014/09/virt-manager-110-released.html">virt-manager-1.1.0</a>)</p>
+<p>In the recent <a href="https://blog.wikichoon.com/2014/02/virt-manager-100-released.html">virt-manager 1.0 release</a>, we've taken a step towards deprecating one of the command line tools we ship, <a href="https://linux.die.net/man/1/virt-image">virt-image(1)</a>. This shouldn't have any real end user effect because I'm pretty sure near zero people are using it.</p>
 <p>virt-image <a href="https://www.redhat.com/archives/et-mgmt-tools/2007-June/msg00076.html">was created</a> in June 2007 as an <a href="https://linux.die.net/man/5/virt-image">XML schema</a> and command line tool for distributing VM images as appliances. The format would describe the fundamental needs of a VM image, like how many disk devices it wants, but leave the individual configuration details up to the user. The virt-image(1) tool would take the XML as input and kick off a libvirt VM.</p>
 <p>While the idea was reasonable, the XML format would only be useful if people actually used it, which never happened. All desktop VM appliance usage nowadays is shipped with native VMWare config as .vmx files, or with .ovf configuration.</p>
 <p>In the past, <a href="https://git.fedorahosted.org/cgit/appliance-tools.git/">appliance-tools</a> generated virt-image XML, but that was dropped. Same with <a href="https://boxgrinder.org/">boxgrinder</a>.</p>
 <p>But most users of it in the past few years have been way of the (also little used) virt-convert tool that we ship with virt-manager (which I'll cover in a later post). Historically virt-convert would output virt-image XML by default. Well, that too was changed in 1.0: virt-convert generates direct libvirt XML now. This makes virt-convert more convenient, and left us with no good reason to keep virt-image around anymore.</p>
 <p>So the plan is to drop virt-image before the next major release of virt-manager. Likely sometime in the next 6 months.</p>
-<p>(edit 2014-09-08: virt-image was removed in <a href="https://blog.wikichoon.com/2014/09/virt-manager-110-released.html">virt-manager-1.1.0</a>)</p>
         </div>
+
+        <div id="disqus_thread"></div>
+        <script>
+          var disqus_config = function () {
+            this.page.url = 'https://blog.wikichoon.com/2014/04/deprecating-little-used-tool-virt-image1.html';
+            this.page.identifier = 'https://blog.wikichoon.com/2014/04/deprecating-little-used-tool-virt-image1.html';
+          };
+
+          (function() {
+            var d = document, s = d.createElement('script');
+            s.src = 'https://wikichoon-com.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
       </article>
       </div>
     </main>
