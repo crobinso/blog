@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2019-08-01 16:08:26.805535 -->
+<!-- Generated 2020-06-26 15:40:06.270935 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -79,7 +79,7 @@
 </ul>
 <p>The bits about 'allow-insecure' is so that an unprivileged client can access the gluster share, see <a href="https://bugzilla.redhat.com/show_bug.cgi?id=1171436">this bug</a> for more info. The gluster docs also have a <a href="https://www.gluster.org/community/documentation/index.php/Libgfapi_with_qemu_libvirt#Tuning_glusterfsd_to_accept_requests_from_QEMU">section about it</a> but the steps don't appear to be complete.</p>
 <p>The final bit is setting up a storage pool with libvirt. The XML I passed to <code>virsh pool-define</code> on my host looks like:</p>
-<div class="highlight"><pre><span></span><span class="nt">&lt;pool</span> <span class="na">type=</span><span class="s">&#39;gluster&#39;</span><span class="nt">&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;pool</span> <span class="na">type=</span><span class="s">&#39;gluster&#39;</span><span class="nt">&gt;</span>
   <span class="nt">&lt;name&gt;</span>f21-gluster<span class="nt">&lt;/name&gt;</span>
   <span class="nt">&lt;source&gt;</span>
     <span class="nt">&lt;host</span> <span class="na">name=</span><span class="s">&#39;$VM_IPADDRESS&#39;</span><span class="nt">/&gt;</span>
@@ -87,7 +87,7 @@
     <span class="nt">&lt;name&gt;</span>gv0<span class="nt">&lt;/name&gt;</span>
   <span class="nt">&lt;/source&gt;</span>
 <span class="nt">&lt;/pool&gt;</span>
-</pre></div>
+</code></pre></div>
         </div>
 
         <div id="disqus_thread"></div>

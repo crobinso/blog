@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2019-08-01 16:08:26.805535 -->
+<!-- Generated 2020-06-26 15:40:06.270935 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -63,7 +63,7 @@
 <li>Tags are listed by date rather than alphabetically. Some projects change tag string formats, or versioning schemes, that then don't sort correctly when listed alphabetically. Sorting by date makes it easy to see the latest tag. Often I just want to know what the latest tag or the latest stable release is, this makes it easy.</li>
 </ul>
 <p>The alias code is:</p>
-<div class="highlight"><pre><span></span><span class="k">[alias]</span>
+<div class="highlight"><pre><span></span><code><span class="k">[alias]</span>
    <span class="na">tags</span> <span class="o">=</span> <span class="s">&quot;!sh -c &#39; \</span>
 <span class="na">git for-each-ref --format</span><span class="o">=</span><span class="s">\&quot;%(refname:short)\&quot; refs/tags | \</span>
 <span class="na">while read tag; do \</span>
@@ -74,14 +74,14 @@
    <span class="na">fmt</span><span class="o">=</span><span class="s">\&quot;%Cred$tag:%Cblue %s %Cgreen%h%Creset (%ai)\&quot;; \</span>
 <span class="s">   git --no-pager log -1 --format=format:\&quot;$fmt\&quot; $tag; echo; \</span>
 <span class="na">done&#39;&quot;</span>
-</pre></div>
+</code></pre></div>
 
 
 <h4>Find the first tag that contains a commit</h4>
 <p>This seems to come up quite a bit for me. An example is <a href="https://www.redhat.com/archives/libvir-list/2014-July/msg00832.html">here</a>; a user was asking about a virt-install feature, and I wanted to tell them what version it appeared in. I grepped <code>git log</code>, found the commit, then ran:</p>
-<div class="highlight"><pre><span></span><span class="gp">$</span> git describe --contains 87a611b5470d9b86bf57a71ce111fa1d41d8e2cd
+<div class="highlight"><pre><span></span><code><span class="gp">$</span> git describe --contains 87a611b5470d9b86bf57a71ce111fa1d41d8e2cd
 <span class="go">v1.0.0~201</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>That shows me that v1.0.0 was the first release with the feature they wanted, just take whatever is to the left of the tilde.</p>

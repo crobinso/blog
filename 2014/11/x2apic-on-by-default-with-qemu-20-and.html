@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2019-08-01 16:08:26.805535 -->
+<!-- Generated 2020-06-26 15:40:06.270935 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -63,12 +63,12 @@ Priot to that, actually benefiting from x2apic required a tool like virt-manager
 <p>(In retrospect, we likely could have made it work by just trying to duplicate the default CPU model logic that qemu uses, however that might have hit issues if the CPU default ever changed, like on RHEL for example.)</p>
 <p>Later on virt-manager and virt-install gained UI for enabling x2apic, but a user had to know what they were doing and hunt it down.</p>
 <p>As mentioned above, as of qemu 2.0.0 any x86 KVM VM will have x2apic automatically enabled, so there's no explicit need to opt in. From <a href="https://github.com/qemu/qemu/commit/ef02ef5f4536dba090b12360a6c862ef0e57e3bc">qemu.git</a>:</p>
-<div class="highlight"><pre><span></span>commit ef02ef5f4536dba090b12360a6c862ef0e57e3bc
-Author: Eduardo Habkost &lt;ehabkost redhat.com&gt;
-Date:   Wed Feb 19 11:58:12 2014 -0300
+<div class="highlight"><pre><span></span><code><span class="k">commit</span> <span class="n">ef02ef5f4536dba090b12360a6c862ef0e57e3bc</span>
+<span class="n">Author</span><span class="p">:</span> <span class="n">Eduardo</span> <span class="n">Habkost</span> <span class="o">&lt;</span><span class="n">ehabkost</span> <span class="n">redhat</span><span class="p">.</span><span class="n">com</span><span class="o">&gt;</span>
+<span class="nb">Date</span><span class="p">:</span>   <span class="n">Wed</span> <span class="n">Feb</span> <span class="mi">19</span> <span class="mi">11</span><span class="p">:</span><span class="mi">58</span><span class="p">:</span><span class="mi">12</span> <span class="mi">2014</span> <span class="o">-</span><span class="mi">0300</span>
 
-    target-i386: Enable x2apic by default on KVM
-</pre></div>
+    <span class="n">target</span><span class="o">-</span><span class="n">i386</span><span class="p">:</span> <span class="n">Enable</span> <span class="n">x2apic</span> <span class="k">by</span> <span class="k">default</span> <span class="k">on</span> <span class="n">KVM</span>
+</code></pre></div>
         </div>
 
         <div id="disqus_thread"></div>

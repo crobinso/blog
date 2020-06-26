@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2019-08-01 16:08:26.805535 -->
+<!-- Generated 2020-06-26 15:40:06.270935 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -57,7 +57,7 @@
           <p>Recently some internal discussions at Red Hat motivated me to look into using <a href="https://github.com/OfflineIMAP/offlineimap">offlineimap</a>. I had thought about doing this for some time as a step towards giving <a href="https://www.mutt.org/">mutt</a> a try, but for now I decided to keep my original thunderbird setup. This turned out to be a bit more work than I anticipated, so I'm documenting it here.</p>
 <p>The primary difficulty is that offlineimap stores mail locally in Maildir format, but thunderbird only reads mbox format. The common solution to this is to serve the offlineimap mail via a local mail server, and have thunderbird connect to that. For the mail server I'm using <a href="https://www.dovecot.org/">dovecot</a>. Getting offlineimap output and dovecot to play nicely together in a format that thunderbird can consume was a bit tricky...</p>
 <p>Here's the ~/.offlineimaprc I settled on:</p>
-<div class="highlight"><pre><span></span><span class="k">[general]</span>
+<div class="highlight"><pre><span></span><code><span class="k">[general]</span>
 <span class="na">accounts</span> <span class="o">=</span> <span class="s">work </span>
 
 <span class="k">[Account work]</span>
@@ -97,7 +97,7 @@
 <span class="c1"># For Dovecot to see the folders right I want them starting with a dot,</span>
 <span class="c1"># and dovecot set to look for .INBOX as the toplevel Maildir</span>
 <span class="na">nametrans</span> <span class="o">=</span> <span class="s">lambda name: &#39;.&#39; + name</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>A few notes here:</p>
@@ -107,16 +107,16 @@
 <li>My setup implicitly depends on having authenticated with my companies kerberos. Still haven't figured out a good way of keeping the kerberos ticket fresh on a machine that moves on and off the VPN regularly. I know <a href="https://jhrozek.wordpress.com/2015/07/17/get-rid-of-calling-manually-calling-kinit-with-sssds-help/">SSSD can kinda handle</a> it but it seems to tie local login to work infrastructure which I'm not sure I want.</li>
 </ul>
 <p>For dovecot, I just needed to drop this into /etc/dovecot/local.conf and start/enable the service:</p>
-<div class="highlight"><pre><span></span><span class="na">protocols</span> <span class="o">=</span> <span class="s">imap imaps</span>
+<div class="highlight"><pre><span></span><code><span class="na">protocols</span> <span class="o">=</span> <span class="s">imap imaps</span>
 <span class="na">listen</span> <span class="o">=</span> <span class="s">127.0.0.1</span>
 <span class="na">mail_location</span> <span class="o">=</span> <span class="s">maildir:~/.maildir:INBOX=~/.maildir/.INBOX</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>Then configure thunderbird to connect to 127.0.0.1. User and password are the same as your local machine user account.</p>
 <p>The tricky part seems to be formatting the maildir directory names in a way that dovecot will understand and properly advertise as folders/subfolders. I played with dovecot LAYOUT=fs, various sep/separator values and offlineimap renamings, but the above config is the only thing I found that gave expected results (and I can't take credit for that setup, I eventually found it on an internal wiki page :) )</p>
 <p>Here's some (trimmed) directories in my ~/.maildir:</p>
-<div class="highlight"><pre><span></span><span class="gp">$</span> ls -1da .maildir/
+<div class="highlight"><pre><span></span><code><span class="gp">$</span> ls -1da .maildir/
 <span class="go">.Drafts</span>
 <span class="go">.INBOX</span>
 <span class="go">.INBOX.fedora</span>
@@ -124,7 +124,7 @@
 <span class="go">.INBOX.qemu</span>
 <span class="go">.INBOX.virt-tools</span>
 <span class="go">.Junk</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>So .Drafts, .INBOX, .Junk are all top level folders, and things like .INBOX.fedora is a 'fedora' subfolder of my inbox. That's the naming scheme the default dovecot config seems to expect.</p>

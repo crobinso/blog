@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2019-08-01 16:08:26.805535 -->
+<!-- Generated 2020-06-26 15:40:06.270935 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -56,55 +56,55 @@
         <div class="post-content" itemprop="articleBody">
           <p>A new feature shipped with <a href="https://blog.wikichoon.com/2014/02/virt-manager-100-released.html">virt-manager 1.0.0</a> is simple command line introspection for virt-install and <a href="https://www.redhat.com/archives/virt-tools-list/2014-January/msg00179.html">virt-xml</a>.</p>
 <p>Basically, any of the compound options like --disk or --graphics that take sub arguments of the form opt1=val1,opt2=val2,... will print all their sub arguments if invoked like --disk=? or --graphics=help. Example:</p>
-<div class="highlight"><pre><span></span> $ virt-install --disk=? --network=help
- --disk options:
-  backing_store
-  boot_order
-  bus
-  cache
-  clearxml
-  device
-  driver_name
-  driver_type
-  error_policy
-  format
-  io
-  path
-  pool
-  read_bytes_sec
-  read_iops_sec
-  readonly
-  removable
-  serial
-  shareable
-  size
-  sparse
-  startup_policy
-  target
-  total_bytes_sec
-  total_iops_sec
-  vol
-  write_bytes_sec
-  write_iops_sec
+<div class="highlight"><pre><span></span><code> <span class="err">$</span> <span class="n">virt</span><span class="o">-</span><span class="n">install</span> <span class="c1">--disk=? --network=help</span>
+ <span class="c1">--disk options:</span>
+  <span class="n">backing_store</span>
+  <span class="n">boot_order</span>
+  <span class="n">bus</span>
+  <span class="k">cache</span>
+  <span class="n">clearxml</span>
+  <span class="n">device</span>
+  <span class="n">driver_name</span>
+  <span class="n">driver_type</span>
+  <span class="n">error_policy</span>
+  <span class="n">format</span>
+  <span class="n">io</span>
+  <span class="n">path</span>
+  <span class="n">pool</span>
+  <span class="n">read_bytes_sec</span>
+  <span class="n">read_iops_sec</span>
+  <span class="n">readonly</span>
+  <span class="n">removable</span>
+  <span class="nb">serial</span>
+  <span class="n">shareable</span>
+  <span class="k">size</span>
+  <span class="n">sparse</span>
+  <span class="n">startup_policy</span>
+  <span class="n">target</span>
+  <span class="n">total_bytes_sec</span>
+  <span class="n">total_iops_sec</span>
+  <span class="n">vol</span>
+  <span class="n">write_bytes_sec</span>
+  <span class="n">write_iops_sec</span>
 
- --network options:
-  boot_order
-  clearxml
-  driver_name
-  driver_queues
-  filterref
-  mac
-  model
-  source
-  source_mode
-  target
-  type
-  virtualport_instanceid
-  virtualport_managerid
-  virtualport_type
-  virtualport_typeid
-  virtualport_typeidversion 
-</pre></div>
+ <span class="c1">--network options:</span>
+  <span class="n">boot_order</span>
+  <span class="n">clearxml</span>
+  <span class="n">driver_name</span>
+  <span class="n">driver_queues</span>
+  <span class="n">filterref</span>
+  <span class="n">mac</span>
+  <span class="n">model</span>
+  <span class="k">source</span>
+  <span class="n">source_mode</span>
+  <span class="n">target</span>
+  <span class="k">type</span>
+  <span class="n">virtualport_instanceid</span>
+  <span class="n">virtualport_managerid</span>
+  <span class="n">virtualport_type</span>
+  <span class="n">virtualport_typeid</span>
+  <span class="n">virtualport_typeidversion</span> 
+</code></pre></div>
 
 
 <p>We aim to document common bits in the virt-install man page, but for less commonly used options it's better to see <a href="https://libvirt.org/formatdomain.html">the official libvirt XML documenation</a>.</p>

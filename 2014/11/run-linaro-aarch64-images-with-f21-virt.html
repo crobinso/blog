@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2019-08-01 16:08:26.805535 -->
+<!-- Generated 2020-06-26 15:40:06.270935 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -61,7 +61,7 @@
 <li>Extract the disk image: <code>unar vexpress64-openembedded_minimal-armv8-gcc-4.9_20141023-693.img.gz</code></li>
 </ul>
 <p>Finally, import it with virt-install. The command and output are:</p>
-<div class="highlight"><pre><span></span>$ sudo virt-install
+<div class="highlight"><pre><span></span><code>$ sudo virt-install
      --name linaro-aarch64 --ram <span class="m">1024</span>
      --arch aarch64 --cpu cortex-a57
      --disk vexpress64-openembedded_minimal-armv8-gcc-4.9_20141023-693.img
@@ -78,7 +78,7 @@ Escape character is ^<span class="o">]</span>
 ...
 Last login: Wed Nov <span class="m">19</span> <span class="m">17</span>:16:22 UTC <span class="m">2014</span> on tty1
 root@genericarmv8:~#
-</pre></div>
+</code></pre></div>
 
 
 <p>(Maybe you're wondering, what about fedora images? They are a bit different, since they expect to run with UEFI. I'll blog about that soon once I finish some testing)</p>

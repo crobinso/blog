@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2019-08-01 16:08:26.805535 -->
+<!-- Generated 2020-06-26 15:40:06.270935 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -56,18 +56,18 @@
         <div class="post-content" itemprop="articleBody">
           <p>We shipped a new tool with <a href="https://blog.wikichoon.com/2014/02/virt-manager-100-released.html">virt-manager 1.0.0</a> called <a href="https://www.redhat.com/archives/virt-tools-list/2014-January/msg00179.html">virt-xml</a>. virt-xml uses virt-install's command line options to allow building and editing libvirt domain XML. A few basic examples:</p>
 <p>Change the <code>&lt;description&gt;</code> of domain 'example':</p>
-<div class="highlight"><pre><span></span># virt-xml example --edit --metadata description=&quot;my new description&quot;
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="o">#</span> <span class="n">virt</span><span class="o">-</span><span class="n">xml</span> <span class="n">example</span> <span class="c1">--edit --metadata description=&quot;my new description&quot;</span>
+</code></pre></div>
 
 
 <p>Enable the boot device menu for domain 'example':</p>
-<div class="highlight"><pre><span></span># virt-xml example --edit --boot bootmenu=on
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="o">#</span> <span class="n">virt</span><span class="o">-</span><span class="n">xml</span> <span class="n">example</span> <span class="c1">--edit --boot bootmenu=on</span>
+</code></pre></div>
 
 
 <p>Hotplug host USB device 001.003 to running domain 'fedora19':</p>
-<div class="highlight"><pre><span></span># virt-xml f19 --add-device --host-device 001.003 --update
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="o">#</span> <span class="n">virt</span><span class="o">-</span><span class="n">xml</span> <span class="n">f19</span> <span class="c1">--add-device --host-device 001.003 --update</span>
+</code></pre></div>
 
 
 <p>The <a href="https://git.fedorahosted.org/cgit/virt-manager.git/tree/man/virt-xml.pod">virt-xml man page</a> also has a comprehensive set of examples.</p>

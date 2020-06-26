@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2019-08-01 16:08:26.805535 -->
+<!-- Generated 2020-06-26 15:40:06.270935 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -62,7 +62,7 @@
 <p><strong>Step 0: Run the test suite</strong></p>
 <p>The virt-manager test suite aims to always 100% pass, but depending on your host libvirt version things can occasionally be broken. Run 'python setup.py test' and note if any tests fail. The important bit here is that after we make all the following changes, the test suite shouldn't regress at all.</p>
 <p><strong>Step 1: XML generation</strong></p>
-<div class="highlight"><pre><span></span><span class="gh">diff --git a/virtinst/devicegraphics.py b/virtinst/devicegraphics.py</span>
+<div class="highlight"><pre><span></span><code><span class="gh">diff --git a/virtinst/devicegraphics.py b/virtinst/devicegraphics.py</span>
 <span class="gh">index 37f268a..a87b71c 100644</span>
 <span class="gd">--- a/virtinst/devicegraphics.py</span>
 <span class="gi">+++ b/virtinst/devicegraphics.py</span>
@@ -74,7 +74,7 @@
 
    listens = XMLChildProperty(_GraphicsListen)
    def remove_listen(self, obj):
-</pre></div>
+</code></pre></div>
 
 
 <p>Starting with <a href="https://github.com/virt-manager/virt-manager">virt-manager git</a>, first we extend the internal API to map a python class property to its associated XML value.</p>
@@ -89,7 +89,7 @@
 <p>'XMLProperty' is some custom glue that maps a python class property to an XML value, for both reading and writing. The value passed to XMLProperty is an XML xpath. If you don't know how xpaths work, google around, or try to find an existing example in the virtinst code.</p>
 <p>Notice that this doesn't do much else, like validate that the value passed to defaultMode is actually valid. The general rule is to leave this up to libvirt to complain.</p>
 <p><strong>Step 2: Command line handling</strong></p>
-<div class="highlight"><pre><span></span><span class="gh">diff --git a/virtinst/cli.py b/virtinst/cli.py</span>
+<div class="highlight"><pre><span></span><code><span class="gh">diff --git a/virtinst/cli.py b/virtinst/cli.py</span>
 <span class="gh">index 826663a..41d6a8c 100644</span>
 <span class="gd">--- a/virtinst/cli.py</span>
 <span class="gi">+++ b/virtinst/cli.py</span>
@@ -101,7 +101,7 @@
 
    def _parse(self, opts, inst):
      if opts.fullopts == &quot;none&quot;:
-</pre></div>
+</code></pre></div>
 
 
 <p>The next step is to set up command line handling. In this case we are adding a sub option to the --graphics command. Open up virtinst/cli.py and search for '--graphics', you'll find a comment with a ParserGraphics class defined after it. That's where we plug in new sub options.</p>
@@ -109,15 +109,15 @@
 <p>Some options do extra validation or need to do special handling. If you need extra functionality, look at examples that pass setter_cb to set_param.</p>
 <p>After this bit is applied, you'll see defaultMode appear in the --graphics=? output, and everything will work as expected. But we need to add a unit test to validate the XML generation.</p>
 <p>An easy way to test that this is working is with a command line like:</p>
-<div class="highlight"><pre><span></span>./virt-install --connect test:///default --name foo --ram 64
-              --nodisks --boot network --print-xml
-              --graphics spice,defaultMode=secure
-</pre></div>
+<div class="highlight"><pre><span></span><code>.<span class="o">/</span><span class="nv">virt</span><span class="o">-</span><span class="nv">install</span> <span class="o">--</span><span class="k">connect</span> <span class="nv">test</span>:<span class="o">///</span><span class="nv">default</span> <span class="o">--</span><span class="nv">name</span> <span class="nv">foo</span> <span class="o">--</span><span class="nv">ram</span> <span class="mi">64</span>
+              <span class="o">--</span><span class="nv">nodisks</span> <span class="o">--</span><span class="nv">boot</span> <span class="nv">network</span> <span class="o">--</span><span class="nv">print</span><span class="o">-</span><span class="nv">xml</span>
+              <span class="o">--</span><span class="nv">graphics</span> <span class="nv">spice</span>,<span class="nv">defaultMode</span><span class="o">=</span><span class="nv">secure</span>
+</code></pre></div>
 
 
 <p>That will use libvirt's 'test' driver, which is made for unit testing, and doesn't affect the host at all. The --print-xml command will output the new XML. Verify that your new command line option works as expected before continuing. See the <a href="https://github.com/virt-manager/virt-manager/blob/master/HACKING">HACKING</a> file for additional tips for using the test driver.</p>
 <p><strong>Step 3: Unit test XML generation</strong></p>
-<div class="highlight"><pre><span></span><span class="gh">diff --git a/tests/xmlparse.py b/tests/xmlparse.py</span>
+<div class="highlight"><pre><span></span><code><span class="gh">diff --git a/tests/xmlparse.py b/tests/xmlparse.py</span>
 <span class="gh">index a2448d2..397da45 100644</span>
 <span class="gd">--- a/tests/xmlparse.py</span>
 <span class="gi">+++ b/tests/xmlparse.py</span>
@@ -128,7 +128,7 @@
 <span class="gi">+    check(&quot;defaultMode&quot;, None, &quot;secure&quot;)</span>
 
      self._alter_compare(guest.get_xml_config(), outfile)
-</pre></div>
+</code></pre></div>
 
 
 <p>tests/xmlparse.py tests reading and writing, so it will test the change we made in virtinst/devicegraphics.py. Before you make any tests/, run 'python setup.py test --testfile xmlparse.py', you should see a new error: this is because xmlparse.py will emit a test failure if a new XML property in virtinst/ that isn't explicitly tested!</p>

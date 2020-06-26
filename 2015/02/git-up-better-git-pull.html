@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2019-08-01 16:08:26.805535 -->
+<!-- Generated 2020-06-26 15:40:06.270935 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -64,18 +64,18 @@
 <p>Solve them once and for all.</p>
 </blockquote>
 <p>As implied above, git-up will update all your branches that are tracking a remote branch. This often comes in handy in fedora git repos:</p>
-<div class="highlight"><pre><span></span><span class="gp">[crobinso@colepc openbios (master)]$</span> fedpkg pull
+<div class="highlight"><pre><span></span><code><span class="gp">[crobinso@colepc openbios (master)]$</span> fedpkg pull
 <span class="go">Already up-to-date.</span>
 <span class="gp">[crobinso@colepc openbios (master)]$</span> git up
 <span class="go">Fetching origin</span>
 <span class="go">f20  fast-forwarding...</span>
 <span class="go">master up to date</span>
 <span class="go">returning to master</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>Another useful bit is that it will stash and unstash uncommitted changes. Often times I find myself doing this:</p>
-<div class="highlight"><pre><span></span><span class="gp">[crobinso@colepc ~]$</span> <span class="nb">cd</span> src/virt-manager/
+<div class="highlight"><pre><span></span><code><span class="gp">[crobinso@colepc ~]$</span> <span class="nb">cd</span> src/virt-manager/
 <span class="gp">#</span> Hack some minor bug fix
 <span class="gp">[crobinso@colepc virt-manager (master *)]$</span>
 <span class="gp">#</span> Oops, I should pull first, maybe the issue is fixed
@@ -88,7 +88,7 @@
 <span class="go">master up to date</span>
 <span class="go">unstashing</span>
 <span class="gp">[crobinso@colepc virt-manager (master *)]$</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>Nowadays I don't even attempt the pull, <code>git up</code> is my reflex. (And yes I should just make it a reflex that I switch to a branch before doing any hacking...)</p>

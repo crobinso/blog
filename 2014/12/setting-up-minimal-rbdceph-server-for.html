@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2019-08-01 16:08:26.805535 -->
+<!-- Generated 2020-06-26 15:40:06.270935 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -57,7 +57,7 @@
           <p>In my <a href="https://blog.wikichoon.com/2014/12/setting-up-minimal-gluster-server-for.html">last post</a> I talked about setting up a minimal gluster server. Similarly this will describe how I set up a minimal single node rbd/ceph server in a VM for libvirt network storage testing.</p>
 <p>I pulled info from a <a href="https://eu.ceph.com/docs/wip-6919/start/quick-start/">few</a> <a href="https://derekweitzel.blogspot.com/2012/02/ceph-on-fedora-16.html">different</a> <a href="https://dachary.org/?p=2374">places</a> and a lot of other reading, but things just weren't working on F21; trying <code>systemctl start ceph</code> just wasn't producing any output, and all the <code>ceph</code> cli commands just hung. I had better success with F20.</p>
 <p>The main difficulty was figuring out a working ceph.conf. My VM's IP address is 1902.168.124.101, and its hostname is 'localceph', so here's what I ended up with:</p>
-<div class="highlight"><pre><span></span><span class="k">[global]</span>
+<div class="highlight"><pre><span></span><code><span class="k">[global]</span>
 <span class="na">auth cluster required</span> <span class="o">=</span> <span class="s">none</span>
 <span class="na">auth service required</span> <span class="o">=</span> <span class="s">none</span>
 <span class="na">auth client required</span> <span class="o">=</span> <span class="s">none</span>
@@ -81,7 +81,7 @@
 <span class="na">osd journal size</span> <span class="o">=</span> <span class="s">1000</span>
 <span class="k">[osd.0]</span>
 <span class="na">host</span> <span class="o">=</span> <span class="s">localceph</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>Ceph setup steps:</p>
@@ -107,14 +107,14 @@
 </ul>
 <p>Notable here is that no ceph auth is used. Libvirt supports ceph auth but at this stage I didn't want to deal with it for testing. This setup doesn't match what a real deployment would ever look like.</p>
 <p>Here's the pool definition I passed to <code>virsh pool-define</code> on my host:</p>
-<div class="highlight"><pre><span></span><span class="nt">&lt;pool</span> <span class="na">type=</span><span class="s">&#39;rbd&#39;</span><span class="nt">&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;pool</span> <span class="na">type=</span><span class="s">&#39;rbd&#39;</span><span class="nt">&gt;</span>
   <span class="nt">&lt;name&gt;</span>f20-ceph<span class="nt">&lt;/name&gt;</span>
   <span class="nt">&lt;source&gt;</span>
     <span class="nt">&lt;host</span> <span class="na">name=</span><span class="s">&#39;$VM_IPADDRESS&#39;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;name&gt;</span>rbd<span class="nt">&lt;/name&gt;</span>
   <span class="nt">&lt;/source&gt;</span>
 <span class="nt">&lt;/pool&gt;</span>
-</pre></div>
+</code></pre></div>
         </div>
 
         <div id="disqus_thread"></div>

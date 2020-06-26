@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2019-08-01 16:08:26.805535 -->
+<!-- Generated 2020-06-26 15:40:06.270935 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -57,8 +57,8 @@
           <p>One random change I noticed during the F18 cycle was that the default notification noise changed from an innocuous 'bell' sound to a 'water drip' noise. While I turn off all terminal noises, this sound still pops up in Firefox and Thunderbird when a ctrl-f quick search doesn't find a match, and in my F18 VMs with default configuration. And while I'm sure many developers just turn off all sound effects, I find them useful for email and IRC notifications.</p>
 <p>This new sound is offensive to my ears, one small step below nails on a chalk board. Unfortunately there is no way to undo this change in gnome-control-center's Sound panel, just 2 choices for the drip noise ('default' and 'drip'), and some other comical choices like a dog 'bark'. Nothing as unoffensive as the previous default. I (just yesterday) <a href="https://bugzilla.redhat.com/show_bug.cgi?id=904299">filed a bug</a> against control-center asking for a way to restore the old behavior.</p>
 <p>However, if you want to revert it in a hacky way, this should cover you until the next time sound-theme-freedesktop is updated:</p>
-<div class="highlight"><pre><span></span>sudo wget https://cgit.freedesktop.org/sound-theme-freedesktop/plain/stereo/bell.oga?id=38bc773912317a2163083b6f483fbc8e6fb61123 -O /usr/share/sounds/freedesktop/stereo/bell.oga
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">sudo</span> <span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">cgit</span><span class="p">.</span><span class="n">freedesktop</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">sound</span><span class="o">-</span><span class="n">theme</span><span class="o">-</span><span class="n">freedesktop</span><span class="o">/</span><span class="n">plain</span><span class="o">/</span><span class="n">stereo</span><span class="o">/</span><span class="n">bell</span><span class="p">.</span><span class="n">oga</span><span class="o">?</span><span class="n">id</span><span class="o">=</span><span class="mi">38</span><span class="n">bc773912317a2163083b6f483fbc8e6fb61123</span> <span class="o">-</span><span class="n">O</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="k">share</span><span class="o">/</span><span class="n">sounds</span><span class="o">/</span><span class="n">freedesktop</span><span class="o">/</span><span class="n">stereo</span><span class="o">/</span><span class="n">bell</span><span class="p">.</span><span class="n">oga</span>
+</code></pre></div>
 
 
 <!--

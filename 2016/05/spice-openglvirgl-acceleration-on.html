@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2019-08-01 16:08:26.805535 -->
+<!-- Generated 2020-06-26 15:40:06.270935 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -76,17 +76,17 @@
 <li>Fedore 24 beta in the guest. Anything earlier is not going to actually enable the 3D acceleration. I have no idea about the state of other distributions. And to make it abundantly clear this is <strong>linux only</strong> and likely will be for a long time at least, I don't know if Windows driver support is even on the radar.</li>
 </ul>
 <p>Once you install a Fedora 24 VM through the standard methods, you can enable spice GL for your VM with these two commands:</p>
-<div class="highlight"><pre><span></span><span class="gp">$</span> virt-xml --connect <span class="nv">$URI</span> <span class="nv">$VM_NAME</span> --confirm --edit --video <span class="nv">clearxml</span><span class="o">=</span>yes,model<span class="o">=</span>virtio,accel3d<span class="o">=</span>yes
+<div class="highlight"><pre><span></span><code><span class="gp">$</span> virt-xml --connect <span class="nv">$URI</span> <span class="nv">$VM_NAME</span> --confirm --edit --video <span class="nv">clearxml</span><span class="o">=</span>yes,model<span class="o">=</span>virtio,accel3d<span class="o">=</span>yes
 <span class="gp">$</span> virt-xml --connect <span class="nv">$URI</span> <span class="nv">$VM_NAME</span> --confirm --edit --graphics <span class="nv">clearxml</span><span class="o">=</span>yes,type<span class="o">=</span>spice,gl<span class="o">=</span>on,listen<span class="o">=</span>none
-</pre></div>
+</code></pre></div>
 
 
 <p>The first command will switch the graphics device to 'virtio' and enable the 3D acceleration setting. The second command will set up spice to listen locally only, and enable GL. Make sure to fully poweroff the VM afterwards for the settings to take effect. If you want to make the changes manually with '<a href="https://wiki.libvirt.org/page/FAQ#Where_are_VM_config_files_stored.3F_How_do_I_edit_a_VM.27s_XML_config.3F">virsh edit</a>', the XML specifics are described in the <a href="https://cgit.freedesktop.org/spice/spice/commit/?id=782c7508e28fdeee786cdcebffd22f772d7f09ec">spice GL documentation</a>.</p>
 <p>Once your VM has started up, you can verify that everything is working correctly by checking <code>glxinfo</code> output in the VM, 'virgl' should appear in the renderer string:</p>
-<div class="highlight"><pre><span></span><span class="gp">$</span> glxinfo <span class="p">|</span> grep virgl
+<div class="highlight"><pre><span></span><code><span class="gp">$</span> glxinfo <span class="p">|</span> grep virgl
 <span class="go">    Device: virgl (0x1010)</span>
 <span class="go">OpenGL renderer string: Gallium 0.4 on virgl</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>And of course the more fun test of giving supertuxkart a spin :)</p>

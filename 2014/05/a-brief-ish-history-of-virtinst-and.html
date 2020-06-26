@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2019-08-01 16:08:26.805535 -->
+<!-- Generated 2020-06-26 15:40:06.270935 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -56,40 +56,40 @@
         <div class="post-content" itemprop="articleBody">
           <p><a href="https://linux.die.net/man/1/virt-install">virt-install</a> is a command line tool for creating new virtual machines via libvirt. It's an important piece of the libvirt ecosystem that has shipped in RHEL5.0 and up, and over a dozen Fedora versions.</p>
 <p>It wasn't always called virt-install though: it started life as xenguest-install.py written by <a href="https://velohacker.com/">Jeremy Katz</a>. I think it was just an internal Red Hat only thing for a brief period, until it first surfaced as part of the Fedora 'xen' package in <a href="https://pkgs.fedoraproject.org/cgit/xen.git/commit/?id=02687b4e3f7fa0db5de34280a2cb7e1a8eb8ff18">January 2006</a>:</p>
-<div class="highlight"><pre><span></span>commit 02687b4e3f7fa0db5de34280a2cb7e1a8eb8ff18
-Author: Stephen Tweedie &lt;sct@fedoraproject.org&gt;
-Date:  Tue Jan 31 16:59:19 2006 +0000
+<div class="highlight"><pre><span></span><code><span class="k">commit</span><span class="w"> </span><span class="mi">02687</span><span class="n">b4e3f7fa0db5de34280a2cb7e1a8eb8ff18</span><span class="w"></span>
+<span class="nl">Author</span><span class="p">:</span><span class="w"> </span><span class="n">Stephen</span><span class="w"> </span><span class="n">Tweedie</span><span class="w"> </span><span class="o">&lt;</span><span class="n">sct</span><span class="nv">@fedoraproject</span><span class="p">.</span><span class="n">org</span><span class="o">&gt;</span><span class="w"></span>
+<span class="nc">Date</span><span class="err">:</span><span class="w">  </span><span class="n">Tue</span><span class="w"> </span><span class="n">Jan</span><span class="w"> </span><span class="mi">31</span><span class="w"> </span><span class="mi">16</span><span class="err">:</span><span class="mi">59</span><span class="err">:</span><span class="mi">19</span><span class="w"> </span><span class="mi">2006</span><span class="w"> </span><span class="o">+</span><span class="mi">0000</span><span class="w"></span>
 
-  Add xenguest-install.py in /usr/sbin
-</pre></div>
+<span class="w">  </span><span class="k">Add</span><span class="w"> </span><span class="n">xenguest</span><span class="o">-</span><span class="n">install</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">sbin</span><span class="w"></span>
+</code></pre></div>
 
 
 <p>(Strangely, the file isn't actually in git... I assume this is some accident of the CVS->git conversion. You can see the version shipped with Fedora Core 5 in the <a href="https://archives.fedoraproject.org/pub/archive/fedora/linux/core/5/x86_64/os/Fedora/RPMS/xen-3.0.1-4.x86_64.rpm">archived RPM</a>).</p>
 <p>Check out the original set of arguments</p>
-<div class="highlight"><pre><span></span>Options:
- -h, --help      show this help message and exit
- -n NAME, --name=NAME Name of the guest instance
- -f DISKFILE, --file=DISKFILE
-            File to use as the disk image
- -s DISKSIZE, --file-size=DISKSIZE
-            Size of the disk image (if it doesn&#39;t exist) in
-            gigabytes
- -r MEMORY, --ram=MEMORY
-            Memory to allocate for guest instance in megabytes
- -m MAC, --mac=MAC   Fixed MAC address for the guest; if none is given a
-            random address will be used
- -v, --hvm       This guest should be a fully virtualized guest
- -c CDROM, --cdrom=CDROM
-            File to use a virtual CD-ROM device for fully
-            virtualized guests
- -p, --paravirt    This guest should be a paravirtualized guest
- -l LOCATION, --location=LOCATION
-            Installation source for paravirtualized guest (eg,
-            nfs:host:/path, https://host/path, ftp://host/path)
- -x EXTRA, --extra-args=EXTRA
-            Additional arguments to pass to the installer with
-            paravirt guests
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="nv">Options</span>:
+ <span class="o">-</span><span class="nv">h</span>, <span class="o">--</span><span class="nv">help</span>      <span class="k">show</span> <span class="nv">this</span> <span class="nv">help</span> <span class="nv">message</span> <span class="nv">and</span> <span class="k">exit</span>
+ <span class="o">-</span><span class="nv">n</span> <span class="nv">NAME</span>, <span class="o">--</span><span class="nv">name</span><span class="o">=</span><span class="nv">NAME</span> <span class="nv">Name</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">guest</span> <span class="nv">instance</span>
+ <span class="o">-</span><span class="nv">f</span> <span class="nv">DISKFILE</span>, <span class="o">--</span><span class="nv">file</span><span class="o">=</span><span class="nv">DISKFILE</span>
+            <span class="nv">File</span> <span class="nv">to</span> <span class="nv">use</span> <span class="nv">as</span> <span class="nv">the</span> <span class="nv">disk</span> <span class="nv">image</span>
+ <span class="o">-</span><span class="nv">s</span> <span class="nv">DISKSIZE</span>, <span class="o">--</span><span class="nv">file</span><span class="o">-</span><span class="nv">size</span><span class="o">=</span><span class="nv">DISKSIZE</span>
+            <span class="nv">Size</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">disk</span> <span class="nv">image</span> <span class="ss">(</span><span class="k">if</span> <span class="nv">it</span> <span class="nv">doesn</span><span class="s1">&#39;</span><span class="s">t exist) in</span>
+            <span class="nv">gigabytes</span>
+ <span class="o">-</span><span class="nv">r</span> <span class="nv">MEMORY</span>, <span class="o">--</span><span class="nv">ram</span><span class="o">=</span><span class="nv">MEMORY</span>
+            <span class="nv">Memory</span> <span class="nv">to</span> <span class="nv">allocate</span> <span class="k">for</span> <span class="nv">guest</span> <span class="nv">instance</span> <span class="nv">in</span> <span class="nv">megabytes</span>
+ <span class="o">-</span><span class="nv">m</span> <span class="nv">MAC</span>, <span class="o">--</span><span class="nv">mac</span><span class="o">=</span><span class="nv">MAC</span>   <span class="nv">Fixed</span> <span class="nv">MAC</span> <span class="nv">address</span> <span class="k">for</span> <span class="nv">the</span> <span class="nv">guest</span><span class="c1">; if none is given a</span>
+            <span class="k">random</span> <span class="nv">address</span> <span class="nv">will</span> <span class="nv">be</span> <span class="nv">used</span>
+ <span class="o">-</span><span class="nv">v</span>, <span class="o">--</span><span class="nv">hvm</span>       <span class="nv">This</span> <span class="nv">guest</span> <span class="nv">should</span> <span class="nv">be</span> <span class="nv">a</span> <span class="nv">fully</span> <span class="nv">virtualized</span> <span class="nv">guest</span>
+ <span class="o">-</span><span class="nv">c</span> <span class="nv">CDROM</span>, <span class="o">--</span><span class="nv">cdrom</span><span class="o">=</span><span class="nv">CDROM</span>
+            <span class="nv">File</span> <span class="nv">to</span> <span class="nv">use</span> <span class="nv">a</span> <span class="nv">virtual</span> <span class="nv">CD</span><span class="o">-</span><span class="nv">ROM</span> <span class="nv">device</span> <span class="k">for</span> <span class="nv">fully</span>
+            <span class="nv">virtualized</span> <span class="nv">guests</span>
+ <span class="o">-</span><span class="nv">p</span>, <span class="o">--</span><span class="nv">paravirt</span>    <span class="nv">This</span> <span class="nv">guest</span> <span class="nv">should</span> <span class="nv">be</span> <span class="nv">a</span> <span class="nv">paravirtualized</span> <span class="nv">guest</span>
+ <span class="o">-</span><span class="nv">l</span> <span class="nv">LOCATION</span>, <span class="o">--</span><span class="nv">location</span><span class="o">=</span><span class="nv">LOCATION</span>
+            <span class="nv">Installation</span> <span class="nv">source</span> <span class="k">for</span> <span class="nv">paravirtualized</span> <span class="nv">guest</span> <span class="ss">(</span><span class="nv">eg</span>,
+            <span class="nv">nfs</span>:<span class="nv">host</span>:<span class="o">/</span><span class="nv">path</span>, <span class="nv">https</span>:<span class="o">//</span><span class="nv">host</span><span class="o">/</span><span class="nv">path</span>, <span class="nv">ftp</span>:<span class="o">//</span><span class="nv">host</span><span class="o">/</span><span class="nv">path</span><span class="ss">)</span>
+ <span class="o">-</span><span class="nv">x</span> <span class="nv">EXTRA</span>, <span class="o">--</span><span class="nv">extra</span><span class="o">-</span><span class="nv">args</span><span class="o">=</span><span class="nv">EXTRA</span>
+            <span class="nv">Additional</span> <span class="nv">arguments</span> <span class="nv">to</span> <span class="nv">pass</span> <span class="nv">to</span> <span class="nv">the</span> <span class="nv">installer</span> <span class="nv">with</span>
+            <span class="nv">paravirt</span> <span class="nv">guests</span>
+</code></pre></div>
 
 
 <p>All those bits are still working with virt-install today, although many are are deprecated and hidden from the --help output by default.</p>
@@ -97,14 +97,14 @@ Date:  Tue Jan 31 16:59:19 2006 +0000
 Fedora CVS was the canonical home of the script.</p>
 <p>In March 2006, <a href="https://berrange.com/">Dan Berrangé</a> <a href="https://git.fedorahosted.org/cgit/virt-manager.git/commit/?id=3ed0ef3">started work on virt-manager</a>. It was very briefly called gnome-vm-manager, then settled into gnome-virt-manager until July 2006 when it was <a href="https://git.fedorahosted.org/cgit/virt-manager.git/commit/?id=dc0d6db84cfe78c4a479381ead55bbd83c0cca55">renamed to virt-manager</a>.</p>
 <p>In August 2006, xenguest-install moved to its own repo, <a href="https://git.fedorahosted.org/cgit/python-virtinst.git/commit/?id=1e2e1aa0ca0b5ed8669be61aa4271a3e8c1d7333">python-xeninst</a>:</p>
-<div class="highlight"><pre><span></span>commit 1e2e1aa0ca0b5ed8669be61aa4271a3e8c1d7333
-Author: Jeremy Katz &lt;katzj@redhat.com&gt;
-Date:  Tue Aug 8 21:37:49 2006 -0400
+<div class="highlight"><pre><span></span><code><span class="nv">commit</span> <span class="mi">1</span><span class="nv">e2e1aa0ca0b5ed8669be61aa4271a3e8c1d7333</span>
+<span class="nv">Author</span>: <span class="nv">Jeremy</span> <span class="nv">Katz</span> <span class="o">&lt;</span><span class="nv">katzj</span>@<span class="nv">redhat</span>.<span class="nv">com</span><span class="o">&gt;</span>
+<span class="nv">Date</span>:  <span class="nv">Tue</span> <span class="nv">Aug</span> <span class="mi">8</span> <span class="mi">21</span>:<span class="mi">37</span>:<span class="mi">49</span> <span class="mi">2006</span> <span class="o">-</span><span class="mi">0400</span>
 
-  first pass at breaking up xenguest-install to have more of a usable API.
-  currently only works for paravirt and some of the bits after the install
-  gets started are still a little less than ideal
-</pre></div>
+  <span class="nv">first</span> <span class="nv">pass</span> <span class="nv">at</span> <span class="nv">breaking</span> <span class="nv">up</span> <span class="nv">xenguest</span><span class="o">-</span><span class="nv">install</span> <span class="nv">to</span> <span class="nv">have</span> <span class="nv">more</span> <span class="nv">of</span> <span class="nv">a</span> <span class="nv">usable</span> <span class="nv">API</span>.
+  <span class="nv">currently</span> <span class="nv">only</span> <span class="nv">works</span> <span class="k">for</span> <span class="nv">paravirt</span> <span class="nv">and</span> <span class="nv">some</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">bits</span> <span class="nv">after</span> <span class="nv">the</span> <span class="nv">install</span>
+  <span class="nv">gets</span> <span class="nv">started</span> <span class="nv">are</span> <span class="nv">still</span> <span class="nv">a</span> <span class="nv">little</span> <span class="nv">less</span> <span class="nv">than</span> <span class="nv">ideal</span>
+</code></pre></div>
 
 
 <p>Much of logic was moved to a 'xeninst' module. There were some initial bits for generating libvirt XML, but the primary usage was still generating native xen configuration.</p>
