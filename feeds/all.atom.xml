@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Cole Robinson</title><link href="https://blog.wikichoon.com/" rel="alternate"></link><link href="https://blog.wikichoon.com/feeds/all.atom.xml" rel="self"></link><id>https://blog.wikichoon.com/</id><updated>2020-06-29T13:00:00-04:00</updated><subtitle>Cole's dev log</subtitle><entry><title>python-bugzilla REST API support</title><link href="https://blog.wikichoon.com/2020/06/python-bugzilla-rest-api.html" rel="alternate"></link><published>2020-06-29T13:00:00-04:00</published><updated>2020-06-29T13:00:00-04:00</updated><author><name>Cole Robinson</name></author><id>tag:blog.wikichoon.com,2020-06-29:/2020/06/python-bugzilla-rest-api.html</id><summary type="html">&lt;p&gt;I just released &lt;strong&gt;&lt;a href="https://github.com/python-bugzilla/python-bugzilla"&gt;python-bugzilla&lt;/a&gt; 2.4.0&lt;/strong&gt;. The main interesting bit it adds is support for &lt;a href="https://wiki.mozilla.org/Bugzilla:REST_API"&gt;Bugzilla's REST API&lt;/a&gt;.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Cole Robinson</title><link href="https://blog.wikichoon.com/" rel="alternate"></link><link href="https://blog.wikichoon.com/feeds/all.atom.xml" rel="self"></link><id>https://blog.wikichoon.com/</id><updated>2020-07-11T00:00:00-04:00</updated><subtitle>Cole's dev log</subtitle><entry><title>virt-convert tool removed in virt-manager.git</title><link href="https://blog.wikichoon.com/2020/07/virt-convert-removed.html" rel="alternate"></link><published>2020-07-11T00:00:00-04:00</published><updated>2020-07-11T00:00:00-04:00</updated><author><name>Cole Robinson</name></author><id>tag:blog.wikichoon.com,2020-07-11:/2020/07/virt-convert-removed.html</id><summary type="html">&lt;p&gt;The next release of virt-manager will not ship the &lt;code&gt;virt-convert&lt;/code&gt; tool, I removed it upstream with &lt;a href="https://github.com/virt-manager/virt-manager/commit/ee9f93074bf74bd2e4c5177d750e7c438c7790cf"&gt;this commit&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Here's the slightly edited quote from my original proposal to remove it:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;virt-convert takes an ovf/ova or vmx file and spits out libvirt XML.
+It started as a code drop a …&lt;/p&gt;&lt;/blockquote&gt;</summary><content type="html">&lt;p&gt;The next release of virt-manager will not ship the &lt;code&gt;virt-convert&lt;/code&gt; tool, I removed it upstream with &lt;a href="https://github.com/virt-manager/virt-manager/commit/ee9f93074bf74bd2e4c5177d750e7c438c7790cf"&gt;this commit&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Here's the slightly edited quote from my original proposal to remove it:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;virt-convert takes an ovf/ova or vmx file and spits out libvirt XML.
+It started as a code drop a long time ago that could translate back and
+forth between vmx, ovf, and virt-image, a &lt;a href="https://blog.wikichoon.com/2014/04/deprecating-little-used-tool-virt-image1.html"&gt;long dead appliance format&lt;/a&gt;.
+In 2014 I &lt;a href="https://blog.wikichoon.com/2014/04/virt-convert-command-line-has-been.html"&gt;changed virt-convert&lt;/a&gt; to do vmx -&amp;gt; libvirt and ovf -&amp;gt;
+libvirt which was a CLI breaking change, but I never heard a peep of a
+complaint. It doesn't do a particularly thorough job at its
+intended goal, I've seen 2-3 bug reports in the past 5 years and
+generally it doesn't seem to have any users. Let's kill it. If anyone
+has the desire to keep it alive it could live as a separate project
+that's a wrapper around virt-install but there's no compelling reason to
+keep it in virt-manager.git IMO&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;That mostly sums it up. If there's any users of virt-convert out there, you likely
+can get similar results by extracting the relevant disk image from the
+&lt;code&gt;.vmx&lt;/code&gt; or &lt;code&gt;.ovf&lt;/code&gt; config, pass it to &lt;code&gt;virt-manager&lt;/code&gt; or &lt;code&gt;virt-install&lt;/code&gt;, and let
+those tools fill in the defaults. In truth that's about all &lt;code&gt;virt-convert&lt;/code&gt; did in
+to begin with.&lt;/p&gt;</content><category term="fedora"></category><category term="virt"></category></entry><entry><title>python-bugzilla REST API support</title><link href="https://blog.wikichoon.com/2020/06/python-bugzilla-rest-api.html" rel="alternate"></link><published>2020-06-29T13:00:00-04:00</published><updated>2020-06-29T13:00:00-04:00</updated><author><name>Cole Robinson</name></author><id>tag:blog.wikichoon.com,2020-06-29:/2020/06/python-bugzilla-rest-api.html</id><summary type="html">&lt;p&gt;I just released &lt;strong&gt;&lt;a href="https://github.com/python-bugzilla/python-bugzilla"&gt;python-bugzilla&lt;/a&gt; 2.4.0&lt;/strong&gt;. The main interesting bit it adds is support for &lt;a href="https://wiki.mozilla.org/Bugzilla:REST_API"&gt;Bugzilla's REST API&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;All previous versions of python-bugzilla and &lt;code&gt;/usr/bin/bugzilla&lt;/code&gt; only used the XMLRPC API, but that is deprecated in Bugzilla 5.0+ and all new API development is taking place on …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I just released &lt;strong&gt;&lt;a href="https://github.com/python-bugzilla/python-bugzilla"&gt;python-bugzilla&lt;/a&gt; 2.4.0&lt;/strong&gt;. The main interesting bit it adds is support for &lt;a href="https://wiki.mozilla.org/Bugzilla:REST_API"&gt;Bugzilla's REST API&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;All previous versions of python-bugzilla and &lt;code&gt;/usr/bin/bugzilla&lt;/code&gt; only used the XMLRPC API, but that is deprecated in Bugzilla 5.0+ and all new API development is taking place on the REST API.&lt;/p&gt;
 &lt;p&gt;In practice there isn't any released bugzilla version that has big differences between the two API versions. On bugzilla.redhat.com specifically the XMLRPC API is still recommended, because some custom features are not available over REST yet. Note though that bugzilla.mozilla.org is looking at &lt;a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1599274"&gt;disabling the XMLRPC API entirely&lt;/a&gt;, but they are usually ahead of the Bugzilla curve.&lt;/p&gt;
@@ -215,20 +238,4 @@ Define &amp;#39;f25&amp;#39; with the changed XML? (y/n):
 &lt;li&gt;virt-install: Add --network vhostuser (Chen Hanxiao)&lt;/li&gt;
 &lt;li&gt;virt-install: Add --sysinfo (Charles Arnold)&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Plus the usual slew of bug fixes and small improvements.&lt;/p&gt;</content><category term="fedora"></category><category term="virt"></category></entry><entry><title>python-bugzilla 2.0.0 released</title><link href="https://blog.wikichoon.com/2017/02/python-bugzilla-200-released.html" rel="alternate"></link><published>2017-02-08T16:22:00-05:00</published><updated>2017-02-08T16:22:00-05:00</updated><author><name>Cole Robinson</name></author><id>tag:blog.wikichoon.com,2017-02-08:/2017/02/python-bugzilla-200-released.html</id><summary type="html">&lt;p&gt;I'm happy to announce a new release of python-bugzilla, version 2.0.0.&lt;/p&gt;
-&lt;p&gt;This release contains several small to medium API breaks as &lt;a href="https://blog.wikichoon.com/2016/06/python-bugzilla-api-changes-in-git.html"&gt;previously mentioned&lt;/a&gt; on the blog. If you hit any issues, check that page first to see if it's an expected change.
- 
-The major changes in the release …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I'm happy to announce a new release of python-bugzilla, version 2.0.0.&lt;/p&gt;
-&lt;p&gt;This release contains several small to medium API breaks as &lt;a href="https://blog.wikichoon.com/2016/06/python-bugzilla-api-changes-in-git.html"&gt;previously mentioned&lt;/a&gt; on the blog. If you hit any issues, check that page first to see if it's an expected change.
- 
-The major changes in the release are:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Several fixes for use with bugzilla 5&lt;/li&gt;
-&lt;li&gt;This release contains several smallish API breaks:&lt;/li&gt;
-&lt;li&gt;Bugzilla.bug_autorefresh now defaults to False&lt;/li&gt;
-&lt;li&gt;Credentials are now cached in ~/.cache/python-bugzilla/&lt;/li&gt;
-&lt;li&gt;bin/bugzilla was converted to argparse&lt;/li&gt;
-&lt;li&gt;bugzilla query --boolean_chart option is removed&lt;/li&gt;
-&lt;li&gt;Unify command line flags across sub commands&lt;/li&gt;
-&lt;li&gt;More details at: &lt;a href="https://blog.wikichoon.com/2016/06/python-bugzilla-api-changes-in-git.html"&gt;https://blog.wikichoon.com/2016/06/python-bugzilla-api-changes-in-git.html&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><category term="fedora"></category></entry></feed>
+&lt;p&gt;Plus the usual slew of bug fixes and small improvements.&lt;/p&gt;</content><category term="fedora"></category><category term="virt"></category></entry></feed>

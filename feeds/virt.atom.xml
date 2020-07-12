@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Cole Robinson - virt</title><link href="https://blog.wikichoon.com/" rel="alternate"></link><link href="https://blog.wikichoon.com/feeds/virt.atom.xml" rel="self"></link><id>https://blog.wikichoon.com/</id><updated>2020-06-16T13:00:00-04:00</updated><subtitle>Cole's dev log</subtitle><entry><title>virt-manager is deprecated in RHEL (but only RHEL)</title><link href="https://blog.wikichoon.com/2020/06/virt-manager-deprecated-in-rhel.html" rel="alternate"></link><published>2020-06-16T13:00:00-04:00</published><updated>2020-06-16T13:00:00-04:00</updated><author><name>Cole Robinson</name></author><id>tag:blog.wikichoon.com,2020-06-16:/2020/06/virt-manager-deprecated-in-rhel.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;TL;DR&lt;/strong&gt;: I'm the primary author of virt-manager. virt-manager is deprecated in RHEL8 in favor of cockpit, but ONLY in RHEL8 and future RHEL releases. The upstream project virt-manager is still maintained and is still relevant for other distros.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Cole Robinson - virt</title><link href="https://blog.wikichoon.com/" rel="alternate"></link><link href="https://blog.wikichoon.com/feeds/virt.atom.xml" rel="self"></link><id>https://blog.wikichoon.com/</id><updated>2020-07-11T00:00:00-04:00</updated><subtitle>Cole's dev log</subtitle><entry><title>virt-convert tool removed in virt-manager.git</title><link href="https://blog.wikichoon.com/2020/07/virt-convert-removed.html" rel="alternate"></link><published>2020-07-11T00:00:00-04:00</published><updated>2020-07-11T00:00:00-04:00</updated><author><name>Cole Robinson</name></author><id>tag:blog.wikichoon.com,2020-07-11:/2020/07/virt-convert-removed.html</id><summary type="html">&lt;p&gt;The next release of virt-manager will not ship the &lt;code&gt;virt-convert&lt;/code&gt; tool, I removed it upstream with &lt;a href="https://github.com/virt-manager/virt-manager/commit/ee9f93074bf74bd2e4c5177d750e7c438c7790cf"&gt;this commit&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Here's the slightly edited quote from my original proposal to remove it:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;virt-convert takes an ovf/ova or vmx file and spits out libvirt XML.
+It started as a code drop a …&lt;/p&gt;&lt;/blockquote&gt;</summary><content type="html">&lt;p&gt;The next release of virt-manager will not ship the &lt;code&gt;virt-convert&lt;/code&gt; tool, I removed it upstream with &lt;a href="https://github.com/virt-manager/virt-manager/commit/ee9f93074bf74bd2e4c5177d750e7c438c7790cf"&gt;this commit&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Here's the slightly edited quote from my original proposal to remove it:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;virt-convert takes an ovf/ova or vmx file and spits out libvirt XML.
+It started as a code drop a long time ago that could translate back and
+forth between vmx, ovf, and virt-image, a &lt;a href="https://blog.wikichoon.com/2014/04/deprecating-little-used-tool-virt-image1.html"&gt;long dead appliance format&lt;/a&gt;.
+In 2014 I &lt;a href="https://blog.wikichoon.com/2014/04/virt-convert-command-line-has-been.html"&gt;changed virt-convert&lt;/a&gt; to do vmx -&amp;gt; libvirt and ovf -&amp;gt;
+libvirt which was a CLI breaking change, but I never heard a peep of a
+complaint. It doesn't do a particularly thorough job at its
+intended goal, I've seen 2-3 bug reports in the past 5 years and
+generally it doesn't seem to have any users. Let's kill it. If anyone
+has the desire to keep it alive it could live as a separate project
+that's a wrapper around virt-install but there's no compelling reason to
+keep it in virt-manager.git IMO&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;That mostly sums it up. If there's any users of virt-convert out there, you likely
+can get similar results by extracting the relevant disk image from the
+&lt;code&gt;.vmx&lt;/code&gt; or &lt;code&gt;.ovf&lt;/code&gt; config, pass it to &lt;code&gt;virt-manager&lt;/code&gt; or &lt;code&gt;virt-install&lt;/code&gt;, and let
+those tools fill in the defaults. In truth that's about all &lt;code&gt;virt-convert&lt;/code&gt; did in
+to begin with.&lt;/p&gt;</content><category term="fedora"></category><category term="virt"></category></entry><entry><title>virt-manager is deprecated in RHEL (but only RHEL)</title><link href="https://blog.wikichoon.com/2020/06/virt-manager-deprecated-in-rhel.html" rel="alternate"></link><published>2020-06-16T13:00:00-04:00</published><updated>2020-06-16T13:00:00-04:00</updated><author><name>Cole Robinson</name></author><id>tag:blog.wikichoon.com,2020-06-16:/2020/06/virt-manager-deprecated-in-rhel.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;TL;DR&lt;/strong&gt;: I'm the primary author of virt-manager. virt-manager is deprecated in RHEL8 in favor of cockpit, but ONLY in RHEL8 and future RHEL releases. The upstream project virt-manager is still maintained and is still relevant for other distros.&lt;/p&gt;
 &lt;p&gt;Google 'virt-manager deprecated' and you'll find some discussions suggesting
 virt-manager is …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;strong&gt;TL;DR&lt;/strong&gt;: I'm the primary author of virt-manager. virt-manager is deprecated in RHEL8 in favor of cockpit, but ONLY in RHEL8 and future RHEL releases. The upstream project virt-manager is still maintained and is still relevant for other distros.&lt;/p&gt;
 &lt;p&gt;Google 'virt-manager deprecated' and you'll find some discussions suggesting
@@ -126,40 +149,4 @@ Define &amp;#39;f25&amp;#39; with the changed XML? (y/n):
 &lt;blockquote&gt;
 &lt;p&gt;Simple helper script that scoops up all python modules and scripts beneath the current directory, and passes them through pylint and pep8. Has a bit of smarts to ignore .git directory, and handle files that don't end in .py&lt;/p&gt;
 &lt;p&gt;The point is that you can just fire off 'check-pylint' in any directory containing python code and get a quick report.&lt;/p&gt;
-&lt;/blockquote&gt;</content><category term="fedora"></category><category term="virt"></category></entry><entry><title>spice OpenGL/virgl acceleration on Fedora 24</title><link href="https://blog.wikichoon.com/2016/05/spice-openglvirgl-acceleration-on.html" rel="alternate"></link><published>2016-05-22T10:56:00-04:00</published><updated>2016-05-22T10:56:00-04:00</updated><author><name>Cole Robinson</name></author><id>tag:blog.wikichoon.com,2016-05-22:/2016/05/spice-openglvirgl-acceleration-on.html</id><summary type="html">&lt;p&gt;New in Fedora 24 virt is 3D accelerated SPICE graphics, via &lt;a href="https://virgil3d.github.io/"&gt;Virgl&lt;/a&gt;. This is kinda-sorta OpenGL passthrough from the VM up to the host machine. Much of the initial support has been around since qemu 2.5, but it's more generally accessible now that SPICE is in the mix, since …&lt;/p&gt;</summary><content type="html">&lt;p&gt;New in Fedora 24 virt is 3D accelerated SPICE graphics, via &lt;a href="https://virgil3d.github.io/"&gt;Virgl&lt;/a&gt;. This is kinda-sorta OpenGL passthrough from the VM up to the host machine. Much of the initial support has been around since qemu 2.5, but it's more generally accessible now that SPICE is in the mix, since that's the default display type used by virt-manager and gnome-boxes.&lt;/p&gt;
-&lt;p&gt;I'll explain below how you can test things on Fedora 24, but first let's cover the hurdles and caveats. This is far from being something that can be turned on by default and there's still serious integration issues to iron out. All of this is regarding usage with libvirt tools.&lt;/p&gt;
-&lt;h4&gt;Caveats and known issues&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;This doesn't work with qemu:///system yet, which is what &lt;a href="https://blog.wikichoon.com/2016/01/qemusystem-vs-qemusession.html"&gt;virt-manager uses by default&lt;/a&gt;. Permissions and &lt;a href="https://www.redhat.com/archives/libvir-list/2016-May/msg01435.html"&gt;cgroup access&lt;/a&gt; are problematic at the moment. qemu:///session (the gnome-boxes default) is saved from some of these issues, but it's still affected by...&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://bugzilla.redhat.com/show_bug.cgi?id=1337333"&gt;svirt/selinux issues&lt;/a&gt;. We haven't come up with a plan here yet.&lt;/li&gt;
-&lt;li&gt;When enabled, your VM can't be migrated or saved (migrate to disk), either directly or as part of taking a VM snapshot&lt;/li&gt;
-&lt;li&gt;This only works if connecting to a VM on your local machine. And once enabled, the VM isn't accessible remotely whatsoever&lt;/li&gt;
-&lt;li&gt;virt-manager has some weird rendering behavior that requires &lt;a href="https://bugzilla.redhat.com/show_bug.cgi?id=1337721"&gt;resizing the window first before you see any display output&lt;/a&gt;. It's fixed upstream, but no fedora build yet. virt-viewer works fine&lt;/li&gt;
-&lt;li&gt;virt-manager has some &lt;a href="https://bugzilla.redhat.com/show_bug.cgi?id=1337721"&gt;weird behavior if trying to run two GL enabled VMs at once&lt;/a&gt;. Patches have been posted upstream for spice-gtk&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Because of these issues, we haven't exposed this as a UI knob in any of the tools yet, to save us some redundant bug reports for the above issues from users who are just clicking a cool sounding check box :) Instead you'll need to explicitly opt in via the command line.&lt;/p&gt;
-&lt;h4&gt;Testing it out&lt;/h4&gt;
-&lt;p&gt;You'll need the following packages (or later) to test this:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;qemu-2.6.0-2.fc24&lt;/li&gt;
-&lt;li&gt;libvirt-1.3.3.1-2.fc24&lt;/li&gt;
-&lt;li&gt;virt-manager-1.3.2-4.20160520git2204de62d9.fc24&lt;/li&gt;
-&lt;li&gt;At least F24 beta on the host&lt;/li&gt;
-&lt;li&gt;Fedore 24 beta in the guest. Anything earlier is not going to actually enable the 3D acceleration. I have no idea about the state of other distributions. And to make it abundantly clear this is &lt;strong&gt;linux only&lt;/strong&gt; and likely will be for a long time at least, I don't know if Windows driver support is even on the radar.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Once you install a Fedora 24 VM through the standard methods, you can enable spice GL for your VM with these two commands:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="gp"&gt;$&lt;/span&gt; virt-xml --connect &lt;span class="nv"&gt;$URI&lt;/span&gt; &lt;span class="nv"&gt;$VM_NAME&lt;/span&gt; --confirm --edit --video &lt;span class="nv"&gt;clearxml&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;yes,model&lt;span class="o"&gt;=&lt;/span&gt;virtio,accel3d&lt;span class="o"&gt;=&lt;/span&gt;yes
-&lt;span class="gp"&gt;$&lt;/span&gt; virt-xml --connect &lt;span class="nv"&gt;$URI&lt;/span&gt; &lt;span class="nv"&gt;$VM_NAME&lt;/span&gt; --confirm --edit --graphics &lt;span class="nv"&gt;clearxml&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;yes,type&lt;span class="o"&gt;=&lt;/span&gt;spice,gl&lt;span class="o"&gt;=&lt;/span&gt;on,listen&lt;span class="o"&gt;=&lt;/span&gt;none
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;The first command will switch the graphics device to 'virtio' and enable the 3D acceleration setting. The second command will set up spice to listen locally only, and enable GL. Make sure to fully poweroff the VM afterwards for the settings to take effect. If you want to make the changes manually with '&lt;a href="https://wiki.libvirt.org/page/FAQ#Where_are_VM_config_files_stored.3F_How_do_I_edit_a_VM.27s_XML_config.3F"&gt;virsh edit&lt;/a&gt;', the XML specifics are described in the &lt;a href="https://cgit.freedesktop.org/spice/spice/commit/?id=782c7508e28fdeee786cdcebffd22f772d7f09ec"&gt;spice GL documentation&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Once your VM has started up, you can verify that everything is working correctly by checking &lt;code&gt;glxinfo&lt;/code&gt; output in the VM, 'virgl' should appear in the renderer string:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="gp"&gt;$&lt;/span&gt; glxinfo &lt;span class="p"&gt;|&lt;/span&gt; grep virgl
-&lt;span class="go"&gt;    Device: virgl (0x1010)&lt;/span&gt;
-&lt;span class="go"&gt;OpenGL renderer string: Gallium 0.4 on virgl&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;And of course the more fun test of giving supertuxkart a spin :)&lt;/p&gt;
-&lt;p&gt;Credit to Dave Airlie, Gerd Hoffman, and Marc-André Lureau for all the great work that got us to this point!&lt;/p&gt;</content><category term="fedora"></category><category term="virt"></category></entry></feed>
+&lt;/blockquote&gt;</content><category term="fedora"></category><category term="virt"></category></entry></feed>
