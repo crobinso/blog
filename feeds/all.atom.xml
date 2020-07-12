@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Cole Robinson</title><link href="https://blog.wikichoon.com/" rel="alternate"></link><link href="https://blog.wikichoon.com/feeds/all.atom.xml" rel="self"></link><id>https://blog.wikichoon.com/</id><updated>2020-07-11T00:00:00-04:00</updated><subtitle>Cole's dev log</subtitle><entry><title>virt-convert tool removed in virt-manager.git</title><link href="https://blog.wikichoon.com/2020/07/virt-convert-removed.html" rel="alternate"></link><published>2020-07-11T00:00:00-04:00</published><updated>2020-07-11T00:00:00-04:00</updated><author><name>Cole Robinson</name></author><id>tag:blog.wikichoon.com,2020-07-11:/2020/07/virt-convert-removed.html</id><summary type="html">&lt;p&gt;The next release of virt-manager will not ship the &lt;code&gt;virt-convert&lt;/code&gt; tool, I removed it upstream with &lt;a href="https://github.com/virt-manager/virt-manager/commit/ee9f93074bf74bd2e4c5177d750e7c438c7790cf"&gt;this commit&lt;/a&gt;.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Cole Robinson</title><link href="https://blog.wikichoon.com/" rel="alternate"></link><link href="https://blog.wikichoon.com/feeds/all.atom.xml" rel="self"></link><id>https://blog.wikichoon.com/</id><updated>2020-07-12T00:00:00-04:00</updated><subtitle>Cole's dev log</subtitle><entry><title>virt-manager libvirt XML editor UI</title><link href="https://blog.wikichoon.com/2020/07/virt-manager-xml-editor.html" rel="alternate"></link><published>2020-07-12T00:00:00-04:00</published><updated>2020-07-12T00:00:00-04:00</updated><author><name>Cole Robinson</name></author><id>tag:blog.wikichoon.com,2020-07-12:/2020/07/virt-manager-xml-editor.html</id><summary type="html">&lt;p&gt;&lt;a href="https://www.redhat.com/archives/virt-tools-list/2019-June/msg00099.html"&gt;virt-manager 2.2.0&lt;/a&gt; was released in June of last year. It shipped with a major new feature: libvirt XML viewing and editing UI for new and existing domain, pools, volumes, networks.&lt;/p&gt;
+&lt;p&gt;Every VM, network, and storage object page has a &lt;strong&gt;XML&lt;/strong&gt; tab at the top. Here's an example with …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;a href="https://www.redhat.com/archives/virt-tools-list/2019-June/msg00099.html"&gt;virt-manager 2.2.0&lt;/a&gt; was released in June of last year. It shipped with a major new feature: libvirt XML viewing and editing UI for new and existing domain, pools, volumes, networks.&lt;/p&gt;
+&lt;p&gt;Every VM, network, and storage object page has a &lt;strong&gt;XML&lt;/strong&gt; tab at the top. Here's an example with that tab selected from the VM &lt;strong&gt;Overview&lt;/strong&gt; section:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="VM XML editor" src="https://blog.wikichoon.com/images/079-xml1.png" width="500"&gt;&lt;/p&gt;
+&lt;p&gt;Here's an example of the XML view when just a disk is selected. Note it only shows that single device's libvirt XML:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Disk XML editor" src="https://blog.wikichoon.com/images/079-xml2.png" width="500"&gt;&lt;/p&gt;
+&lt;p&gt;By default the XML is not editable; notice the warning at the top of the first image. After editing is enabled, the warning is gone, like in the second image. You can enable editing via Edit-&amp;gt;Preferences from the main &lt;strong&gt;Manager&lt;/strong&gt; window. Here's what the option looks like:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="XML edit preference" src="https://blog.wikichoon.com/images/079-xml-prefs.png" width="500"&gt;&lt;/p&gt;
+&lt;p&gt;A bit of background: We are constantly receiving requests to expose libvirt XML config options in virt-manager's UI. Some of these knobs are necessary for &amp;lt;1% but uninteresting to the rest. Some options are difficult to set from the command line because they must be set at VM install time, which means switch from virt-manager to virt-install which is not trivial. And so on. When these options aren't added to the UI, it makes life difficult for those affected users. It's also difficult and draining to have these types of justification conversations on the regular.&lt;/p&gt;
+&lt;p&gt;The XML editing UI was added to relieve some of the pressure on virt-manager developers fielding these requests, and to give more power to advanced virt users. The users that know they need an advanced option are usually comfortable editing the libvirt XML directly. The XML editor doesn't detract from the existing UI much IMO, and it is uneditable by default to prevent less knowledgeable users from getting into trouble. It ain't gonna win any words for great UI, but the feedback has been largely positive so far.&lt;/p&gt;</content><category term="fedora"></category><category term="virt"></category></entry><entry><title>virt-convert tool removed in virt-manager.git</title><link href="https://blog.wikichoon.com/2020/07/virt-convert-removed.html" rel="alternate"></link><published>2020-07-11T00:00:00-04:00</published><updated>2020-07-11T00:00:00-04:00</updated><author><name>Cole Robinson</name></author><id>tag:blog.wikichoon.com,2020-07-11:/2020/07/virt-convert-removed.html</id><summary type="html">&lt;p&gt;The next release of virt-manager will not ship the &lt;code&gt;virt-convert&lt;/code&gt; tool, I removed it upstream with &lt;a href="https://github.com/virt-manager/virt-manager/commit/ee9f93074bf74bd2e4c5177d750e7c438c7790cf"&gt;this commit&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Here's the slightly edited quote from my original proposal to remove it:&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;virt-convert takes an ovf/ova or vmx file and spits out libvirt XML.
@@ -220,22 +229,4 @@ is a dump of some of the details.&lt;/p&gt;
  &amp;lt;/domain&amp;gt;
 
 Define &amp;#39;f25&amp;#39; with the changed XML? (y/n):
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content><category term="fedora"></category><category term="virt"></category></entry><entry><title>virt-manager 1.4.1 released</title><link href="https://blog.wikichoon.com/2017/03/virt-manager-141-released.html" rel="alternate"></link><published>2017-03-08T19:15:00-05:00</published><updated>2017-03-08T19:15:00-05:00</updated><author><name>Cole Robinson</name></author><id>tag:blog.wikichoon.com,2017-03-08:/2017/03/virt-manager-141-released.html</id><summary type="html">&lt;p&gt;I've just released virt-manager 1.4.1. The highlights are:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;storage/nodedev event API support (Jovanka Gulicoska)&lt;/li&gt;
-&lt;li&gt;UI options for enabling spice GL (Marc-André Lureau)&lt;/li&gt;
-&lt;li&gt;Add default virtio-rng /dev/urandom for supported guest OS&lt;/li&gt;
-&lt;li&gt;Cloning and rename support for UEFI VMs (Pavel Hrdina)&lt;/li&gt;
-&lt;li&gt;libguestfs inspection UI improvements (Pino Toscano)&lt;/li&gt;
-&lt;li&gt;virt-install …&lt;/li&gt;&lt;/ul&gt;</summary><content type="html">&lt;p&gt;I've just released virt-manager 1.4.1. The highlights are:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;storage/nodedev event API support (Jovanka Gulicoska)&lt;/li&gt;
-&lt;li&gt;UI options for enabling spice GL (Marc-André Lureau)&lt;/li&gt;
-&lt;li&gt;Add default virtio-rng /dev/urandom for supported guest OS&lt;/li&gt;
-&lt;li&gt;Cloning and rename support for UEFI VMs (Pavel Hrdina)&lt;/li&gt;
-&lt;li&gt;libguestfs inspection UI improvements (Pino Toscano)&lt;/li&gt;
-&lt;li&gt;virt-install: Add --qemu-commandline&lt;/li&gt;
-&lt;li&gt;virt-install: Add --network vhostuser (Chen Hanxiao)&lt;/li&gt;
-&lt;li&gt;virt-install: Add --sysinfo (Charles Arnold)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Plus the usual slew of bug fixes and small improvements.&lt;/p&gt;</content><category term="fedora"></category><category term="virt"></category></entry></feed>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content><category term="fedora"></category><category term="virt"></category></entry></feed>

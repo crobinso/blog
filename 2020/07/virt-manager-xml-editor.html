@@ -11,8 +11,8 @@
 
       gtag('config', 'UA-142995745-1');
     </script>
-    <link rel="canonical" href="https://blog.wikichoon.com/2014/09/fedora-21-virt-test-day-moved-yet-again.html"/>
-      <title>Fedora 21 virt test day moved yet again, now Thursday September 25 | Cole Robinson</title>
+    <link rel="canonical" href="https://blog.wikichoon.com/2020/07/virt-manager-xml-editor.html"/>
+      <title>virt-manager libvirt XML editor UI | Cole Robinson</title>
       <meta charset="utf-8" />
       <link href="https://blog.wikichoon.com/theme/minima-main.css" rel="stylesheet" />
       <link href="https://blog.wikichoon.com/theme/coletheme.css" rel="stylesheet" />
@@ -46,24 +46,30 @@
       <div class="wrapper">
       <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
         <header>
-          <h1 class="post-title givemecolor" itemprop="name headline">Fedora 21 virt test day moved yet again, now Thursday September 25</h2>
+          <h1 class="post-title givemecolor" itemprop="name headline">virt-manager libvirt XML editor UI</h2>
           <p class="post-meta">
-            <time class="dt-published" datetime="2014-09-05T11:01:00-04:00" itemprop="datePublished">Fri 05 September 2014
+            <time class="dt-published" datetime="2020-07-12T00:00:00-04:00" itemprop="datePublished">Sun 12 July 2020
             </time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">Cole Robinson</span>
             </span> • Tags: <a href="https://blog.wikichoon.com/tag/fedora.html">fedora</a> <a href="https://blog.wikichoon.com/tag/virt.html">virt</a>           </p>
         </header>
 
         <div class="post-content" itemprop="articleBody">
-          <p>Third times the charm! With the ongoing <a href="https://lists.fedoraproject.org/pipermail/devel/2014-September/202100.html">F21 alpha delay</a>, I requested the virt test day to be pushed back yet again. Now it's on Thursday September 25th. Check out the landing page for more info on the test day:</p>
-<p><a href="https://fedoraproject.org/wiki/Test_Day:2014-09-25_Virtualization">https://fedoraproject.org/wiki/Test_Day:2014-09-25_Virtualization</a></p>
-<p>Since I'm tired of making these announcements, even if F21 is delayed some more I won't be rescheduling the test day again, so September 25th is the <em>super official</em> date. :)</p>
+          <p><a href="https://www.redhat.com/archives/virt-tools-list/2019-June/msg00099.html">virt-manager 2.2.0</a> was released in June of last year. It shipped with a major new feature: libvirt XML viewing and editing UI for new and existing domain, pools, volumes, networks.</p>
+<p>Every VM, network, and storage object page has a <strong>XML</strong> tab at the top. Here's an example with that tab selected from the VM <strong>Overview</strong> section:</p>
+<p><img alt="VM XML editor" src="https://blog.wikichoon.com/images/079-xml1.png" width="500"></p>
+<p>Here's an example of the XML view when just a disk is selected. Note it only shows that single device's libvirt XML:</p>
+<p><img alt="Disk XML editor" src="https://blog.wikichoon.com/images/079-xml2.png" width="500"></p>
+<p>By default the XML is not editable; notice the warning at the top of the first image. After editing is enabled, the warning is gone, like in the second image. You can enable editing via Edit-&gt;Preferences from the main <strong>Manager</strong> window. Here's what the option looks like:</p>
+<p><img alt="XML edit preference" src="https://blog.wikichoon.com/images/079-xml-prefs.png" width="500"></p>
+<p>A bit of background: We are constantly receiving requests to expose libvirt XML config options in virt-manager's UI. Some of these knobs are necessary for &lt;1% but uninteresting to the rest. Some options are difficult to set from the command line because they must be set at VM install time, which means switch from virt-manager to virt-install which is not trivial. And so on. When these options aren't added to the UI, it makes life difficult for those affected users. It's also difficult and draining to have these types of justification conversations on the regular.</p>
+<p>The XML editing UI was added to relieve some of the pressure on virt-manager developers fielding these requests, and to give more power to advanced virt users. The users that know they need an advanced option are usually comfortable editing the libvirt XML directly. The XML editor doesn't detract from the existing UI much IMO, and it is uneditable by default to prevent less knowledgeable users from getting into trouble. It ain't gonna win any words for great UI, but the feedback has been largely positive so far.</p>
         </div>
 
         <div id="disqus_thread"></div>
         <script>
           var disqus_config = function () {
-            this.page.url = 'https://blog.wikichoon.com/2014/09/fedora-21-virt-test-day-moved-yet-again.html';
-            this.page.identifier = 'https://blog.wikichoon.com/2014/09/fedora-21-virt-test-day-moved-yet-again.html';
+            this.page.url = 'https://blog.wikichoon.com/2020/07/virt-manager-xml-editor.html';
+            this.page.identifier = 'https://blog.wikichoon.com/2020/07/virt-manager-xml-editor.html';
           };
 
           (function() {
