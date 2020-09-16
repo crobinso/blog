@@ -1,5 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Cole Robinson</title><link href="https://blog.wikichoon.com/" rel="alternate"></link><link href="https://blog.wikichoon.com/feeds/all.atom.xml" rel="self"></link><id>https://blog.wikichoon.com/</id><updated>2020-07-12T00:00:00-04:00</updated><subtitle>Cole's dev log</subtitle><entry><title>virt-manager libvirt XML editor UI</title><link href="https://blog.wikichoon.com/2020/07/virt-manager-xml-editor.html" rel="alternate"></link><published>2020-07-12T00:00:00-04:00</published><updated>2020-07-12T00:00:00-04:00</updated><author><name>Cole Robinson</name></author><id>tag:blog.wikichoon.com,2020-07-12:/2020/07/virt-manager-xml-editor.html</id><summary type="html">&lt;p&gt;&lt;a href="https://www.redhat.com/archives/virt-tools-list/2019-June/msg00099.html"&gt;virt-manager 2.2.0&lt;/a&gt; was released in June of last year. It shipped with a major new feature: libvirt XML viewing and editing UI for new and existing domain, pools, volumes, networks.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Cole Robinson</title><link href="https://blog.wikichoon.com/" rel="alternate"></link><link href="https://blog.wikichoon.com/feeds/all.atom.xml" rel="self"></link><id>https://blog.wikichoon.com/</id><updated>2020-09-16T00:00:00-04:00</updated><subtitle>Cole's dev log</subtitle><entry><title>virt-manager 3.0.0 released!</title><link href="https://blog.wikichoon.com/2020/09/virt-manager-300-released.html" rel="alternate"></link><published>2020-09-16T00:00:00-04:00</published><updated>2020-09-16T00:00:00-04:00</updated><author><name>Cole Robinson</name></author><id>tag:blog.wikichoon.com,2020-09-16:/2020/09/virt-manager-300-released.html</id><summary type="html">&lt;p&gt;Yesterday I released &lt;a href="https://www.redhat.com/archives/virt-tools-list/2020-September/msg00003.html"&gt;virt-manager 3.0.0&lt;/a&gt;. Despite the major version number bump, things shouldn't look too different from the previous release. For me the major version number bump reflects certain feature removals (like dropping virt-convert), and the large amount of internal code changes that were done, though there's a …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Yesterday I released &lt;a href="https://www.redhat.com/archives/virt-tools-list/2020-September/msg00003.html"&gt;virt-manager 3.0.0&lt;/a&gt;. Despite the major version number bump, things shouldn't look too different from the previous release. For me the major version number bump reflects certain feature removals (like dropping virt-convert), and the large amount of internal code changes that were done, though there's a few long awaited features sprinkled in like virt-install &lt;code&gt;--cloud-init&lt;/code&gt; support which I plan to write more about later.&lt;/p&gt;
+&lt;p&gt;This release includes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;virt-install --cloud-init support (&lt;a href="https://athinapl.home.blog/2019/08/25/gsoc-2019-cloud-init-configuration-for-virt-manager-virt-install/"&gt;Athina Plaskasoviti&lt;/a&gt;, Cole Robinson)&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://blog.wikichoon.com/2020/07/virt-convert-removed.html"&gt;The virt-convert tool has been removed&lt;/a&gt;. Please use virt-v2v instead&lt;/li&gt;
+&lt;li&gt;A handful of UI XML configuration options have been removed, in an effort to reduce maintenance ongoing maintenance burden, and to be more consistent with what types of UI knobs we expose. The &lt;a href="https://blog.wikichoon.com/2020/07/virt-manager-xml-editor.html"&gt;XML editor&lt;/a&gt; is an alternative in most cases. For a larger discussion see &lt;a href="https://www.redhat.com/archives/virt-tools-list/2019-June/msg00117.html"&gt;this thread&lt;/a&gt; and virt-manager's &lt;a href="https://github.com/virt-manager/virt-manager/blob/master/DESIGN.md"&gt;DESIGN.md&lt;/a&gt; file.&lt;/li&gt;
+&lt;li&gt;The 'New VM' UI now has a 'Manual Install' option which creates a VM without any required install media&lt;/li&gt;
+&lt;li&gt;In the 'New VM' UI, the network/pxe install option has been removed. If you need network boot, choose 'Manual Install' and set the boot device after initial VM creation&lt;/li&gt;
+&lt;li&gt;'Clone VM' UI has been reworked and simplified&lt;/li&gt;
+&lt;li&gt;'Migrate VM' UI now has an XML editor for the destination VM&lt;/li&gt;
+&lt;li&gt;Global and per-vm option to disable graphical console autoconnect. This makes it easier to use virt-manager alongside another client like virt-viewer&lt;/li&gt;
+&lt;li&gt;virt-manager: set guest time after VM restore (Michael Weiser)&lt;/li&gt;
+&lt;li&gt;virt-manager: option to delete storage when removing disk device (Lily Nie)&lt;/li&gt;
+&lt;li&gt;virt-manager: show warnings if snapshot operation is unsafe (Michael Weiser)&lt;/li&gt;
+&lt;li&gt;Unattended install improvements (Fabiano Fidêncio)&lt;/li&gt;
+&lt;li&gt;cli: new --xml XPATH=VAL option for making direct XML changes&lt;/li&gt;
+&lt;li&gt;virt-install: new --reinstall=DOMAIN option&lt;/li&gt;
+&lt;li&gt;virt-install: new --autoconsole text|graphical|none option&lt;/li&gt;
+&lt;li&gt;virt-install: new --os-variant detect=on,require=on suboptions&lt;/li&gt;
+&lt;li&gt;cli: --clock, --keywrap, --blkiotune, --cputune additions (Athina Plaskasoviti)&lt;/li&gt;
+&lt;li&gt;cli: add --features kvm.hint-dedicated.state= (Menno Lageman)&lt;/li&gt;
+&lt;li&gt;cli: add --iommu option (Menno Lageman)&lt;/li&gt;
+&lt;li&gt;cli: Add --graphics websocket= support (Petr Benes)&lt;/li&gt;
+&lt;li&gt;cli: Add --disk type=nvme source.* suboptions&lt;/li&gt;
+&lt;li&gt;cli: Fill in all --filesystem suboptions&lt;/li&gt;
+&lt;li&gt;Translation string improvements (Pino Toscano)&lt;/li&gt;
+&lt;li&gt;Convert from .pod to .rst for man pages&lt;/li&gt;
+&lt;li&gt;Switch to pytest as our test runner&lt;/li&gt;
+&lt;li&gt;Massively improved unittest and uitest code coverage&lt;/li&gt;
+&lt;li&gt;Now using github issues as our bug tracker&lt;/li&gt;
+&lt;/ul&gt;</content><category term="fedora"></category><category term="virt"></category></entry><entry><title>virt-manager libvirt XML editor UI</title><link href="https://blog.wikichoon.com/2020/07/virt-manager-xml-editor.html" rel="alternate"></link><published>2020-07-12T00:00:00-04:00</published><updated>2020-07-12T00:00:00-04:00</updated><author><name>Cole Robinson</name></author><id>tag:blog.wikichoon.com,2020-07-12:/2020/07/virt-manager-xml-editor.html</id><summary type="html">&lt;p&gt;&lt;a href="https://www.redhat.com/archives/virt-tools-list/2019-June/msg00099.html"&gt;virt-manager 2.2.0&lt;/a&gt; was released in June of last year. It shipped with a major new feature: libvirt XML viewing and editing UI for new and existing domain, pools, volumes, networks.&lt;/p&gt;
 &lt;p&gt;Every VM, network, and storage object page has a &lt;strong&gt;XML&lt;/strong&gt; tab at the top. Here's an example with …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;a href="https://www.redhat.com/archives/virt-tools-list/2019-June/msg00099.html"&gt;virt-manager 2.2.0&lt;/a&gt; was released in June of last year. It shipped with a major new feature: libvirt XML viewing and editing UI for new and existing domain, pools, volumes, networks.&lt;/p&gt;
 &lt;p&gt;Every VM, network, and storage object page has a &lt;strong&gt;XML&lt;/strong&gt; tab at the top. Here's an example with that tab selected from the VM &lt;strong&gt;Overview&lt;/strong&gt; section:&lt;/p&gt;
 &lt;p&gt;&lt;img alt="VM XML editor" src="https://blog.wikichoon.com/images/079-xml1.png" width="500"&gt;&lt;/p&gt;
@@ -206,28 +236,4 @@ is a dump of some of the details.&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;So .Drafts, .INBOX, .Junk are all top level folders, and things like .INBOX.fedora is a 'fedora' subfolder of my inbox. That's the naming scheme the default dovecot config seems to expect.&lt;/p&gt;</content><category term="fedora"></category></entry><entry><title>Easy qemu commandline passthrough with virt-xml</title><link href="https://blog.wikichoon.com/2017/03/easy-qemu-commandline-passthrough-with.html" rel="alternate"></link><published>2017-03-24T21:30:00-04:00</published><updated>2017-03-24T21:30:00-04:00</updated><author><name>Cole Robinson</name></author><id>tag:blog.wikichoon.com,2017-03-24:/2017/03/easy-qemu-commandline-passthrough-with.html</id><summary type="html">&lt;p&gt;Libvirt has supported &lt;a href="https://libvirt.org/drvqemu.html#qemucommand"&gt;qemu commandline option passthrough&lt;/a&gt; for qemu/kvm VMs for quite a while. The format for it is a bit of a pain though since it requires setting a magic xmlns value at the top of the domain XML. Basically doing it by hand kinda sucks.&lt;/p&gt;
-&lt;p&gt;In the …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Libvirt has supported &lt;a href="https://libvirt.org/drvqemu.html#qemucommand"&gt;qemu commandline option passthrough&lt;/a&gt; for qemu/kvm VMs for quite a while. The format for it is a bit of a pain though since it requires setting a magic xmlns value at the top of the domain XML. Basically doing it by hand kinda sucks.&lt;/p&gt;
-&lt;p&gt;In the recently released &lt;a href="https://blog.wikichoon.com/2017/03/virt-manager-141-released.html"&gt;virt-manager 1.4.1&lt;/a&gt;, we added a virt-install/virt-xml option &lt;code&gt;--qemu-commandline&lt;/code&gt; that tweaks option passthrough for new or existing VMs. So for example, if you wanted to add the qemu option string &lt;code&gt;-device FOO&lt;/code&gt; to an existing VM named &lt;strong&gt;f25&lt;/strong&gt;, you can do:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ ./virt-xml f25 --edit --confirm --qemu-commandline=&amp;quot;-device FOO&amp;quot;
-
-&lt;span class="gd"&gt;--- Original XML&lt;/span&gt;
-&lt;span class="gi"&gt;+++ Altered XML&lt;/span&gt;
-&lt;span class="gu"&gt;@@ -1,4 +1,4 @@&lt;/span&gt;
-&lt;span class="gd"&gt;-&amp;lt;domain type=&amp;quot;kvm&amp;quot;&amp;gt;&lt;/span&gt;
-&lt;span class="gi"&gt;+&amp;lt;domain xmlns:qemu=&amp;quot;https://libvirt.org/schemas/domain/qemu/1.0&amp;quot; type=&amp;quot;kvm&amp;quot;&amp;gt;&lt;/span&gt;
-   &amp;lt;name&amp;gt;f25&amp;lt;/name&amp;gt;
-   &amp;lt;uuid&amp;gt;9b6f1795-c88b-452a-a54c-f8579ddc18dd&amp;lt;/uuid&amp;gt;
-   &amp;lt;memory unit=&amp;quot;KiB&amp;quot;&amp;gt;4194304&amp;lt;/memory&amp;gt;
-&lt;span class="gu"&gt;@@ -104,4 +104,8 @@&lt;/span&gt;
-       &amp;lt;address type=&amp;quot;pci&amp;quot; domain=&amp;quot;0x0000&amp;quot; bus=&amp;quot;0x00&amp;quot; slot=&amp;quot;0x0a&amp;quot; function=&amp;quot;0x0&amp;quot;/&amp;gt;
-     &amp;lt;/rng&amp;gt;
-   &amp;lt;/devices&amp;gt;
-&lt;span class="gi"&gt;+  &amp;lt;qemu:commandline&amp;gt;&lt;/span&gt;
-&lt;span class="gi"&gt;+    &amp;lt;qemu:arg value=&amp;quot;-device&amp;quot;/&amp;gt;&lt;/span&gt;
-&lt;span class="gi"&gt;+    &amp;lt;qemu:arg value=&amp;quot;foo&amp;quot;/&amp;gt;&lt;/span&gt;
-&lt;span class="gi"&gt;+  &amp;lt;/qemu:commandline&amp;gt;&lt;/span&gt;
- &amp;lt;/domain&amp;gt;
-
-Define &amp;#39;f25&amp;#39; with the changed XML? (y/n):
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content><category term="fedora"></category><category term="virt"></category></entry></feed>
+&lt;p&gt;So .Drafts, .INBOX, .Junk are all top level folders, and things like .INBOX.fedora is a 'fedora' subfolder of my inbox. That's the naming scheme the default dovecot config seems to expect.&lt;/p&gt;</content><category term="fedora"></category></entry></feed>

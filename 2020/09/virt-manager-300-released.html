@@ -11,8 +11,8 @@
 
       gtag('config', 'UA-142995745-1');
     </script>
-    <link rel="canonical" href="https://blog.wikichoon.com/2013/01/fedora-18-notification-sound-is-now.html"/>
-      <title>Fedora 18 notification sound is now a 'drip' noise | Cole Robinson</title>
+    <link rel="canonical" href="https://blog.wikichoon.com/2020/09/virt-manager-300-released.html"/>
+      <title>virt-manager 3.0.0 released! | Cole Robinson</title>
       <meta charset="utf-8" />
       <link href="https://blog.wikichoon.com/theme/minima-main.css" rel="stylesheet" />
       <link href="https://blog.wikichoon.com/theme/coletheme.css" rel="stylesheet" />
@@ -46,31 +46,52 @@
       <div class="wrapper">
       <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
         <header>
-          <h1 class="post-title givemecolor" itemprop="name headline">Fedora 18 notification sound is now a 'drip' noise</h2>
+          <h1 class="post-title givemecolor" itemprop="name headline">virt-manager 3.0.0 released!</h2>
           <p class="post-meta">
-            <time class="dt-published" datetime="2013-01-28T13:30:00-05:00" itemprop="datePublished">Mon 28 January 2013
+            <time class="dt-published" datetime="2020-09-16T00:00:00-04:00" itemprop="datePublished">Wed 16 September 2020
             </time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">Cole Robinson</span>
-            </span> • Tags: <a href="https://blog.wikichoon.com/tag/fedora.html">fedora</a>           </p>
+            </span> • Tags: <a href="https://blog.wikichoon.com/tag/fedora.html">fedora</a> <a href="https://blog.wikichoon.com/tag/virt.html">virt</a>           </p>
         </header>
 
         <div class="post-content" itemprop="articleBody">
-          <p>One random change I noticed during the F18 cycle was that the default notification noise changed from an innocuous 'bell' sound to a 'water drip' noise. While I turn off all terminal noises, this sound still pops up in Firefox and Thunderbird when a ctrl-f quick search doesn't find a match, and in my F18 VMs with default configuration. And while I'm sure many developers just turn off all sound effects, I find them useful for email and IRC notifications.</p>
-<p>This new sound is offensive to my ears, one small step below nails on a chalk board. Unfortunately there is no way to undo this change in gnome-control-center's Sound panel, just 2 choices for the drip noise ('default' and 'drip'), and some other comical choices like a dog 'bark'. Nothing as unoffensive as the previous default. I (just yesterday) <a href="https://bugzilla.redhat.com/show_bug.cgi?id=904299">filed a bug</a> against control-center asking for a way to restore the old behavior.</p>
-<p>However, if you want to revert it in a hacky way, this should cover you until the next time sound-theme-freedesktop is updated:</p>
-<div class="highlight"><pre><span></span><code><span class="n">sudo</span> <span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">cgit</span><span class="p">.</span><span class="n">freedesktop</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">sound</span><span class="o">-</span><span class="n">theme</span><span class="o">-</span><span class="n">freedesktop</span><span class="o">/</span><span class="n">plain</span><span class="o">/</span><span class="n">stereo</span><span class="o">/</span><span class="n">bell</span><span class="p">.</span><span class="n">oga</span><span class="o">?</span><span class="n">id</span><span class="o">=</span><span class="mi">38</span><span class="n">bc773912317a2163083b6f483fbc8e6fb61123</span> <span class="o">-</span><span class="n">O</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="k">share</span><span class="o">/</span><span class="n">sounds</span><span class="o">/</span><span class="n">freedesktop</span><span class="o">/</span><span class="n">stereo</span><span class="o">/</span><span class="n">bell</span><span class="p">.</span><span class="n">oga</span>
-</code></pre></div>
-
-
-<!--
-`<rant>`Why this was changed is really anyone's guess. The [commit message](https://cgit.freedesktop.org/sound-theme-freedesktop/commit/?id=18e55993d311444854a73ed6b6e6670fcbac4946) is needlessly vague. I couldn't find any mailing list posting on freedesktop lists or gnome's desktop-devel-list, nor any bug report that might have spurned the change. The 'bell' noise was just overwritten in place, despite the fact that the new noise is not remotely a 'bell' sound, though I guess the bell name is about the action and not the sound content. The git repo had been unchanged for nearly 3 years, not an issue in itself, just makes the above bits stick out even more. And finally I really don't understand why the most common sound effect on a stock install would be a noise that is an annoyance by nature: a dripping/leaking faucet.`</rant>`
--->
+          <p>Yesterday I released <a href="https://www.redhat.com/archives/virt-tools-list/2020-September/msg00003.html">virt-manager 3.0.0</a>. Despite the major version number bump, things shouldn't look too different from the previous release. For me the major version number bump reflects certain feature removals (like dropping virt-convert), and the large amount of internal code changes that were done, though there's a few long awaited features sprinkled in like virt-install <code>--cloud-init</code> support which I plan to write more about later.</p>
+<p>This release includes:</p>
+<ul>
+<li>virt-install --cloud-init support (<a href="https://athinapl.home.blog/2019/08/25/gsoc-2019-cloud-init-configuration-for-virt-manager-virt-install/">Athina Plaskasoviti</a>, Cole Robinson)</li>
+<li><a href="https://blog.wikichoon.com/2020/07/virt-convert-removed.html">The virt-convert tool has been removed</a>. Please use virt-v2v instead</li>
+<li>A handful of UI XML configuration options have been removed, in an effort to reduce maintenance ongoing maintenance burden, and to be more consistent with what types of UI knobs we expose. The <a href="https://blog.wikichoon.com/2020/07/virt-manager-xml-editor.html">XML editor</a> is an alternative in most cases. For a larger discussion see <a href="https://www.redhat.com/archives/virt-tools-list/2019-June/msg00117.html">this thread</a> and virt-manager's <a href="https://github.com/virt-manager/virt-manager/blob/master/DESIGN.md">DESIGN.md</a> file.</li>
+<li>The 'New VM' UI now has a 'Manual Install' option which creates a VM without any required install media</li>
+<li>In the 'New VM' UI, the network/pxe install option has been removed. If you need network boot, choose 'Manual Install' and set the boot device after initial VM creation</li>
+<li>'Clone VM' UI has been reworked and simplified</li>
+<li>'Migrate VM' UI now has an XML editor for the destination VM</li>
+<li>Global and per-vm option to disable graphical console autoconnect. This makes it easier to use virt-manager alongside another client like virt-viewer</li>
+<li>virt-manager: set guest time after VM restore (Michael Weiser)</li>
+<li>virt-manager: option to delete storage when removing disk device (Lily Nie)</li>
+<li>virt-manager: show warnings if snapshot operation is unsafe (Michael Weiser)</li>
+<li>Unattended install improvements (Fabiano Fidêncio)</li>
+<li>cli: new --xml XPATH=VAL option for making direct XML changes</li>
+<li>virt-install: new --reinstall=DOMAIN option</li>
+<li>virt-install: new --autoconsole text|graphical|none option</li>
+<li>virt-install: new --os-variant detect=on,require=on suboptions</li>
+<li>cli: --clock, --keywrap, --blkiotune, --cputune additions (Athina Plaskasoviti)</li>
+<li>cli: add --features kvm.hint-dedicated.state= (Menno Lageman)</li>
+<li>cli: add --iommu option (Menno Lageman)</li>
+<li>cli: Add --graphics websocket= support (Petr Benes)</li>
+<li>cli: Add --disk type=nvme source.* suboptions</li>
+<li>cli: Fill in all --filesystem suboptions</li>
+<li>Translation string improvements (Pino Toscano)</li>
+<li>Convert from .pod to .rst for man pages</li>
+<li>Switch to pytest as our test runner</li>
+<li>Massively improved unittest and uitest code coverage</li>
+<li>Now using github issues as our bug tracker</li>
+</ul>
         </div>
 
         <div id="disqus_thread"></div>
         <script>
           var disqus_config = function () {
-            this.page.url = 'https://blog.wikichoon.com/2013/01/fedora-18-notification-sound-is-now.html';
-            this.page.identifier = 'https://blog.wikichoon.com/2013/01/fedora-18-notification-sound-is-now.html';
+            this.page.url = 'https://blog.wikichoon.com/2020/09/virt-manager-300-released.html';
+            this.page.identifier = 'https://blog.wikichoon.com/2020/09/virt-manager-300-released.html';
           };
 
           (function() {
