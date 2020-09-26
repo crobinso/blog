@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<!-- Generated 2020-09-26 16:16:26.555606 -->
+<html lang="en">
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-142995745-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-142995745-1');
+    </script>
+    <link rel="canonical" href="https://blog.wikichoon.com/2020/09/virt-install-cloud-init.html"/>
+      <title>virt-install --cloud-init support | Cole Robinson</title>
+      <meta charset="utf-8" />
+      <link href="https://blog.wikichoon.com/theme/minima-main.css" rel="stylesheet" />
+      <link href="https://blog.wikichoon.com/theme/coletheme.css" rel="stylesheet" />
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link href="https://blog.wikichoon.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Cole Robinson Full Atom Feed" />
+  </head>
+
+  <body id="index" class="archive">
+    <header class="site-header">
+      <div class="wrapper">
+        <a class="site-title" href="https://blog.wikichoon.com">Cole Robinson</a>
+        <nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewBox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+              </svg>
+            </span>
+          </label>
+          <div class="trigger">
+            <a class="page-link" href="https://blog.wikichoon.com">Home</a>
+            <a class="page-link" href="https://blog.wikichoon.com/archives.html">Archives</a>
+            <a class="page-link" href="https://wikichoon.com">About</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main id="content" class="page-content">
+      <div class="wrapper">
+      <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+        <header>
+          <h1 class="post-title givemecolor" itemprop="name headline">virt-install --cloud-init support</h2>
+          <p class="post-meta">
+            <time class="dt-published" datetime="2020-09-26T00:00:00-04:00" itemprop="datePublished">Sat 26 September 2020
+            </time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">Cole Robinson</span>
+            </span> • Tags: <a href="https://blog.wikichoon.com/tag/fedora.html">fedora</a> <a href="https://blog.wikichoon.com/tag/virt.html">virt</a>           </p>
+        </header>
+
+        <div class="post-content" itemprop="articleBody">
+          <p>As part of GSOC 2019, <a href="https://athinapl.home.blog/2019/08/25/gsoc-2019-cloud-init-configuration-for-virt-manager-virt-install/">Athina Plaskasoviti implemented <code>--cloud-init</code> support for virt-install</a>. This post provides a bit more info about the feature.</p>
+<h4>Why cloud-init</h4>
+<p>For a long while, most mainstream Linux distros have shipped 'cloud images': <code>raw</code> or <code>qcow2</code> formatted disk images with the distro minimally pre-installed on it. These images typically have <a href="https://cloud-init.io/">cloud-init</a> set to run on VM bootup. cloud-init can do a variety of things, like add users, change passwords, register ssh keys, and generally perform any desired action on the VM OS. This only works when cloud-init is passed the right configuration by whatever platform is starting the VM, like OpenStack or virt-install. cloud-init supports many different <a href="https://cloudinit.readthedocs.io/en/latest/topics/datasources.html">datasources</a> for getting configuration outside the VM.</p>
+<p>Historically though the problem is that slapping these images into virt-install or virt-manager gives crappy results, because these tools were not providing any datasource. In this case, cloud-init reverts to its distro default configured behavior, which in most cases is unusable. For example on Fedora, the result was: hang waiting for cloud-init data, time out, drop to login prompt with all accounts locked.</p>
+<p>Prior to virt-install <code>--cloud-init</code> support, the simplest workaround was to use libguestfs, specifically <code>virt-customize</code>, to set a root password and disable cloud-init:</p>
+<div class="highlight"><pre><span></span><code><span class="gp">$</span> virt-customize -a MY-CLOUD-IMAGE.qcow2 <span class="se">\</span>
+    --root-password password:SUPER-SECRET-PASSWORD <span class="se">\</span>
+    --uninstall cloud-init
+</code></pre></div>
+
+
+<h4>--cloud-init option</h4>
+<p>The <code>--cloud-init</code> option will tell virt-install to set up a <a href="https://cloudinit.readthedocs.io/en/latest/topics/datasources/nocloud.html">nocloud</a> datasource via a specially formatted <code>.iso</code> file that is generated on the fly, and only used for the first VM bootup.</p>
+<p>The default behavior when <code>--cloud-init</code> is specified with no suboptions will do the following:</p>
+<ul>
+<li>Generate a random root password and print it to the terminal.</li>
+<li>Default to VM serial console access rather than graphical console access. Makes it easier to paste the password and gives more ssh-like behavior.</li>
+<li>Sets the root password to expire on first login. So the temporary password is only used once.</li>
+<li>Disables cloud-init for subsequent VM startups. Otherwise on the next VM boot you'd face locked accounts again.</li>
+</ul>
+<p>The <code>--cloud-init</code> also has suboptions to specify your own behavior, like transfer in a host ssh public key, pass in raw cloud-init <code>user-data</code>/<code>meta-data</code>, etc. See the <a href="https://github.com/virt-manager/virt-manager/blob/master/man/virt-install.rst#--cloud-init">virt-install --cloud-init man page section</a> for the specifics.</p>
+<h4>Room for improvement</h4>
+<p>This is all a step in the right direction but there's lots more we can do here:</p>
+<ul>
+<li>Extend virt-install's <code>--install</code> option to learn how to fetch cloud images for the specified distro. <a href="https://libosinfo.org/">libosinfo</a> and <a href="https://gitlab.com/libosinfo/osinfo-db">osinfo-db</a> already track cloud image download links for many distros so the info we need is already in place. We could make <code>virt-install --install fedora32,cloud=yes</code> a single way to pull down a cloud image, generate a cloud-init datasource, and create the VM in one shot.</li>
+<li>Use <code>--cloud-init</code> by default when the user passes us a cloud-init enabled disk image. <code>virt-customize</code> has a lot of disk image detection smarts already, but we aren't using that in virt-install yet.</li>
+<li>virt-manager UI support. There's an <a href="https://github.com/virt-manager/virt-manager/issues/143">issue tracking this</a> with some more thoughts in it.</li>
+<li>Similar support for <a href="https://coreos.com/ignition/">CoreOS Ignition</a> which fulfills a similar purpose as cloud-init for distros like <a href="https://getfedora.org/en/coreos/">Fedora CoreOS</a>. There's an <a href="https://github.com/virt-manager/virt-manager/issues/152">issue tracking this too</a>.</li>
+</ul>
+<p>I personally don't have plans to work on these any time soon, but I'm happy to provide guidance if anyone is interested in helping out!</p>
+        </div>
+
+        <div id="disqus_thread"></div>
+        <script>
+          var disqus_config = function () {
+            this.page.url = 'https://blog.wikichoon.com/2020/09/virt-install-cloud-init.html';
+            this.page.identifier = 'https://blog.wikichoon.com/2020/09/virt-install-cloud-init.html';
+          };
+
+          (function() {
+            var d = document, s = d.createElement('script');
+            s.src = 'https://wikichoon-com.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+      </article>
+      </div>
+    </main>
+
+    <footer class="site-footer h-card">
+      <div class="wrapper">
+        <h2 class="footer-heading">Cole's dev log</h2>
+        <div class="footer-col-wrapper">
+          <div class="footer-col footer-col-1">
+            <ul class="contact-list">
+                <li class="p-name">Cole Robinson </li><li><a class="u-email" href="mailto:">aintdiscole@gmail.com</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col footer-col-2">
+            <ul class="social-media-list">
+              <li><a href="https://github.com/crobinso"><svg class="svg-icon"><use xlink:href="https://blog.wikichoon.com/theme/minima-social-icons.svg#github"></use></svg> <span class="username">crobinso</span></a></li>
+              <li><a href="https://www.twitter.com/aintdiscole"><svg class="svg-icon"><use xlink:href="https://blog.wikichoon.com/theme/minima-social-icons.svg#twitter"></use></svg> <span class="username">aintdiscole</span></a></li>
+              <li><a href="https://www.linkedin.com/in/cole-robinson-484a9912"><svg class="svg-icon"><use xlink:href="https://blog.wikichoon.com/theme/minima-social-icons.svg#linkedin"></use></svg> <span class="username">Cole Robinson</span></a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col footer-col-3">
+            <a href="https://blog.wikichoon.com/feeds/all.atom.xml">RSS</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
