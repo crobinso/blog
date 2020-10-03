@@ -1,5 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Cole Robinson - fedora</title><link href="https://blog.wikichoon.com/" rel="alternate"></link><link href="https://blog.wikichoon.com/feeds/fedora.atom.xml" rel="self"></link><id>https://blog.wikichoon.com/</id><updated>2020-09-26T00:00:00-04:00</updated><subtitle>Cole's dev log</subtitle><entry><title>virt-install --cloud-init support</title><link href="https://blog.wikichoon.com/2020/09/virt-install-cloud-init.html" rel="alternate"></link><published>2020-09-26T00:00:00-04:00</published><updated>2020-09-26T00:00:00-04:00</updated><author><name>Cole Robinson</name></author><id>tag:blog.wikichoon.com,2020-09-26:/2020/09/virt-install-cloud-init.html</id><summary type="html">&lt;p&gt;As part of GSOC 2019, &lt;a href="https://athinapl.home.blog/2019/08/25/gsoc-2019-cloud-init-configuration-for-virt-manager-virt-install/"&gt;Athina Plaskasoviti implemented &lt;code&gt;--cloud-init&lt;/code&gt; support for virt-install&lt;/a&gt;. This post provides a bit more info about the feature.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Cole Robinson - fedora</title><link href="https://blog.wikichoon.com/" rel="alternate"></link><link href="https://blog.wikichoon.com/feeds/fedora.atom.xml" rel="self"></link><id>https://blog.wikichoon.com/</id><updated>2020-10-03T00:00:00-04:00</updated><subtitle>Cole's dev log</subtitle><entry><title>Better output with /usr/bin/bugzilla --json</title><link href="https://blog.wikichoon.com/2020/10/bugzilla-json-output.html" rel="alternate"></link><published>2020-10-03T00:00:00-04:00</published><updated>2020-10-03T00:00:00-04:00</updated><author><name>Cole Robinson</name></author><id>tag:blog.wikichoon.com,2020-10-03:/2020/10/bugzilla-json-output.html</id><summary type="html">&lt;p&gt;In python-bugzilla 2.4.0 I added a &lt;code&gt;--json&lt;/code&gt; output switch to &lt;code&gt;/usr/bin/bugzilla&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;IMO this is the optimal way to process large amounts of bugzilla query output
+from the command laine. so if you are already doing just that with the old output
+options, consider switching to &lt;code&gt;--json …&lt;/code&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;In python-bugzilla 2.4.0 I added a &lt;code&gt;--json&lt;/code&gt; output switch to &lt;code&gt;/usr/bin/bugzilla&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;IMO this is the optimal way to process large amounts of bugzilla query output
+from the command laine. so if you are already doing just that with the old output
+options, consider switching to &lt;code&gt;--json&lt;/code&gt;. That is, if you aren't ready to make the full
+leap to using the library directly ;)&lt;/p&gt;
+&lt;h4&gt;Replace usage of &lt;code&gt;--raw&lt;/code&gt;&lt;/h4&gt;
+&lt;p&gt;The older &lt;code&gt;--raw&lt;/code&gt; output mode will print bug contents in a strange custom array-like output
+format that is poorly specified and impossible to parse reliably. Please use &lt;code&gt;--json&lt;/code&gt; instead.
+&lt;code&gt;--raw&lt;/code&gt; may be removed in the future.&lt;/p&gt;
+&lt;h4&gt;Replace usage of &lt;code&gt;--outputformat&lt;/code&gt;&lt;/h4&gt;
+&lt;p&gt;The older &lt;code&gt;--outputformat&lt;/code&gt; option processes bug contents and prints them out in the
+specified string format. Variables are referenced with something akin to RPM macro
+format. Example:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ bugzilla query --outputformat &lt;span class="s1"&gt;&amp;#39;%{id}::%{summary}&amp;#39;&lt;/span&gt; --id &lt;span class="m"&gt;1234567&lt;/span&gt;
+&lt;span class="m"&gt;1234567&lt;/span&gt;::Package should not ship a separate emacs sub-package
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This has served us pretty well, but besides being a custom and poorly specified
+format, it has limitations with formatting subvalues of non-string bugzilla fields.&lt;/p&gt;
+&lt;p&gt;With &lt;code&gt;--json&lt;/code&gt; you can make use of the powerful &lt;code&gt;jq&lt;/code&gt; tool which
+gives you the ability to do all manner of querying and processing of
+the output.&lt;/p&gt;
+&lt;p&gt;This example duplicates the &lt;code&gt;--outputformat&lt;/code&gt; example above:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="gp"&gt;$&lt;/span&gt; bugzilla query --json --id &lt;span class="m"&gt;1234567&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; jq -r &lt;span class="s1"&gt;&amp;#39;.bugs[0] | &amp;quot;\(.id)::\(.summary)&amp;quot;&amp;#39;&lt;/span&gt;
+&lt;span class="go"&gt;1234567::Package should not ship a separate emacs sub-package&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This example demonstrates accessing a structured subfield like &lt;code&gt;comments&lt;/code&gt;. We print the first comment's creation time for a list of bugs:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="gp"&gt;$&lt;/span&gt; bugzilla query --json &lt;span class="se"&gt;\&lt;/span&gt;
+    --product Fedora --component virt-manager --status OPEN &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
+    jq -r &lt;span class="s2"&gt;&amp;quot;.bugs[].comments[0].creation_time&amp;quot;&lt;/span&gt;
+&lt;span class="go"&gt;2020-07-08T16:35:14Z&lt;/span&gt;
+&lt;span class="go"&gt;2020-08-30T14:22:42Z&lt;/span&gt;
+&lt;span class="go"&gt;2020-04-12T20:28:24Z&lt;/span&gt;
+&lt;span class="go"&gt;2020-02-05T09:57:48Z&lt;/span&gt;
+&lt;span class="go"&gt;2020-09-09T15:17:32Z&lt;/span&gt;
+&lt;span class="go"&gt;2019-12-28T22:29:05Z&lt;/span&gt;
+&lt;span class="go"&gt;2020-08-15T21:20:02Z&lt;/span&gt;
+&lt;span class="go"&gt;2020-09-21T13:59:37Z&lt;/span&gt;
+&lt;span class="go"&gt;2020-09-18T08:50:28Z&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;Optimizing &lt;code&gt;--json&lt;/code&gt; queried data&lt;/h4&gt;
+&lt;p&gt;One downside of &lt;code&gt;--json&lt;/code&gt; compared to &lt;code&gt;--outputformat&lt;/code&gt; is that it will return
+all bug data even if you only plan to parse a subset of it. For big queries,
+or ones performed repeatedly, this can cause unnecessary load on the bugzilla
+instance.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;--outputformat&lt;/code&gt; knows what fields you need, so will only fetch those from
+the bugzilla instance, transferring the minimally required amount of data.
+You can achieve the same thing manually with &lt;code&gt;--json&lt;/code&gt; by also specifying
+the option &lt;code&gt;--includefield field1 --includefield field2 ..&lt;/code&gt; for every
+field you need to process. Example:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="gp"&gt;$&lt;/span&gt; bugzilla query --json --includefield summary --id &lt;span class="m"&gt;1234567&lt;/span&gt;
+&lt;span class="go"&gt;{&lt;/span&gt;
+&lt;span class="go"&gt;  &amp;quot;bugs&amp;quot;: [&lt;/span&gt;
+&lt;span class="go"&gt;    {&lt;/span&gt;
+&lt;span class="go"&gt;      &amp;quot;id&amp;quot;: 1234567,&lt;/span&gt;
+&lt;span class="go"&gt;      &amp;quot;summary&amp;quot;: &amp;quot;Package should not ship a separate emacs sub-package&amp;quot;&lt;/span&gt;
+&lt;span class="go"&gt;    }&lt;/span&gt;
+&lt;span class="go"&gt;  ]&lt;/span&gt;
+&lt;span class="go"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;As a more general tip, use the bugzilla web UI to generate a query that
+only checks for changes after a certain timestamp that is relevant to
+you, and pass that to
+&lt;a href="https://blog.wikichoon.com/2014/05/invoking-bugzilla-query-url-from.html"&gt;&lt;code&gt;query --from-url $URL&lt;/code&gt;&lt;/a&gt;,
+so you can limit the time window for the data you are fetching.&lt;/p&gt;
+&lt;h4&gt;Using &lt;code&gt;--json&lt;/code&gt; to find bugzilla API field names&lt;/h4&gt;
+&lt;p&gt;This applies to &lt;code&gt;--raw&lt;/code&gt; as well, but you can use &lt;code&gt;--json&lt;/code&gt; to find out the
+API name of custom fields in the bugzilla instance. Many times I've been asked
+questions like: 'How do I access bugzilla.redhat.com field FOOBAR from python-bugzilla?'.
+The simplest way to figure it out is to find a bug that you know has data filled in for
+that field, pass that bug ID to &lt;code&gt;bugzilla query --json --id XXX&lt;/code&gt; and examine the output
+to find the field name. If they are custom fields they usually have a prefix like &lt;code&gt;cf_&lt;/code&gt;,
+at least for bugzilla.redhat.com.&lt;/p&gt;</content><category term="fedora"></category></entry><entry><title>virt-install --cloud-init support</title><link href="https://blog.wikichoon.com/2020/09/virt-install-cloud-init.html" rel="alternate"></link><published>2020-09-26T00:00:00-04:00</published><updated>2020-09-26T00:00:00-04:00</updated><author><name>Cole Robinson</name></author><id>tag:blog.wikichoon.com,2020-09-26:/2020/09/virt-install-cloud-init.html</id><summary type="html">&lt;p&gt;As part of GSOC 2019, &lt;a href="https://athinapl.home.blog/2019/08/25/gsoc-2019-cloud-init-configuration-for-virt-manager-virt-install/"&gt;Athina Plaskasoviti implemented &lt;code&gt;--cloud-init&lt;/code&gt; support for virt-install&lt;/a&gt;. This post provides a bit more info about the feature.&lt;/p&gt;
 &lt;h4&gt;Why cloud-init&lt;/h4&gt;
 &lt;p&gt;For a long while, most mainstream Linux distros have shipped 'cloud images': &lt;code&gt;raw&lt;/code&gt; or &lt;code&gt;qcow2&lt;/code&gt; formatted disk images with the distro minimally pre-installed on it. These …&lt;/p&gt;</summary><content type="html">&lt;p&gt;As part of GSOC 2019, &lt;a href="https://athinapl.home.blog/2019/08/25/gsoc-2019-cloud-init-configuration-for-virt-manager-virt-install/"&gt;Athina Plaskasoviti implemented &lt;code&gt;--cloud-init&lt;/code&gt; support for virt-install&lt;/a&gt;. This post provides a bit more info about the feature.&lt;/p&gt;
 &lt;h4&gt;Why cloud-init&lt;/h4&gt;
@@ -188,10 +270,4 @@ is a dump of some of the details.&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;That's it, &lt;code&gt;/usr/bin/bugzilla&lt;/code&gt; and python-bugzilla using tools should pick it up automagically. Note, API keys are as good as passwords in certain ways, so treat it with the same secrecy you would treat a password.&lt;/p&gt;</content><category term="fedora"></category></entry><entry><title>Setting custom network names on Fedora</title><link href="https://blog.wikichoon.com/2018/10/setting-custom-network-names-on-fedora.html" rel="alternate"></link><published>2018-10-04T21:27:00-04:00</published><updated>2018-10-04T21:27:00-04:00</updated><author><name>Cole Robinson</name></author><id>tag:blog.wikichoon.com,2018-10-04:/2018/10/setting-custom-network-names-on-fedora.html</id><summary type="html">&lt;p&gt;&lt;a href="https://www.freedesktop.org/wiki/Software/systemd/PredictableNetworkInterfaceNames/"&gt;systemd predictable network names&lt;/a&gt; give us host interface names like &lt;strong&gt;enp3s0&lt;/strong&gt;. On one of my hosts, I have two interfaces: one that is my regular hard wired connection, and another I only plug in occasionally for some virt network testing. I can never remember the systemd names, so I want …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;a href="https://www.freedesktop.org/wiki/Software/systemd/PredictableNetworkInterfaceNames/"&gt;systemd predictable network names&lt;/a&gt; give us host interface names like &lt;strong&gt;enp3s0&lt;/strong&gt;. On one of my hosts, I have two interfaces: one that is my regular hard wired connection, and another I only plug in occasionally for some virt network testing. I can never remember the systemd names, so I want to rename the interfaces to something more descriptive for my needs. in my case &lt;strong&gt;lan0main&lt;/strong&gt; and &lt;strong&gt;lan1pcie&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;The page referenced says to use systemd links. However after struggling with that for a while I'm that's only relevant to systemd-networkd usage and doesn't apply to Fedora's default use of NetworkManager. So I needed another way.&lt;/p&gt;
-&lt;p&gt;Long story short I ended up with some custom udev rules that are patterned after the old 70-persistent-net.rules file. Replace &lt;code&gt;$MYMAC1&lt;/code&gt; and &lt;code&gt;$MYMAC2&lt;/code&gt; with your specific values&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="gp"&gt;$&lt;/span&gt; cat /etc/udev/rules.d/99-cole-nic-names.rules
-&lt;span class="go"&gt;SUBSYSTEM==&amp;quot;net&amp;quot;, ACTION==&amp;quot;add&amp;quot;, DRIVERS==&amp;quot;?*&amp;quot;, ATTR{address}==&amp;quot;$MYMAC1&amp;quot;, ATTR{type}==&amp;quot;1&amp;quot;, NAME=&amp;quot;lan0main&amp;quot;&lt;/span&gt;
-&lt;span class="go"&gt;SUBSYSTEM==&amp;quot;net&amp;quot;, ACTION==&amp;quot;add&amp;quot;, DRIVERS==&amp;quot;?*&amp;quot;, ATTR{address}==&amp;quot;$MYMAC2&amp;quot;, ATTR{type}==&amp;quot;1&amp;quot;, NAME=&amp;quot;lan1pcie&amp;quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content><category term="fedora"></category><category term="virt"></category></entry></feed>
+&lt;p&gt;That's it, &lt;code&gt;/usr/bin/bugzilla&lt;/code&gt; and python-bugzilla using tools should pick it up automagically. Note, API keys are as good as passwords in certain ways, so treat it with the same secrecy you would treat a password.&lt;/p&gt;</content><category term="fedora"></category></entry></feed>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2020-09-26 16:16:26.555606 -->
+<!-- Generated 2020-10-03 15:15:18.592805 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -58,7 +58,7 @@
 <p>There's a simple workaround for this. Generate a query URL using the bugzilla web UI, and pass it to <code>/usr/bin/bugzilla</code> like:</p>
 <p><code>bugzilla query --from-url "$URL"</code></p>
 <p>For example, say I go to the bugzilla web UI and say 'show me all open, upstream libvirt bugs that haven't received a comment in since 2013'. It generates a massive URL. Here's what the URL looks like:</p>
-<div class="highlight"><pre><span></span><code><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">bugzilla</span><span class="p">.</span><span class="n">redhat</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">buglist</span><span class="p">.</span><span class="n">cgi</span><span class="o">?</span><span class="n">bug_status</span><span class="o">=</span><span class="k">NEW</span><span class="o">&amp;</span><span class="n">bug_status</span><span class="o">=</span><span class="n">ASSIGNED</span><span class="o">&amp;</span><span class="n">bug_status</span><span class="o">=</span><span class="n">POST</span><span class="o">&amp;</span><span class="n">bug_status</span><span class="o">=</span><span class="n">MODIFIED</span><span class="o">&amp;</span><span class="n">bug_status</span><span class="o">=</span><span class="n">ON_DEV</span><span class="o">&amp;</span><span class="n">bug_status</span><span class="o">=</span><span class="n">ON_QA</span><span class="o">&amp;</span><span class="n">bug_status</span><span class="o">=</span><span class="n">VERIFIED</span><span class="o">&amp;</span><span class="n">bug_status</span><span class="o">=</span><span class="n">RELEASE_PENDING</span><span class="o">&amp;</span><span class="n">classification</span><span class="o">=</span><span class="n">Community</span><span class="o">&amp;</span><span class="n">component</span><span class="o">=</span><span class="n">libvirt</span><span class="o">&amp;</span><span class="n">f1</span><span class="o">=</span><span class="n">longdesc</span><span class="o">&amp;</span><span class="n">list_id</span><span class="o">=</span><span class="mi">2372821</span><span class="o">&amp;</span><span class="n">n1</span><span class="o">=</span><span class="mi">1</span><span class="o">&amp;</span><span class="n">o1</span><span class="o">=</span><span class="n">changedafter</span><span class="o">&amp;</span><span class="n">product</span><span class="o">=</span><span class="n">Virtualization</span><span class="o">%</span><span class="mi">20</span><span class="n">Tools</span><span class="o">&amp;</span><span class="n">query_format</span><span class="o">=</span><span class="n">advanced</span><span class="o">&amp;</span><span class="n">v1</span><span class="o">=</span><span class="mi">2013</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">31</span>
+<div class="highlight"><pre><span></span><code><span class="c">https://bugzilla.redhat.com/buglist.cgi?bug_status=NEW&amp;bug_status=ASSIGNED&amp;bug_status=POST&amp;bug_status=MODIFIED&amp;bug_status=ON_DEV&amp;bug_status=ON_QA&amp;bug_status=VERIFIED&amp;bug_status=RELEASE_PENDING&amp;classification=Community&amp;component=libvirt&amp;f1=longdesc&amp;list_id=2372821&amp;n1=1&amp;o1=changedafter&amp;product=Virtualization%20Tools&amp;query_format=advanced&amp;v1=2013-12-31</span>
 </code></pre></div>
 
 
@@ -71,7 +71,7 @@
 <span class="n">buglist</span> <span class="o">=</span> <span class="n">bzapi</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">bzapi</span><span class="o">.</span><span class="n">url_to_query</span><span class="p">(</span><span class="s2">&quot;URL&quot;</span><span class="p">))</span>
 
 <span class="k">for</span> <span class="n">bug</span> <span class="ow">in</span> <span class="n">buglist</span><span class="p">:</span>
-    <span class="k">print</span> <span class="n">bug</span><span class="o">.</span><span class="n">summary</span>
+    <span class="nb">print</span> <span class="n">bug</span><span class="o">.</span><span class="n">summary</span>
 </code></pre></div>
 
 

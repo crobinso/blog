@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<!-- Generated 2020-10-03 15:15:18.592805 -->
+<html lang="en">
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-142995745-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-142995745-1');
+    </script>
+    <link rel="canonical" href="https://blog.wikichoon.com/2020/10/bugzilla-json-output.html"/>
+      <title>Better output with /usr/bin/bugzilla --json | Cole Robinson</title>
+      <meta charset="utf-8" />
+      <link href="https://blog.wikichoon.com/theme/minima-main.css" rel="stylesheet" />
+      <link href="https://blog.wikichoon.com/theme/coletheme.css" rel="stylesheet" />
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link href="https://blog.wikichoon.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Cole Robinson Full Atom Feed" />
+  </head>
+
+  <body id="index" class="archive">
+    <header class="site-header">
+      <div class="wrapper">
+        <a class="site-title" href="https://blog.wikichoon.com">Cole Robinson</a>
+        <nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewBox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+              </svg>
+            </span>
+          </label>
+          <div class="trigger">
+            <a class="page-link" href="https://blog.wikichoon.com">Home</a>
+            <a class="page-link" href="https://blog.wikichoon.com/archives.html">Archives</a>
+            <a class="page-link" href="https://wikichoon.com">About</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main id="content" class="page-content">
+      <div class="wrapper">
+      <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+        <header>
+          <h1 class="post-title givemecolor" itemprop="name headline">Better output with /usr/bin/bugzilla --json</h2>
+          <p class="post-meta">
+            <time class="dt-published" datetime="2020-10-03T00:00:00-04:00" itemprop="datePublished">Sat 03 October 2020
+            </time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">Cole Robinson</span>
+            </span> • Tags: <a href="https://blog.wikichoon.com/tag/fedora.html">fedora</a>           </p>
+        </header>
+
+        <div class="post-content" itemprop="articleBody">
+          <p>In python-bugzilla 2.4.0 I added a <code>--json</code> output switch to <code>/usr/bin/bugzilla</code>.</p>
+<p>IMO this is the optimal way to process large amounts of bugzilla query output
+from the command laine. so if you are already doing just that with the old output
+options, consider switching to <code>--json</code>. That is, if you aren't ready to make the full
+leap to using the library directly ;)</p>
+<h4>Replace usage of <code>--raw</code></h4>
+<p>The older <code>--raw</code> output mode will print bug contents in a strange custom array-like output
+format that is poorly specified and impossible to parse reliably. Please use <code>--json</code> instead.
+<code>--raw</code> may be removed in the future.</p>
+<h4>Replace usage of <code>--outputformat</code></h4>
+<p>The older <code>--outputformat</code> option processes bug contents and prints them out in the
+specified string format. Variables are referenced with something akin to RPM macro
+format. Example:</p>
+<div class="highlight"><pre><span></span><code>$ bugzilla query --outputformat <span class="s1">&#39;%{id}::%{summary}&#39;</span> --id <span class="m">1234567</span>
+<span class="m">1234567</span>::Package should not ship a separate emacs sub-package
+</code></pre></div>
+
+
+<p>This has served us pretty well, but besides being a custom and poorly specified
+format, it has limitations with formatting subvalues of non-string bugzilla fields.</p>
+<p>With <code>--json</code> you can make use of the powerful <code>jq</code> tool which
+gives you the ability to do all manner of querying and processing of
+the output.</p>
+<p>This example duplicates the <code>--outputformat</code> example above:</p>
+<div class="highlight"><pre><span></span><code><span class="gp">$</span> bugzilla query --json --id <span class="m">1234567</span> <span class="p">|</span> jq -r <span class="s1">&#39;.bugs[0] | &quot;\(.id)::\(.summary)&quot;&#39;</span>
+<span class="go">1234567::Package should not ship a separate emacs sub-package</span>
+</code></pre></div>
+
+
+<p>This example demonstrates accessing a structured subfield like <code>comments</code>. We print the first comment's creation time for a list of bugs:</p>
+<div class="highlight"><pre><span></span><code><span class="gp">$</span> bugzilla query --json <span class="se">\</span>
+    --product Fedora --component virt-manager --status OPEN <span class="p">|</span> <span class="se">\</span>
+    jq -r <span class="s2">&quot;.bugs[].comments[0].creation_time&quot;</span>
+<span class="go">2020-07-08T16:35:14Z</span>
+<span class="go">2020-08-30T14:22:42Z</span>
+<span class="go">2020-04-12T20:28:24Z</span>
+<span class="go">2020-02-05T09:57:48Z</span>
+<span class="go">2020-09-09T15:17:32Z</span>
+<span class="go">2019-12-28T22:29:05Z</span>
+<span class="go">2020-08-15T21:20:02Z</span>
+<span class="go">2020-09-21T13:59:37Z</span>
+<span class="go">2020-09-18T08:50:28Z</span>
+</code></pre></div>
+
+
+<h4>Optimizing <code>--json</code> queried data</h4>
+<p>One downside of <code>--json</code> compared to <code>--outputformat</code> is that it will return
+all bug data even if you only plan to parse a subset of it. For big queries,
+or ones performed repeatedly, this can cause unnecessary load on the bugzilla
+instance.</p>
+<p><code>--outputformat</code> knows what fields you need, so will only fetch those from
+the bugzilla instance, transferring the minimally required amount of data.
+You can achieve the same thing manually with <code>--json</code> by also specifying
+the option <code>--includefield field1 --includefield field2 ..</code> for every
+field you need to process. Example:</p>
+<div class="highlight"><pre><span></span><code><span class="gp">$</span> bugzilla query --json --includefield summary --id <span class="m">1234567</span>
+<span class="go">{</span>
+<span class="go">  &quot;bugs&quot;: [</span>
+<span class="go">    {</span>
+<span class="go">      &quot;id&quot;: 1234567,</span>
+<span class="go">      &quot;summary&quot;: &quot;Package should not ship a separate emacs sub-package&quot;</span>
+<span class="go">    }</span>
+<span class="go">  ]</span>
+<span class="go">}</span>
+</code></pre></div>
+
+
+<p>As a more general tip, use the bugzilla web UI to generate a query that
+only checks for changes after a certain timestamp that is relevant to
+you, and pass that to
+<a href="https://blog.wikichoon.com/2014/05/invoking-bugzilla-query-url-from.html"><code>query --from-url $URL</code></a>,
+so you can limit the time window for the data you are fetching.</p>
+<h4>Using <code>--json</code> to find bugzilla API field names</h4>
+<p>This applies to <code>--raw</code> as well, but you can use <code>--json</code> to find out the
+API name of custom fields in the bugzilla instance. Many times I've been asked
+questions like: 'How do I access bugzilla.redhat.com field FOOBAR from python-bugzilla?'.
+The simplest way to figure it out is to find a bug that you know has data filled in for
+that field, pass that bug ID to <code>bugzilla query --json --id XXX</code> and examine the output
+to find the field name. If they are custom fields they usually have a prefix like <code>cf_</code>,
+at least for bugzilla.redhat.com.</p>
+        </div>
+
+        <div id="disqus_thread"></div>
+        <script>
+          var disqus_config = function () {
+            this.page.url = 'https://blog.wikichoon.com/2020/10/bugzilla-json-output.html';
+            this.page.identifier = 'https://blog.wikichoon.com/2020/10/bugzilla-json-output.html';
+          };
+
+          (function() {
+            var d = document, s = d.createElement('script');
+            s.src = 'https://wikichoon-com.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+      </article>
+      </div>
+    </main>
+
+    <footer class="site-footer h-card">
+      <div class="wrapper">
+        <h2 class="footer-heading">Cole's dev log</h2>
+        <div class="footer-col-wrapper">
+          <div class="footer-col footer-col-1">
+            <ul class="contact-list">
+                <li class="p-name">Cole Robinson </li><li><a class="u-email" href="mailto:">aintdiscole@gmail.com</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col footer-col-2">
+            <ul class="social-media-list">
+              <li><a href="https://github.com/crobinso"><svg class="svg-icon"><use xlink:href="https://blog.wikichoon.com/theme/minima-social-icons.svg#github"></use></svg> <span class="username">crobinso</span></a></li>
+              <li><a href="https://www.twitter.com/aintdiscole"><svg class="svg-icon"><use xlink:href="https://blog.wikichoon.com/theme/minima-social-icons.svg#twitter"></use></svg> <span class="username">aintdiscole</span></a></li>
+              <li><a href="https://www.linkedin.com/in/cole-robinson-484a9912"><svg class="svg-icon"><use xlink:href="https://blog.wikichoon.com/theme/minima-social-icons.svg#linkedin"></use></svg> <span class="username">Cole Robinson</span></a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col footer-col-3">
+            <a href="https://blog.wikichoon.com/feeds/all.atom.xml">RSS</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

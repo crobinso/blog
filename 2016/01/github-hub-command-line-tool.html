@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2020-09-26 16:16:26.555606 -->
+<!-- Generated 2020-10-03 15:15:18.592805 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -58,8 +58,8 @@
 <p>But when I do need to submit patches, <a href="https://hub.github.com/">github's hub tool</a> makes my life a lot simpler, which allows forking repositories and submitting pull-requests very easily from the command line.</p>
 <p>The 'hub' tool wants to be installed as an alias for 'git'. I originally tried that, but it made my bash prompt insanely slow since I show the <a href="https://fedoraproject.org/wiki/Git_quick_reference#Display_current_branch_in_bash">current git branch and dirty state in my bash prompt</a>. When I first encountered this, I filed a <a href="https://github.com/github/hub/issues/254">bug</a> against the hub tool (with a bogus workaround), and nowadays it seems they have a <a href="https://github.com/github/hub#is-your-shell-prompt-slow">disclaimer in their README</a>.</p>
 <p>Their recommended fix is to <code>s/git/command git/g</code> in git-prompt.sh, which doesn't work too well if you use the linked fedora suggestion of pointing at the package installed file in /usr/share, so I avoid the alias. You can run 'hub' standalone, but instead I like to do:</p>
-<div class="highlight"><pre><span></span><code> <span class="n">sudo</span> <span class="n">dnf</span> <span class="n">install</span> <span class="n">hub</span>
- <span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">hub</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">libexec</span><span class="o">/</span><span class="n">git</span><span class="o">-</span><span class="n">core</span><span class="o">/</span><span class="n">git</span><span class="o">-</span><span class="n">hub</span>
+<div class="highlight"><pre><span></span><code><span class="err"> sudo dnf install hub</span>
+<span class="err"> ln -s /usr/bin/hub /usr/libexec/git-core/git-hub</span>
 </code></pre></div>
 
 

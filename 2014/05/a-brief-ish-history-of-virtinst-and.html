@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2020-09-26 16:16:26.555606 -->
+<!-- Generated 2020-10-03 15:15:18.592805 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -66,29 +66,29 @@
 
 <p>(Strangely, the file isn't actually in git... I assume this is some accident of the CVS->git conversion. You can see the version shipped with Fedora Core 5 in the <a href="https://archives.fedoraproject.org/pub/archive/fedora/linux/core/5/x86_64/os/Fedora/RPMS/xen-3.0.1-4.x86_64.rpm">archived RPM</a>).</p>
 <p>Check out the original set of arguments</p>
-<div class="highlight"><pre><span></span><code><span class="nv">Options</span>:
- <span class="o">-</span><span class="nv">h</span>, <span class="o">--</span><span class="nv">help</span>      <span class="k">show</span> <span class="nv">this</span> <span class="nv">help</span> <span class="nv">message</span> <span class="nv">and</span> <span class="k">exit</span>
- <span class="o">-</span><span class="nv">n</span> <span class="nv">NAME</span>, <span class="o">--</span><span class="nv">name</span><span class="o">=</span><span class="nv">NAME</span> <span class="nv">Name</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">guest</span> <span class="nv">instance</span>
- <span class="o">-</span><span class="nv">f</span> <span class="nv">DISKFILE</span>, <span class="o">--</span><span class="nv">file</span><span class="o">=</span><span class="nv">DISKFILE</span>
-            <span class="nv">File</span> <span class="nv">to</span> <span class="nv">use</span> <span class="nv">as</span> <span class="nv">the</span> <span class="nv">disk</span> <span class="nv">image</span>
- <span class="o">-</span><span class="nv">s</span> <span class="nv">DISKSIZE</span>, <span class="o">--</span><span class="nv">file</span><span class="o">-</span><span class="nv">size</span><span class="o">=</span><span class="nv">DISKSIZE</span>
-            <span class="nv">Size</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">disk</span> <span class="nv">image</span> <span class="ss">(</span><span class="k">if</span> <span class="nv">it</span> <span class="nv">doesn</span><span class="s1">&#39;</span><span class="s">t exist) in</span>
-            <span class="nv">gigabytes</span>
- <span class="o">-</span><span class="nv">r</span> <span class="nv">MEMORY</span>, <span class="o">--</span><span class="nv">ram</span><span class="o">=</span><span class="nv">MEMORY</span>
-            <span class="nv">Memory</span> <span class="nv">to</span> <span class="nv">allocate</span> <span class="k">for</span> <span class="nv">guest</span> <span class="nv">instance</span> <span class="nv">in</span> <span class="nv">megabytes</span>
- <span class="o">-</span><span class="nv">m</span> <span class="nv">MAC</span>, <span class="o">--</span><span class="nv">mac</span><span class="o">=</span><span class="nv">MAC</span>   <span class="nv">Fixed</span> <span class="nv">MAC</span> <span class="nv">address</span> <span class="k">for</span> <span class="nv">the</span> <span class="nv">guest</span><span class="c1">; if none is given a</span>
-            <span class="k">random</span> <span class="nv">address</span> <span class="nv">will</span> <span class="nv">be</span> <span class="nv">used</span>
- <span class="o">-</span><span class="nv">v</span>, <span class="o">--</span><span class="nv">hvm</span>       <span class="nv">This</span> <span class="nv">guest</span> <span class="nv">should</span> <span class="nv">be</span> <span class="nv">a</span> <span class="nv">fully</span> <span class="nv">virtualized</span> <span class="nv">guest</span>
- <span class="o">-</span><span class="nv">c</span> <span class="nv">CDROM</span>, <span class="o">--</span><span class="nv">cdrom</span><span class="o">=</span><span class="nv">CDROM</span>
-            <span class="nv">File</span> <span class="nv">to</span> <span class="nv">use</span> <span class="nv">a</span> <span class="nv">virtual</span> <span class="nv">CD</span><span class="o">-</span><span class="nv">ROM</span> <span class="nv">device</span> <span class="k">for</span> <span class="nv">fully</span>
-            <span class="nv">virtualized</span> <span class="nv">guests</span>
- <span class="o">-</span><span class="nv">p</span>, <span class="o">--</span><span class="nv">paravirt</span>    <span class="nv">This</span> <span class="nv">guest</span> <span class="nv">should</span> <span class="nv">be</span> <span class="nv">a</span> <span class="nv">paravirtualized</span> <span class="nv">guest</span>
- <span class="o">-</span><span class="nv">l</span> <span class="nv">LOCATION</span>, <span class="o">--</span><span class="nv">location</span><span class="o">=</span><span class="nv">LOCATION</span>
-            <span class="nv">Installation</span> <span class="nv">source</span> <span class="k">for</span> <span class="nv">paravirtualized</span> <span class="nv">guest</span> <span class="ss">(</span><span class="nv">eg</span>,
-            <span class="nv">nfs</span>:<span class="nv">host</span>:<span class="o">/</span><span class="nv">path</span>, <span class="nv">https</span>:<span class="o">//</span><span class="nv">host</span><span class="o">/</span><span class="nv">path</span>, <span class="nv">ftp</span>:<span class="o">//</span><span class="nv">host</span><span class="o">/</span><span class="nv">path</span><span class="ss">)</span>
- <span class="o">-</span><span class="nv">x</span> <span class="nv">EXTRA</span>, <span class="o">--</span><span class="nv">extra</span><span class="o">-</span><span class="nv">args</span><span class="o">=</span><span class="nv">EXTRA</span>
-            <span class="nv">Additional</span> <span class="nv">arguments</span> <span class="nv">to</span> <span class="nv">pass</span> <span class="nv">to</span> <span class="nv">the</span> <span class="nv">installer</span> <span class="nv">with</span>
-            <span class="nv">paravirt</span> <span class="nv">guests</span>
+<div class="highlight"><pre><span></span><code><span class="c">Options:</span>
+<span class="c"> -h, --help      show this help message and exit</span>
+<span class="c"> -n NAME, --name=NAME Name of the guest instance</span>
+<span class="c"> -f DISKFILE, --file=DISKFILE</span>
+<span class="c">            File to use as the disk image</span>
+<span class="c"> -s DISKSIZE, --file-size=DISKSIZE</span>
+<span class="c">            Size of the disk image (if it doesn&#39;t exist) in</span>
+<span class="c">            gigabytes</span>
+<span class="c"> -r MEMORY, --ram=MEMORY</span>
+<span class="c">            Memory to allocate for guest instance in megabytes</span>
+<span class="c"> -m MAC, --mac=MAC   Fixed MAC address for the guest; if none is given a</span>
+<span class="c">            random address will be used</span>
+<span class="c"> -v, --hvm       This guest should be a fully virtualized guest</span>
+<span class="c"> -c CDROM, --cdrom=CDROM</span>
+<span class="c">            File to use a virtual CD-ROM device for fully</span>
+<span class="c">            virtualized guests</span>
+<span class="c"> -p, --paravirt    This guest should be a paravirtualized guest</span>
+<span class="c"> -l LOCATION, --location=LOCATION</span>
+<span class="c">            Installation source for paravirtualized guest (eg,</span>
+<span class="c">            nfs:host:/path, https://host/path, ftp://host/path)</span>
+<span class="c"> -x EXTRA, --extra-args=EXTRA</span>
+<span class="c">            Additional arguments to pass to the installer with</span>
+<span class="c">            paravirt guests</span>
 </code></pre></div>
 
 
@@ -97,13 +97,13 @@
 Fedora CVS was the canonical home of the script.</p>
 <p>In March 2006, <a href="https://berrange.com/">Dan Berrangé</a> <a href="https://git.fedorahosted.org/cgit/virt-manager.git/commit/?id=3ed0ef3">started work on virt-manager</a>. It was very briefly called gnome-vm-manager, then settled into gnome-virt-manager until July 2006 when it was <a href="https://git.fedorahosted.org/cgit/virt-manager.git/commit/?id=dc0d6db84cfe78c4a479381ead55bbd83c0cca55">renamed to virt-manager</a>.</p>
 <p>In August 2006, xenguest-install moved to its own repo, <a href="https://git.fedorahosted.org/cgit/python-virtinst.git/commit/?id=1e2e1aa0ca0b5ed8669be61aa4271a3e8c1d7333">python-xeninst</a>:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">commit</span> <span class="mi">1</span><span class="nv">e2e1aa0ca0b5ed8669be61aa4271a3e8c1d7333</span>
-<span class="nv">Author</span>: <span class="nv">Jeremy</span> <span class="nv">Katz</span> <span class="o">&lt;</span><span class="nv">katzj</span>@<span class="nv">redhat</span>.<span class="nv">com</span><span class="o">&gt;</span>
-<span class="nv">Date</span>:  <span class="nv">Tue</span> <span class="nv">Aug</span> <span class="mi">8</span> <span class="mi">21</span>:<span class="mi">37</span>:<span class="mi">49</span> <span class="mi">2006</span> <span class="o">-</span><span class="mi">0400</span>
+<div class="highlight"><pre><span></span><code><span class="k">commit</span><span class="w"> </span><span class="mf">1e2</span><span class="n">e1aa0ca0b5ed8669be61aa4271a3e8c1d7333</span><span class="w"></span>
+<span class="nl">Author</span><span class="p">:</span><span class="w"> </span><span class="n">Jeremy</span><span class="w"> </span><span class="n">Katz</span><span class="w"> </span><span class="o">&lt;</span><span class="n">katzj</span><span class="nv">@redhat</span><span class="p">.</span><span class="n">com</span><span class="o">&gt;</span><span class="w"></span>
+<span class="nc">Date</span><span class="err">:</span><span class="w">  </span><span class="n">Tue</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">21</span><span class="err">:</span><span class="mi">37</span><span class="err">:</span><span class="mi">49</span><span class="w"> </span><span class="mi">2006</span><span class="w"> </span><span class="o">-</span><span class="mi">0400</span><span class="w"></span>
 
-  <span class="nv">first</span> <span class="nv">pass</span> <span class="nv">at</span> <span class="nv">breaking</span> <span class="nv">up</span> <span class="nv">xenguest</span><span class="o">-</span><span class="nv">install</span> <span class="nv">to</span> <span class="nv">have</span> <span class="nv">more</span> <span class="nv">of</span> <span class="nv">a</span> <span class="nv">usable</span> <span class="nv">API</span>.
-  <span class="nv">currently</span> <span class="nv">only</span> <span class="nv">works</span> <span class="k">for</span> <span class="nv">paravirt</span> <span class="nv">and</span> <span class="nv">some</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">bits</span> <span class="nv">after</span> <span class="nv">the</span> <span class="nv">install</span>
-  <span class="nv">gets</span> <span class="nv">started</span> <span class="nv">are</span> <span class="nv">still</span> <span class="nv">a</span> <span class="nv">little</span> <span class="nv">less</span> <span class="nv">than</span> <span class="nv">ideal</span>
+<span class="w">  </span><span class="k">first</span><span class="w"> </span><span class="n">pass</span><span class="w"> </span><span class="k">at</span><span class="w"> </span><span class="n">breaking</span><span class="w"> </span><span class="n">up</span><span class="w"> </span><span class="n">xenguest</span><span class="o">-</span><span class="n">install</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="n">more</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">usable</span><span class="w"> </span><span class="n">API</span><span class="p">.</span><span class="w"></span>
+<span class="w">  </span><span class="n">currently</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="n">works</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">paravirt</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="ow">some</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">bits</span><span class="w"> </span><span class="k">after</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">install</span><span class="w"></span>
+<span class="w">  </span><span class="n">gets</span><span class="w"> </span><span class="n">started</span><span class="w"> </span><span class="k">are</span><span class="w"> </span><span class="n">still</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">little</span><span class="w"> </span><span class="k">less</span><span class="w"> </span><span class="k">than</span><span class="w"> </span><span class="n">ideal</span><span class="w"></span>
 </code></pre></div>
 
 

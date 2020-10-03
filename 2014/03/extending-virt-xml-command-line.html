@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2020-09-26 16:16:26.555606 -->
+<!-- Generated 2020-10-03 15:15:18.592805 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -109,9 +109,9 @@
 <p>Some options do extra validation or need to do special handling. If you need extra functionality, look at examples that pass setter_cb to set_param.</p>
 <p>After this bit is applied, you'll see defaultMode appear in the --graphics=? output, and everything will work as expected. But we need to add a unit test to validate the XML generation.</p>
 <p>An easy way to test that this is working is with a command line like:</p>
-<div class="highlight"><pre><span></span><code>.<span class="o">/</span><span class="nv">virt</span><span class="o">-</span><span class="nv">install</span> <span class="o">--</span><span class="k">connect</span> <span class="nv">test</span>:<span class="o">///</span><span class="nv">default</span> <span class="o">--</span><span class="nv">name</span> <span class="nv">foo</span> <span class="o">--</span><span class="nv">ram</span> <span class="mi">64</span>
-              <span class="o">--</span><span class="nv">nodisks</span> <span class="o">--</span><span class="nv">boot</span> <span class="nv">network</span> <span class="o">--</span><span class="nv">print</span><span class="o">-</span><span class="nv">xml</span>
-              <span class="o">--</span><span class="nv">graphics</span> <span class="nv">spice</span>,<span class="nv">defaultMode</span><span class="o">=</span><span class="nv">secure</span>
+<div class="highlight"><pre><span></span><code><span class="err">./virt-install --connect test:///default --name foo --ram 64</span>
+<span class="err">              --nodisks --boot network --print-xml</span>
+<span class="err">              --graphics spice,defaultMode=secure</span>
 </code></pre></div>
 
 
