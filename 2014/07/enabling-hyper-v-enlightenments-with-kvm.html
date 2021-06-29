@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2020-10-03 15:15:18.592805 -->
+<!-- Generated 2021-06-29 18:30:22.826948 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -72,7 +72,6 @@
  <span class="nt">&lt;/clock&gt;</span>
 </code></pre></div>
 
-
 <p>Some details about the individual features:</p>
 <ul>
 <li>relaxed/hv_relaxed. Available in libvirt 1.0.0+ (<a href="https://libvirt.org/git/?p=libvirt.git;a=commit;h=cc922fddc3fcbbcecce7e438a51045c2feacf767">commit</a>) and qemu 1.1+ (<a href="https://git.qemu.org/?p=qemu.git;a=commit;h=28f52cc04d341045e810bd487a478fa9ec5f40be">commit</a>). This bit disables a Windows sanity check that commonly results in a BSOD when the VM is running on a heavily loaded host (example bugs <a href="https://bugzilla.redhat.com/show_bug.cgi?id=1110305">here</a>, <a href="https://bugzilla.redhat.com/show_bug.cgi?id=990824">here</a>, and <a href="https://bugs.launchpad.net/ubuntu/+source/qemu/+bug/1308341">here</a>). Sounds similar to the Linux kernel option no_timer_check, which is automatically enabled when Linux is running on KVM.</li>
@@ -86,7 +85,6 @@
 <div class="highlight"><pre><span></span><code>$ sudo virt-xml <span class="nv">$VMNAME</span> --edit --features <span class="nv">hyperv_relaxed</span><span class="o">=</span>on,hyperv_vapic<span class="o">=</span>on,hyperv_spinlocks<span class="o">=</span>on,hyperv_spinlocks_retries<span class="o">=</span><span class="m">8191</span>
 $ sudo virt-xml <span class="nv">$VMNAME</span> --edit --clock <span class="nv">hypervclock_present</span><span class="o">=</span>yes
 </code></pre></div>
-
 
 <p>The first invocation will work with virt-manager 1.0.1, the second invocation requires virt-manager.git. In my testing this didn't upset my existing Windows VMs and they worked fine after a reboot.</p>
 <p>Other tools aren't enabling these features yet, though there are bugs tracking this for the big ones:</p>

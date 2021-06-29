@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2020-10-03 15:15:18.592805 -->
+<!-- Generated 2021-06-29 18:30:22.826948 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -71,20 +71,18 @@ format. Example:</p>
 <span class="m">1234567</span>::Package should not ship a separate emacs sub-package
 </code></pre></div>
 
-
 <p>This has served us pretty well, but besides being a custom and poorly specified
 format, it has limitations with formatting subvalues of non-string bugzilla fields.</p>
 <p>With <code>--json</code> you can make use of the powerful <code>jq</code> tool which
 gives you the ability to do all manner of querying and processing of
 the output.</p>
 <p>This example duplicates the <code>--outputformat</code> example above:</p>
-<div class="highlight"><pre><span></span><code><span class="gp">$</span> bugzilla query --json --id <span class="m">1234567</span> <span class="p">|</span> jq -r <span class="s1">&#39;.bugs[0] | &quot;\(.id)::\(.summary)&quot;&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="gp">$ </span>bugzilla query --json --id <span class="m">1234567</span> <span class="p">|</span> jq -r <span class="s1">&#39;.bugs[0] | &quot;\(.id)::\(.summary)&quot;&#39;</span>
 <span class="go">1234567::Package should not ship a separate emacs sub-package</span>
 </code></pre></div>
 
-
 <p>This example demonstrates accessing a structured subfield like <code>comments</code>. We print the first comment's creation time for a list of bugs:</p>
-<div class="highlight"><pre><span></span><code><span class="gp">$</span> bugzilla query --json <span class="se">\</span>
+<div class="highlight"><pre><span></span><code><span class="gp">$ </span>bugzilla query --json <span class="se">\</span>
     --product Fedora --component virt-manager --status OPEN <span class="p">|</span> <span class="se">\</span>
     jq -r <span class="s2">&quot;.bugs[].comments[0].creation_time&quot;</span>
 <span class="go">2020-07-08T16:35:14Z</span>
@@ -98,7 +96,6 @@ the output.</p>
 <span class="go">2020-09-18T08:50:28Z</span>
 </code></pre></div>
 
-
 <h4>Optimizing <code>--json</code> queried data</h4>
 <p>One downside of <code>--json</code> compared to <code>--outputformat</code> is that it will return
 all bug data even if you only plan to parse a subset of it. For big queries,
@@ -109,7 +106,7 @@ the bugzilla instance, transferring the minimally required amount of data.
 You can achieve the same thing manually with <code>--json</code> by also specifying
 the option <code>--includefield field1 --includefield field2 ..</code> for every
 field you need to process. Example:</p>
-<div class="highlight"><pre><span></span><code><span class="gp">$</span> bugzilla query --json --includefield summary --id <span class="m">1234567</span>
+<div class="highlight"><pre><span></span><code><span class="gp">$ </span>bugzilla query --json --includefield summary --id <span class="m">1234567</span>
 <span class="go">{</span>
 <span class="go">  &quot;bugs&quot;: [</span>
 <span class="go">    {</span>
@@ -119,7 +116,6 @@ field you need to process. Example:</p>
 <span class="go">  ]</span>
 <span class="go">}</span>
 </code></pre></div>
-
 
 <p>As a more general tip, use the bugzilla web UI to generate a query that
 only checks for changes after a certain timestamp that is relevant to

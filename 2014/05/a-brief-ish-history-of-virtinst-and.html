@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2020-10-03 15:15:18.592805 -->
+<!-- Generated 2021-06-29 18:30:22.826948 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -63,7 +63,6 @@
 <span class="w">  </span><span class="k">Add</span><span class="w"> </span><span class="n">xenguest</span><span class="o">-</span><span class="n">install</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">sbin</span><span class="w"></span>
 </code></pre></div>
 
-
 <p>(Strangely, the file isn't actually in git... I assume this is some accident of the CVS->git conversion. You can see the version shipped with Fedora Core 5 in the <a href="https://archives.fedoraproject.org/pub/archive/fedora/linux/core/5/x86_64/os/Fedora/RPMS/xen-3.0.1-4.x86_64.rpm">archived RPM</a>).</p>
 <p>Check out the original set of arguments</p>
 <div class="highlight"><pre><span></span><code><span class="c">Options:</span>
@@ -91,7 +90,6 @@
 <span class="c">            paravirt guests</span>
 </code></pre></div>
 
-
 <p>All those bits are still working with virt-install today, although many are are deprecated and hidden from the --help output by default.</p>
 <p>In early 2006, libvirt barely even existed, so the xenguest-install.py was generating <a href="https://wiki.xen.org/wiki/Xen_Configuration_File_Options">xen xm</a> config files (basically just raw python code) in /etc/xen.
 Fedora CVS was the canonical home of the script.</p>
@@ -105,7 +103,6 @@ Fedora CVS was the canonical home of the script.</p>
 <span class="w">  </span><span class="n">currently</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="n">works</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">paravirt</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="ow">some</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">bits</span><span class="w"> </span><span class="k">after</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">install</span><span class="w"></span>
 <span class="w">  </span><span class="n">gets</span><span class="w"> </span><span class="n">started</span><span class="w"> </span><span class="k">are</span><span class="w"> </span><span class="n">still</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">little</span><span class="w"> </span><span class="k">less</span><span class="w"> </span><span class="k">than</span><span class="w"> </span><span class="n">ideal</span><span class="w"></span>
 </code></pre></div>
-
 
 <p>Much of logic was moved to a 'xeninst' module. There were some initial bits for generating libvirt XML, but the primary usage was still generating native xen configuration.</p>
 <p>(Both repositories were hosted in mercurial at hg.et.redhat.com for many years. We eventually <a href="https://www.redhat.com/archives/virt-tools-list/2011-March/msg00056.html">transitioned to git in March 2011</a>. Actually it's amazing it was only 3 years ago: I've pretty much entirely forgotten how to use mercurial despite using it for 4 years prior.)</p>

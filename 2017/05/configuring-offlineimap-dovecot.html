@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2020-10-03 15:15:18.592805 -->
+<!-- Generated 2021-06-29 18:30:22.826948 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -99,7 +99,6 @@
 <span class="na">nametrans</span> <span class="o">=</span> <span class="s">lambda name: &#39;.&#39; + name</span>
 </code></pre></div>
 
-
 <p>A few notes here:</p>
 <ul>
 <li>autorefresh/quick are commented out because I'm not using them: I'm invoking 'offlineimap -o' with cron ever 2 minutes, with a small wrapper that ensures offlineimap isn't already running (not sure if that will have nasty side effects), and also checks that I'm on my work VPN (checking for a /sys/net/class/ path). I went with this setup because running offlineimap persistently will exit if it can't resolve the remote server after a few attempts, which will trigger if I leave the VPN. Maybe there's a setting to keep it running persistently but I couldn't find it.</li>
@@ -112,11 +111,10 @@
 <span class="na">mail_location</span> <span class="o">=</span> <span class="s">maildir:~/.maildir:INBOX=~/.maildir/.INBOX</span>
 </code></pre></div>
 
-
 <p>Then configure thunderbird to connect to 127.0.0.1. User and password are the same as your local machine user account.</p>
 <p>The tricky part seems to be formatting the maildir directory names in a way that dovecot will understand and properly advertise as folders/subfolders. I played with dovecot LAYOUT=fs, various sep/separator values and offlineimap renamings, but the above config is the only thing I found that gave expected results (and I can't take credit for that setup, I eventually found it on an internal wiki page :) )</p>
 <p>Here's some (trimmed) directories in my ~/.maildir:</p>
-<div class="highlight"><pre><span></span><code><span class="gp">$</span> ls -1da .maildir/
+<div class="highlight"><pre><span></span><code><span class="gp">$ </span>ls -1da .maildir/
 <span class="go">.Drafts</span>
 <span class="go">.INBOX</span>
 <span class="go">.INBOX.fedora</span>
@@ -125,7 +123,6 @@
 <span class="go">.INBOX.virt-tools</span>
 <span class="go">.Junk</span>
 </code></pre></div>
-
 
 <p>So .Drafts, .INBOX, .Junk are all top level folders, and things like .INBOX.fedora is a 'fedora' subfolder of my inbox. That's the naming scheme the default dovecot config seems to expect.</p>
         </div>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2020-10-03 15:15:18.592805 -->
+<!-- Generated 2021-06-29 18:30:22.826948 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -59,11 +59,10 @@
 <p>For a long while, most mainstream Linux distros have shipped 'cloud images': <code>raw</code> or <code>qcow2</code> formatted disk images with the distro minimally pre-installed on it. These images typically have <a href="https://cloud-init.io/">cloud-init</a> set to run on VM bootup. cloud-init can do a variety of things, like add users, change passwords, register ssh keys, and generally perform any desired action on the VM OS. This only works when cloud-init is passed the right configuration by whatever platform is starting the VM, like OpenStack or virt-install. cloud-init supports many different <a href="https://cloudinit.readthedocs.io/en/latest/topics/datasources.html">datasources</a> for getting configuration outside the VM.</p>
 <p>Historically though the problem is that slapping these images into virt-install or virt-manager gives crappy results, because these tools were not providing any datasource. In this case, cloud-init reverts to its distro default configured behavior, which in most cases is unusable. For example on Fedora, the result was: hang waiting for cloud-init data, time out, drop to login prompt with all accounts locked.</p>
 <p>Prior to virt-install <code>--cloud-init</code> support, the simplest workaround was to use libguestfs, specifically <code>virt-customize</code>, to set a root password and disable cloud-init:</p>
-<div class="highlight"><pre><span></span><code><span class="gp">$</span> virt-customize -a MY-CLOUD-IMAGE.qcow2 <span class="se">\</span>
+<div class="highlight"><pre><span></span><code><span class="gp">$ </span>virt-customize -a MY-CLOUD-IMAGE.qcow2 <span class="se">\</span>
     --root-password password:SUPER-SECRET-PASSWORD <span class="se">\</span>
     --uninstall cloud-init
 </code></pre></div>
-
 
 <h4>--cloud-init option</h4>
 <p>The <code>--cloud-init</code> option will tell virt-install to set up a <a href="https://cloudinit.readthedocs.io/en/latest/topics/datasources/nocloud.html">nocloud</a> datasource via a specially formatted <code>.iso</code> file that is generated on the fly, and only used for the first VM bootup.</p>

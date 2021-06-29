@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2020-10-03 15:15:18.592805 -->
+<!-- Generated 2021-06-29 18:30:22.826948 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -59,16 +59,13 @@
 <div class="highlight"><pre><span></span><code><span class="err"># virt-xml example --edit --metadata description=&quot;my new description&quot;</span>
 </code></pre></div>
 
-
 <p>Enable the boot device menu for domain 'example':</p>
 <div class="highlight"><pre><span></span><code><span class="err"># virt-xml example --edit --boot bootmenu=on</span>
 </code></pre></div>
 
-
 <p>Hotplug host USB device 001.003 to running domain 'fedora19':</p>
 <div class="highlight"><pre><span></span><code><span class="err"># virt-xml f19 --add-device --host-device 001.003 --update</span>
 </code></pre></div>
-
 
 <p>The <a href="https://git.fedorahosted.org/cgit/virt-manager.git/tree/man/virt-xml.pod">virt-xml man page</a> also has a comprehensive set of examples.</p>
 <p>While I doubt anyone would call it sexy, <code>virt-xml</code> fills a real need in the libvirt ecosystem. Prior to <code>virt-xml</code>, a question like 'how do I change the cache mode for my VM disk' had two possible answers:</p>

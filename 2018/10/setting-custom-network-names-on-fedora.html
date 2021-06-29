@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2020-10-03 15:15:18.592805 -->
+<!-- Generated 2021-06-29 18:30:22.826948 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -57,7 +57,7 @@
           <p><a href="https://www.freedesktop.org/wiki/Software/systemd/PredictableNetworkInterfaceNames/">systemd predictable network names</a> give us host interface names like <strong>enp3s0</strong>. On one of my hosts, I have two interfaces: one that is my regular hard wired connection, and another I only plug in occasionally for some virt network testing. I can never remember the systemd names, so I want to rename the interfaces to something more descriptive for my needs. in my case <strong>lan0main</strong> and <strong>lan1pcie</strong></p>
 <p>The page referenced says to use systemd links. However after struggling with that for a while I'm that's only relevant to systemd-networkd usage and doesn't apply to Fedora's default use of NetworkManager. So I needed another way.</p>
 <p>Long story short I ended up with some custom udev rules that are patterned after the old 70-persistent-net.rules file. Replace <code>$MYMAC1</code> and <code>$MYMAC2</code> with your specific values</p>
-<div class="highlight"><pre><span></span><code><span class="gp">$</span> cat /etc/udev/rules.d/99-cole-nic-names.rules
+<div class="highlight"><pre><span></span><code><span class="gp">$ </span>cat /etc/udev/rules.d/99-cole-nic-names.rules
 <span class="go">SUBSYSTEM==&quot;net&quot;, ACTION==&quot;add&quot;, DRIVERS==&quot;?*&quot;, ATTR{address}==&quot;$MYMAC1&quot;, ATTR{type}==&quot;1&quot;, NAME=&quot;lan0main&quot;</span>
 <span class="go">SUBSYSTEM==&quot;net&quot;, ACTION==&quot;add&quot;, DRIVERS==&quot;?*&quot;, ATTR{address}==&quot;$MYMAC2&quot;, ATTR{type}==&quot;1&quot;, NAME=&quot;lan1pcie&quot;</span>
 </code></pre></div>

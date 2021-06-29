@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2020-10-03 15:15:18.592805 -->
+<!-- Generated 2021-06-29 18:30:22.826948 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -72,17 +72,15 @@
 <span class="na">sort -k 2 | cut -f 1 --delimiter</span><span class="o">=</span><span class="s">\&quot; \&quot; | \</span>
 <span class="na">while read tag; do \</span>
    <span class="na">fmt</span><span class="o">=</span><span class="s">\&quot;%Cred$tag:%Cblue %s %Cgreen%h%Creset (%ai)\&quot;; \</span>
-<span class="s">   git --no-pager log -1 --format=format:\&quot;$fmt\&quot; $tag; echo; \</span>
+   <span class="na">git --no-pager log -1 --format</span><span class="o">=</span><span class="s">format:\&quot;$fmt\&quot; $tag; echo; \</span>
 <span class="na">done&#39;&quot;</span>
 </code></pre></div>
 
-
 <h4>Find the first tag that contains a commit</h4>
 <p>This seems to come up quite a bit for me. An example is <a href="https://www.redhat.com/archives/libvir-list/2014-July/msg00832.html">here</a>; a user was asking about a virt-install feature, and I wanted to tell them what version it appeared in. I grepped <code>git log</code>, found the commit, then ran:</p>
-<div class="highlight"><pre><span></span><code><span class="gp">$</span> git describe --contains 87a611b5470d9b86bf57a71ce111fa1d41d8e2cd
+<div class="highlight"><pre><span></span><code><span class="gp">$ </span>git describe --contains 87a611b5470d9b86bf57a71ce111fa1d41d8e2cd
 <span class="go">v1.0.0~201</span>
 </code></pre></div>
-
 
 <p>That shows me that v1.0.0 was the first release with the feature they wanted, just take whatever is to the left of the tilde.</p>
 <p>This often comes in handy with backporting as well: a developer will point me at a bug fix commit ID, I run git describe to see what upstream version it was released in, so I know what fedora package versions are lacking the fix.</p>

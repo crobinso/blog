@@ -19,20 +19,18 @@ format. Example:&lt;/p&gt;
 &lt;span class="m"&gt;1234567&lt;/span&gt;::Package should not ship a separate emacs sub-package
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;p&gt;This has served us pretty well, but besides being a custom and poorly specified
 format, it has limitations with formatting subvalues of non-string bugzilla fields.&lt;/p&gt;
 &lt;p&gt;With &lt;code&gt;--json&lt;/code&gt; you can make use of the powerful &lt;code&gt;jq&lt;/code&gt; tool which
 gives you the ability to do all manner of querying and processing of
 the output.&lt;/p&gt;
 &lt;p&gt;This example duplicates the &lt;code&gt;--outputformat&lt;/code&gt; example above:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="gp"&gt;$&lt;/span&gt; bugzilla query --json --id &lt;span class="m"&gt;1234567&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; jq -r &lt;span class="s1"&gt;&amp;#39;.bugs[0] | &amp;quot;\(.id)::\(.summary)&amp;quot;&amp;#39;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="gp"&gt;$ &lt;/span&gt;bugzilla query --json --id &lt;span class="m"&gt;1234567&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; jq -r &lt;span class="s1"&gt;&amp;#39;.bugs[0] | &amp;quot;\(.id)::\(.summary)&amp;quot;&amp;#39;&lt;/span&gt;
 &lt;span class="go"&gt;1234567::Package should not ship a separate emacs sub-package&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;p&gt;This example demonstrates accessing a structured subfield like &lt;code&gt;comments&lt;/code&gt;. We print the first comment's creation time for a list of bugs:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="gp"&gt;$&lt;/span&gt; bugzilla query --json &lt;span class="se"&gt;\&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="gp"&gt;$ &lt;/span&gt;bugzilla query --json &lt;span class="se"&gt;\&lt;/span&gt;
     --product Fedora --component virt-manager --status OPEN &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
     jq -r &lt;span class="s2"&gt;&amp;quot;.bugs[].comments[0].creation_time&amp;quot;&lt;/span&gt;
 &lt;span class="go"&gt;2020-07-08T16:35:14Z&lt;/span&gt;
@@ -46,7 +44,6 @@ the output.&lt;/p&gt;
 &lt;span class="go"&gt;2020-09-18T08:50:28Z&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;h4&gt;Optimizing &lt;code&gt;--json&lt;/code&gt; queried data&lt;/h4&gt;
 &lt;p&gt;One downside of &lt;code&gt;--json&lt;/code&gt; compared to &lt;code&gt;--outputformat&lt;/code&gt; is that it will return
 all bug data even if you only plan to parse a subset of it. For big queries,
@@ -57,7 +54,7 @@ the bugzilla instance, transferring the minimally required amount of data.
 You can achieve the same thing manually with &lt;code&gt;--json&lt;/code&gt; by also specifying
 the option &lt;code&gt;--includefield field1 --includefield field2 ..&lt;/code&gt; for every
 field you need to process. Example:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="gp"&gt;$&lt;/span&gt; bugzilla query --json --includefield summary --id &lt;span class="m"&gt;1234567&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="gp"&gt;$ &lt;/span&gt;bugzilla query --json --includefield summary --id &lt;span class="m"&gt;1234567&lt;/span&gt;
 &lt;span class="go"&gt;{&lt;/span&gt;
 &lt;span class="go"&gt;  &amp;quot;bugs&amp;quot;: [&lt;/span&gt;
 &lt;span class="go"&gt;    {&lt;/span&gt;
@@ -67,7 +64,6 @@ field you need to process. Example:&lt;/p&gt;
 &lt;span class="go"&gt;  ]&lt;/span&gt;
 &lt;span class="go"&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
 
 &lt;p&gt;As a more general tip, use the bugzilla web UI to generate a query that
 only checks for changes after a certain timestamp that is relevant to
@@ -88,11 +84,10 @@ at least for bugzilla.redhat.com.&lt;/p&gt;</content><category term="fedora"></c
 &lt;p&gt;For a long while, most mainstream Linux distros have shipped 'cloud images': &lt;code&gt;raw&lt;/code&gt; or &lt;code&gt;qcow2&lt;/code&gt; formatted disk images with the distro minimally pre-installed on it. These images typically have &lt;a href="https://cloud-init.io/"&gt;cloud-init&lt;/a&gt; set to run on VM bootup. cloud-init can do a variety of things, like add users, change passwords, register ssh keys, and generally perform any desired action on the VM OS. This only works when cloud-init is passed the right configuration by whatever platform is starting the VM, like OpenStack or virt-install. cloud-init supports many different &lt;a href="https://cloudinit.readthedocs.io/en/latest/topics/datasources.html"&gt;datasources&lt;/a&gt; for getting configuration outside the VM.&lt;/p&gt;
 &lt;p&gt;Historically though the problem is that slapping these images into virt-install or virt-manager gives crappy results, because these tools were not providing any datasource. In this case, cloud-init reverts to its distro default configured behavior, which in most cases is unusable. For example on Fedora, the result was: hang waiting for cloud-init data, time out, drop to login prompt with all accounts locked.&lt;/p&gt;
 &lt;p&gt;Prior to virt-install &lt;code&gt;--cloud-init&lt;/code&gt; support, the simplest workaround was to use libguestfs, specifically &lt;code&gt;virt-customize&lt;/code&gt;, to set a root password and disable cloud-init:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="gp"&gt;$&lt;/span&gt; virt-customize -a MY-CLOUD-IMAGE.qcow2 &lt;span class="se"&gt;\&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="gp"&gt;$ &lt;/span&gt;virt-customize -a MY-CLOUD-IMAGE.qcow2 &lt;span class="se"&gt;\&lt;/span&gt;
     --root-password password:SUPER-SECRET-PASSWORD &lt;span class="se"&gt;\&lt;/span&gt;
     --uninstall cloud-init
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
 
 &lt;h4&gt;--cloud-init option&lt;/h4&gt;
 &lt;p&gt;The &lt;code&gt;--cloud-init&lt;/code&gt; option will tell virt-install to set up a &lt;a href="https://cloudinit.readthedocs.io/en/latest/topics/datasources/nocloud.html"&gt;nocloud&lt;/a&gt; datasource via a specially formatted &lt;code&gt;.iso&lt;/code&gt; file that is generated on the fly, and only used for the first VM bootup.&lt;/p&gt;
@@ -268,6 +263,5 @@ is a dump of some of the details.&lt;/p&gt;
 &lt;span class="k"&gt;[bugzilla.redhat.com]&lt;/span&gt;
 &lt;span class="na"&gt;api_key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;MY-FAKE-KEY&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
 
 &lt;p&gt;That's it, &lt;code&gt;/usr/bin/bugzilla&lt;/code&gt; and python-bugzilla using tools should pick it up automagically. Note, API keys are as good as passwords in certain ways, so treat it with the same secrecy you would treat a password.&lt;/p&gt;</content><category term="fedora"></category></entry></feed>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2020-10-03 15:15:18.592805 -->
+<!-- Generated 2021-06-29 18:30:22.826948 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -64,32 +64,30 @@
 <p>Solve them once and for all.</p>
 </blockquote>
 <p>As implied above, git-up will update all your branches that are tracking a remote branch. This often comes in handy in fedora git repos:</p>
-<div class="highlight"><pre><span></span><code><span class="gp">[crobinso@colepc openbios (master)]$</span> fedpkg pull
+<div class="highlight"><pre><span></span><code><span class="gp">[crobinso@colepc openbios (master)]$ </span>fedpkg pull
 <span class="go">Already up-to-date.</span>
-<span class="gp">[crobinso@colepc openbios (master)]$</span> git up
+<span class="gp">[crobinso@colepc openbios (master)]$ </span>git up
 <span class="go">Fetching origin</span>
 <span class="go">f20  fast-forwarding...</span>
 <span class="go">master up to date</span>
 <span class="go">returning to master</span>
 </code></pre></div>
 
-
 <p>Another useful bit is that it will stash and unstash uncommitted changes. Often times I find myself doing this:</p>
-<div class="highlight"><pre><span></span><code><span class="gp">[crobinso@colepc ~]$</span> <span class="nb">cd</span> src/virt-manager/
-<span class="gp">#</span> Hack some minor bug fix
+<div class="highlight"><pre><span></span><code><span class="gp">[crobinso@colepc ~]$ </span><span class="nb">cd</span> src/virt-manager/
+<span class="gp"># </span>Hack some minor bug fix
 <span class="gp">[crobinso@colepc virt-manager (master *)]$</span>
-<span class="gp">#</span> Oops, I should pull first, maybe the issue is fixed
-<span class="gp">[crobinso@colepc virt-manager (master *)]$</span> git pull
+<span class="gp"># </span>Oops, I should pull first, maybe the issue is fixed
+<span class="gp">[crobinso@colepc virt-manager (master *)]$ </span>git pull
 <span class="go">Cannot pull with rebase: You have unstaged changes.</span>
 <span class="go">Please commit or stash them.</span>
-<span class="gp">[crobinso@colepc virt-manager (master *)]$</span> git up
+<span class="gp">[crobinso@colepc virt-manager (master *)]$ </span>git up
 <span class="go">Fetching origin</span>
 <span class="go">stashing 1 changes</span>
 <span class="go">master up to date</span>
 <span class="go">unstashing</span>
 <span class="gp">[crobinso@colepc virt-manager (master *)]$</span>
 </code></pre></div>
-
 
 <p>Nowadays I don't even attempt the pull, <code>git up</code> is my reflex. (And yes I should just make it a reflex that I switch to a branch before doing any hacking...)</p>
 <p>Nice to see that nowadays git-up is packaged in fedora, so grab it with <code>sudo yum install rubygem-git-up</code></p>

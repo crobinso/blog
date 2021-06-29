@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2020-10-03 15:15:18.592805 -->
+<!-- Generated 2021-06-29 18:30:22.826948 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -58,7 +58,7 @@
 <p>First a bit about terminology: When UEFI is packaged up to run in an x86 VM, it's often called <strong>OVMF</strong>. When UEFI is packaged up to run in an AArch64 VM, it's often called <strong>AAVMF</strong>. But I'll just refer to all of it as UEFI.</p>
 <h4>Using UEFI with virt-install and virt-manager</h4>
 <p>The first step to enable this for VMs is to install the binaries. UEFI still has some <a href="https://fedoraproject.org/wiki/Using_UEFI_with_QEMU#EDK2_Licensing_Issues">licensing issues</a> that make it incompatible with Fedora's policies, so the bits are hosted in an external repo. Details for installing the repo and UEFI bits are <a href="https://fedoraproject.org/wiki/Using_UEFI_with_QEMU#Firmware_installation">over here</a>.</p>
-<p>(Edit: those licensing issues were resolved and now the packages are <a href="http://localhost:8000/2016/06/uefi-virt-support-now-in-official.html">natively available in Fedora repos</a>)</p>
+<p>(Edit: those licensing issues were resolved and now the packages are <a href="https://blog.wikichoon.com/2016/06/uefi-virt-support-now-in-official.html">natively available in Fedora repos</a>)</p>
 <p>Once the bits are installed (and you're on Fedora 22 or later), virt-manager and virt-install provide simple options to enable UEFI when creating VMs.</p>
 <p><a href="https://marcin.juszkiewicz.com.pl/2015/04/17/running-vms-on-fedoraaarch64/">Marcin has a great post</a> with screenshots describing this for virt-manager (for aarch64, but the steps are identical for x86 VMs).</p>
 <p>For virt-install it's as simple as doing: <code>sudo virt-install --boot uefi ...</code></p>
@@ -86,7 +86,6 @@
    <span class="n">error</span> <span class="o">(</span><span class="n">f_</span><span class="s2">&quot;don&#39;t know how to convert UEFI guests for architecture %s&quot;</span><span class="o">)</span>
          <span class="n">guest_arch</span> <span class="k">in</span>
 </code></pre></div>
-
 
 <p>Having to track this in every app is quite crappy, but it's the only good solution at the moment. Hopefully long term libvirt <a href="https://bugzilla.redhat.com/show_bug.cgi?id=1295146">will grow some solution</a> that makes this easier for applications.</p>
         </div>

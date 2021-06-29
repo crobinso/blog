@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated 2020-10-03 15:15:18.592805 -->
+<!-- Generated 2021-06-29 18:30:22.826948 -->
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -61,7 +61,6 @@
 <div class="highlight"><pre><span></span><code><span class="c">https://bugzilla.redhat.com/buglist.cgi?bug_status=NEW&amp;bug_status=ASSIGNED&amp;bug_status=POST&amp;bug_status=MODIFIED&amp;bug_status=ON_DEV&amp;bug_status=ON_QA&amp;bug_status=VERIFIED&amp;bug_status=RELEASE_PENDING&amp;classification=Community&amp;component=libvirt&amp;f1=longdesc&amp;list_id=2372821&amp;n1=1&amp;o1=changedafter&amp;product=Virtualization%20Tools&amp;query_format=advanced&amp;v1=2013-12-31</span>
 </code></pre></div>
 
-
 <p>Just pass that that string as <code>$URL</code> in the above command, and you should see the same results as the web search (if your results aren't the same, you might need to do <code>bugzilla login</code> first to cache credentials).</p>
 <p>This is also easy to do via the python API:</p>
 <div class="highlight"><pre><span></span><code><span class="ch">#!/usr/bin/python</span>
@@ -73,7 +72,6 @@
 <span class="k">for</span> <span class="n">bug</span> <span class="ow">in</span> <span class="n">buglist</span><span class="p">:</span>
     <span class="nb">print</span> <span class="n">bug</span><span class="o">.</span><span class="n">summary</span>
 </code></pre></div>
-
 
 <p>The caveat: as of now this only works with bugzilla.redhat.com, which has an API extension that allows it to interpret the URL syntax as regular query parameters. My understanding is that this may be available upstream at some point, so other bugzilla instances will benefit as well.</p>
 <p>(Edit 2019: I believe this works for all bugzilla 5.0 versions nowadays, not just bugzilla.redhat.com)</p>
